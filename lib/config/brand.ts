@@ -40,16 +40,16 @@ export const contact = {
   phoneClean: "7863783511", // For tel: links
 
   // Client email
-  email: "steph@stephsbeautybox.com",
+  email: "info.stephsbeautybox@gmail.com",
 
   // VERIFIED
   address: {
     street: "5612 Pembroke Rd",
-    unit: "Unit D",
+    unit: "Bay D",
     city: "West Park",
     state: "FL",
     zip: "33023",
-    full: "5612 Pembroke Rd Unit D, West Park, FL 33023",
+    full: "5612 Pembroke Rd, Bay D, West Park, FL 33023",
   },
 
   // Google Maps embed URL (need to generate from address)
@@ -97,9 +97,20 @@ export const social = {
     handle: "@stephsbeautybox_",
   },
 
+  // VERIFIED from Popl
+  tiktok: {
+    url: "https://www.tiktok.com/@stephsbeautybox",
+    handle: "@stephsbeautybox",
+  },
+  snapchat: {
+    url: "https://www.snapchat.com/add/Stephsbeautybox",
+    handle: "Stephsbeautybox",
+  },
+  whatsapp: {
+    url: "https://wa.me/17863783511",
+    phone: "(786) 378-3511",
+  },
   // UNKNOWN - need from client
-  tiktok: null as { url: string; handle: string } | null,
-  snapchat: null as { url: string; handle: string } | null,
   facebook: null as { url: string; handle: string } | null,
 } as const;
 
@@ -115,9 +126,9 @@ export const booking = {
   // Phone booking fallback
   phoneBooking: true,
 
-  // UNKNOWN - need from client
-  cashApp: null as string | null,
-  zelle: null as string | null,
+  // VERIFIED from Popl
+  cashApp: "$Stephsbeautybox",
+  zelle: "(786) 378-3511",
   venmo: null as string | null,
 } as const;
 
@@ -144,36 +155,22 @@ export const reviews = {
 // SERVICES
 // =============================================================================
 
-// Service categories - prices marked as null until confirmed
+// Service categories - VERIFIED from Popl card
 export const services = {
   categories: [
     {
-      id: "lashes",
-      name: "Lash Services",
-      description: "Beautiful lash extensions and lifts",
-      icon: "sparkle",
-      services: [
-        { name: "Classic Full Set", price: null as number | null, duration: null as string | null },
-        { name: "Volume Full Set", price: null as number | null, duration: null as string | null },
-        { name: "Mega Volume Full Set", price: null as number | null, duration: null as string | null },
-        { name: "Lash Fill (2 weeks)", price: null as number | null, duration: null as string | null },
-        { name: "Lash Fill (3 weeks)", price: null as number | null, duration: null as string | null },
-        { name: "Lash Lift & Tint", price: null as number | null, duration: null as string | null },
-        { name: "Lash Removal", price: null as number | null, duration: null as string | null },
-      ],
-    },
-    {
       id: "hair",
       name: "Hair Services",
-      description: "Styling, treatments, and transformations",
+      description: "Styling, braids, locs, and transformations",
       icon: "scissors",
       services: [
-        { name: "Silk Press", price: null as number | null, duration: null as string | null },
-        { name: "Sew-In Install", price: null as number | null, duration: null as string | null },
+        { name: "Braids", price: null as number | null, duration: null as string | null },
+        { name: "Dread Locs", price: null as number | null, duration: null as string | null },
         { name: "Wig Install", price: null as number | null, duration: null as string | null },
-        { name: "Quick Weave", price: null as number | null, duration: null as string | null },
-        { name: "Deep Conditioning", price: null as number | null, duration: null as string | null },
-        { name: "Color Services", price: null as number | null, duration: null as string | null },
+        { name: "Hair Coloring", price: null as number | null, duration: null as string | null },
+        { name: "Highlights", price: null as number | null, duration: null as string | null },
+        { name: "Balayage", price: null as number | null, duration: null as string | null },
+        { name: "Scalp Treatment", price: null as number | null, duration: null as string | null },
       ],
     },
     {
@@ -186,7 +183,16 @@ export const services = {
         { name: "Soft Glam / Natural", price: null as number | null, duration: null as string | null },
         { name: "Bridal Makeup", price: null as number | null, duration: null as string | null },
         { name: "Special Event", price: null as number | null, duration: null as string | null },
-        { name: "Makeup Lesson", price: null as number | null, duration: null as string | null },
+      ],
+    },
+    {
+      id: "skincare",
+      name: "Skincare & Waxing",
+      description: "Facials and full body waxing",
+      icon: "sparkle",
+      services: [
+        { name: "Facials", price: null as number | null, duration: null as string | null },
+        { name: "Full Body Wax", price: null as number | null, duration: null as string | null },
       ],
     },
     {
@@ -195,9 +201,9 @@ export const services = {
       description: "Perfect brows for every face",
       icon: "eyebrow",
       services: [
+        { name: "Brow Lamination", price: null as number | null, duration: null as string | null },
         { name: "Brow Wax & Shape", price: null as number | null, duration: null as string | null },
         { name: "Brow Tint", price: null as number | null, duration: null as string | null },
-        { name: "Brow Lamination", price: null as number | null, duration: null as string | null },
       ],
     },
   ],
