@@ -1,29 +1,43 @@
-import type { Metadata } from 'next';
-import { Montserrat, Playfair_Display } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 import { brand, seo, contact } from '@/lib/config/brand';
 
-// LOCKED TYPOGRAPHY SYSTEM
-// Headlines: Playfair Display — SemiBold
-// Body Text: Montserrat — Regular
-const montserrat = Montserrat({
+// =============================================================================
+// FONTS - Garden Editorial Typography
+// =============================================================================
+
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-montserrat',
+  variable: '--font-inter',
   weight: ['300', '400', '500', '600'],
 });
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-playfair',
+  variable: '--font-cormorant',
   weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
 });
 
-// SEO Metadata - pulled from brand config
+// =============================================================================
+// VIEWPORT
+// =============================================================================
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#F7F1E8',
+};
+
+// =============================================================================
+// METADATA
+// =============================================================================
+
 export const metadata: Metadata = {
   title: {
     default: seo.title,
@@ -33,15 +47,13 @@ export const metadata: Metadata = {
   keywords: [...seo.keywords],
   authors: [{ name: brand.name }],
   creator: brand.name,
-  // Icons - use the brand logo
+  metadataBase: new URL('https://stephs-beauty-box.vercel.app'),
+
   icons: {
-    icon: [
-      { url: '/brand/1.png', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/brand/1.png', type: 'image/png' },
-    ],
+    icon: [{ url: '/brand/1.png', type: 'image/png' }],
+    apple: [{ url: '/brand/1.png', type: 'image/png' }],
   },
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -50,28 +62,35 @@ export const metadata: Metadata = {
     description: seo.description,
     images: [
       {
-        url: '/brand/og-image.jpg',
+        url: seo.openGraph.image,
         width: 1200,
         height: 630,
         alt: brand.name,
       },
     ],
   },
+
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: brand.name,
     description: seo.description,
-    images: ['/brand/1.png'],
+    images: [seo.openGraph.image],
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   other: {
     'geo.region': 'US-FL',
     'geo.placename': contact.address.city,
   },
 };
+
+// =============================================================================
+// ROOT LAYOUT
+// =============================================================================
 
 export default function RootLayout({
   children,
@@ -79,12 +98,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${playfair.variable}`}>
-      <body className="font-sans">
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <body className="font-sans bg-ivory text-ink antialiased">
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-gold focus:text-bg focus:rounded-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sage focus:text-white focus:rounded-button"
         >
           Skip to main content
         </a>
@@ -96,12 +115,6 @@ export default function RootLayout({
         </main>
 
         <Footer />
-
-        {/* Mobile sticky bar - Book/Call CTAs */}
-        <MobileStickyBar />
-
-        {/* Spacer for mobile sticky bar */}
-        <div className="h-20 md:hidden" aria-hidden="true" />
       </body>
     </html>
   );

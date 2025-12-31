@@ -5,18 +5,18 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-bg border-t border-gold/10">
+    <footer className="bg-white border-t border-ink/10">
       {/* Main Footer */}
-      <div className="container-luxury py-16 md:py-20">
+      <div className="container-editorial section-padding-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
-          <div>
-            <h3 className="font-serif text-gold text-xl mb-4">{brand.name}</h3>
-            <p className="text-light/60 text-sm leading-relaxed mb-6">
+          <div className="lg:col-span-1">
+            <h3 className="font-editorial text-ink text-xl mb-4">{brand.name}</h3>
+            <p className="text-ink/60 text-sm leading-relaxed mb-4">
               {brand.description}
             </p>
-            <p className="text-blush/60 font-serif italic text-sm">
-              {brand.motto}
+            <p className="font-editorial-italic text-sage text-sm">
+              {brand.faithMessage}
             </p>
 
             {/* Social */}
@@ -24,7 +24,7 @@ export function Footer() {
               {social.instagram && (
                 <a
                   href={social.instagram.url}
-                  className="text-light/40 hover:text-gold transition-colors"
+                  className="text-ink/40 hover:text-sage transition-colors"
                   aria-label="Instagram"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -34,23 +34,23 @@ export function Footer() {
                   </svg>
                 </a>
               )}
-              {social.tiktok && (
+              {social.threads && (
                 <a
-                  href={social.tiktok.url}
-                  className="text-light/40 hover:text-gold transition-colors"
-                  aria-label="TikTok"
+                  href={social.threads.url}
+                  className="text-ink/40 hover:text-sage transition-colors"
+                  aria-label="Threads"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.96-.065-1.182.408-2.256 1.332-3.023.88-.73 2.088-1.146 3.6-1.242 1.02-.064 1.973-.013 2.86.152-.1-.628-.314-1.14-.652-1.55-.47-.57-1.18-.859-2.107-.859h-.045c-.767.007-1.512.234-2.036.622l-1.23-1.63c.89-.674 2.04-1.038 3.318-1.053 1.5.013 2.71.524 3.6 1.523.783.875 1.24 2.005 1.364 3.362.435.199.84.44 1.206.72 1.044.8 1.792 1.86 2.165 3.065.493 1.59.388 3.603-1.09 5.49-1.848 2.36-4.71 3.212-8.187 3.212zm-.09-5.894c1.143-.066 1.96-.47 2.43-1.202.478-.745.67-1.77.573-3.05l-.028-.016c-.78-.167-1.636-.236-2.572-.181-1.104.069-1.96.358-2.478.837-.476.44-.683.977-.648 1.598.045.793.396 1.4 1.015 1.752.588.336 1.308.33 1.708.262z"/>
                   </svg>
                 </a>
               )}
               {social.youtube && (
                 <a
                   href={social.youtube.url}
-                  className="text-light/40 hover:text-gold transition-colors"
+                  className="text-ink/40 hover:text-sage transition-colors"
                   aria-label="YouTube"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -65,13 +65,13 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="label-caps mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              {navigation.main.slice(0, 5).map((link) => (
+            <h4 className="eyebrow mb-4">Navigation</h4>
+            <ul className="space-y-2">
+              {navigation.main.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-light/60 hover:text-gold text-sm transition-colors"
+                    className="text-ink/60 hover:text-sage text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -82,14 +82,14 @@ export function Footer() {
 
           {/* Hours */}
           <div>
-            <h4 className="label-caps mb-6">Hours</h4>
+            <h4 className="eyebrow mb-4">Hours</h4>
             <ul className="space-y-2">
               {hours.schedule.map((day) => (
                 <li key={day.day} className="flex justify-between text-sm">
-                  <span className={day.isOpen ? 'text-light/80' : 'text-light/30'}>
+                  <span className={day.isOpen ? 'text-ink/80' : 'text-ink/40'}>
                     {day.day}
                   </span>
-                  <span className={day.isOpen ? 'text-gold' : 'text-light/30'}>
+                  <span className={day.isOpen ? 'text-sage' : 'text-ink/40'}>
                     {day.hours}
                   </span>
                 </li>
@@ -99,14 +99,14 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="label-caps mb-6">Contact</h4>
-            <address className="not-italic text-sm text-light/60 space-y-3">
+            <h4 className="eyebrow mb-4">Contact</h4>
+            <address className="not-italic text-sm text-ink/60 space-y-3">
               <p>
                 <a
                   href={contact.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-gold transition-colors"
+                  className="hover:text-sage transition-colors"
                 >
                   {contact.address.street}<br />
                   {contact.address.unit}<br />
@@ -116,40 +116,40 @@ export function Footer() {
               <p>
                 <a
                   href={`tel:${contact.phoneClean}`}
-                  className="text-gold"
+                  className="text-sage hover:text-sage-dark transition-colors"
                 >
                   {contact.phoneFormatted}
                 </a>
               </p>
-              {contact.email && (
-                <p>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="hover:text-gold transition-colors"
-                  >
-                    {contact.email}
-                  </a>
-                </p>
-              )}
+              <p>
+                <a
+                  href={contact.whatsapp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-sage transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </p>
             </address>
           </div>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t border-gold/5">
-        <div className="container-luxury py-6">
+      {/* Bottom Bar */}
+      <div className="border-t border-ink/5">
+        <div className="container-editorial py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-light/40 text-xs">
+            <p className="text-ink/40 text-xs">
               &copy; {currentYear} {brand.name}. All rights reserved.
             </p>
-            <p className="text-light/30 text-xs">
-              Powered by{' '}
+            <p className="text-ink/30 text-xs">
+              Website by{' '}
               <a
                 href="https://syncedup.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
+                className="hover:text-sage transition-colors"
               >
                 SyncedUp
               </a>

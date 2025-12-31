@@ -3,127 +3,205 @@
 @tailwind utilities;
 
 /* =============================================================================
-   STEPH'S BEAUTY BOX - LUXURY MINIMAL STYLESHEET
+   STEPH'S BEAUTY BOX - GARDEN EDITORIAL STYLESHEET
    =============================================================================
-   STRICT DESIGN RULES:
-   - NO gradients except subtle button hovers
-   - NO textures, particles, noise overlays
-   - NO harsh outlines or borders
-   - Pure negative space aesthetic
-   - Subtle, soft shadows only
+   Aesthetic: Minimalist Floral Garden Editorial
+   - Fresh, modern, inclusive
+   - Maximum restraint: whitespace, clean grids, thin rules
+   - No harsh effects, gradients, or glow
    ============================================================================= */
 
-/* Base Layer */
+/* =============================================================================
+   BASE LAYER
+   ============================================================================= */
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom selection - gold highlight */
+  /* Selection colors */
   ::selection {
-    background-color: rgba(212, 175, 55, 0.3);
-    color: #FFFFFF;
+    background-color: rgba(47, 74, 59, 0.2);
+    color: #1A1A1A;
   }
 
   /* Focus states for accessibility */
   *:focus-visible {
-    outline: 2px solid #D4AF37;
+    outline: 2px solid #2F4A3B;
     outline-offset: 2px;
   }
 
-  /* Body defaults - LOCKED COLORS */
+  /* Body defaults */
   body {
-    @apply bg-bg text-light antialiased;
-    font-family: var(--font-montserrat), system-ui, sans-serif;
+    @apply bg-ivory text-ink antialiased;
+    font-family: var(--font-inter), system-ui, sans-serif;
   }
 
-  /* Typography - Playfair for headlines */
+  /* Typography - Cormorant Garamond for headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-playfair), Georgia, serif;
-    @apply font-semibold tracking-tight text-light;
+    font-family: var(--font-cormorant), Georgia, serif;
+    @apply font-medium tracking-tight text-ink;
   }
 
   /* Body text */
-  p, span, a, li {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
+  p, span, a, li, label {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Thin horizontal rules */
+  hr {
+    @apply border-t border-ink/10;
   }
 }
 
-/* Component Layer */
+/* =============================================================================
+   COMPONENT LAYER
+   ============================================================================= */
+
 @layer components {
   /* Container */
-  .container-luxury {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+  .container-editorial {
+    @apply max-w-content mx-auto px-6 md:px-8 lg:px-12;
   }
 
-  /* Primary Button - Gold solid */
+  .container-narrow {
+    @apply max-w-narrow mx-auto px-6 md:px-8;
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /* BUTTONS */
+  /* ------------------------------------------------------------------------- */
+
+  /* Primary button - Sage green */
   .btn-primary {
     @apply inline-flex items-center justify-center
-           px-8 py-4
-           bg-gold text-bg
-           font-medium tracking-wide uppercase text-sm
-           transition-all duration-300 ease-out
-           hover:bg-blush hover:text-dark;
+           px-6 py-3
+           bg-sage text-white
+           font-medium text-sm tracking-wide
+           rounded-button
+           transition-colors duration-200
+           hover:bg-sage-dark
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
   }
 
-  /* Secondary Button - Gold outline */
+  /* Secondary button - Blush */
   .btn-secondary {
     @apply inline-flex items-center justify-center
-           px-8 py-4
-           bg-transparent text-gold
-           border border-gold
-           font-medium tracking-wide uppercase text-sm
-           transition-all duration-300 ease-out
-           hover:bg-gold hover:text-bg;
+           px-6 py-3
+           bg-blush text-ink
+           font-medium text-sm tracking-wide
+           rounded-button
+           transition-colors duration-200
+           hover:bg-blush-dark
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
   }
 
-  /* Text Link - subtle underline animation */
-  .link-gold {
-    @apply text-gold relative;
+  /* Outline button */
+  .btn-outline {
+    @apply inline-flex items-center justify-center
+           px-6 py-3
+           bg-transparent text-ink
+           border border-ink/30
+           font-medium text-sm tracking-wide
+           rounded-button
+           transition-colors duration-200
+           hover:bg-ink/5 hover:border-ink/50
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
   }
 
-  .link-gold::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-0 h-px bg-gold transition-all duration-300;
+  /* Ghost/text button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center
+           px-4 py-2
+           text-sage
+           font-medium text-sm tracking-wide
+           transition-colors duration-200
+           hover:text-sage-dark hover:underline underline-offset-4
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
   }
 
-  .link-gold:hover::after {
-    @apply w-full;
+  /* White button (for dark overlays) */
+  .btn-white {
+    @apply inline-flex items-center justify-center
+           px-6 py-3
+           bg-white text-ink
+           font-medium text-sm tracking-wide
+           rounded-button
+           transition-all duration-200
+           hover:bg-white/90
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2;
   }
 
-  /* Card - minimal with subtle shadow */
-  .card-minimal {
-    @apply bg-dark/50 p-8;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  /* ------------------------------------------------------------------------- */
+  /* FORM ELEMENTS */
+  /* ------------------------------------------------------------------------- */
+
+  .input-field {
+    @apply w-full px-4 py-3
+           bg-white
+           border border-ink/20
+           rounded-button
+           text-ink placeholder:text-ink/40
+           transition-colors duration-200
+           focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30;
   }
 
-  /* Section spacing */
-  .section-spacing {
-    @apply py-24 md:py-32 lg:py-40;
+  .textarea-field {
+    @apply w-full px-4 py-3
+           bg-white
+           border border-ink/20
+           rounded-button
+           text-ink placeholder:text-ink/40
+           resize-none
+           transition-colors duration-200
+           focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30;
   }
 
-  /* Gold divider line */
-  .divider-gold {
-    @apply h-px bg-gold/30 w-24;
+  .label-field {
+    @apply block text-sm font-medium text-ink/80 mb-2;
   }
 
-  /* Input field */
-  .input-luxury {
-    @apply w-full px-0 py-4
-           bg-transparent
-           border-b border-gold/30
-           text-light placeholder:text-light/40
-           focus:outline-none focus:border-gold
-           transition-colors duration-300;
+  /* ------------------------------------------------------------------------- */
+  /* CARDS */
+  /* ------------------------------------------------------------------------- */
+
+  .card {
+    @apply bg-white rounded-subtle shadow-soft overflow-hidden;
   }
 
-  /* Label */
-  .label-luxury {
-    @apply text-sm uppercase tracking-widest text-gold/80 mb-2 block;
+  .card-hover {
+    @apply transition-shadow duration-300 hover:shadow-soft-lg;
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /* SECTION UTILITIES */
+  /* ------------------------------------------------------------------------- */
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Thin divider line */
+  .divider {
+    @apply h-px bg-ink/10 w-full;
+  }
+
+  .divider-short {
+    @apply h-px bg-sage/40 w-16;
   }
 }
 
-/* Utility Layer */
+/* =============================================================================
+   UTILITY LAYER
+   ============================================================================= */
+
 @layer utilities {
   /* Hide scrollbar */
   .scrollbar-hide {
@@ -140,37 +218,121 @@
     text-wrap: balance;
   }
 
-  /* Uppercase tracking */
-  .caps {
-    @apply uppercase tracking-widest text-sm;
+  /* Serif text */
+  .font-editorial {
+    font-family: var(--font-cormorant), Georgia, serif;
   }
 
-  /* Gold text */
-  .text-gold {
-    color: #D4AF37;
-  }
-
-  /* Blush text */
-  .text-blush {
-    color: #EADBC8;
+  /* Italic serif for accents */
+  .font-editorial-italic {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-style: italic;
   }
 }
 
 /* =============================================================================
-   ANIMATIONS - Subtle only
+   MOBILE SCROLL-SNAP SECTIONS
    ============================================================================= */
 
-/* Fade in */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* Container for scroll-snap on mobile only */
+.scroll-snap-container {
+  /* No scroll-snap on desktop */
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .scroll-snap-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
-  to {
-    opacity: 1;
+
+  .scroll-snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
   }
 }
 
-/* Slide up */
+/* =============================================================================
+   OVERLAY UTILITIES
+   ============================================================================= */
+
+/* Dark overlay for image backgrounds */
+.overlay-dark {
+  position: relative;
+}
+
+.overlay-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26, 26, 26, 0.6) 0%,
+    rgba(26, 26, 26, 0.2) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Subtle overlay */
+.overlay-subtle {
+  position: relative;
+}
+
+.overlay-subtle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.3);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================================================= */
+
+/* Display headline */
+.headline-display {
+  @apply font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight tracking-tight;
+}
+
+/* Section headline */
+.headline-section {
+  @apply font-editorial text-3xl sm:text-4xl md:text-5xl font-medium leading-tight;
+}
+
+/* Subsection headline */
+.headline-subsection {
+  @apply font-editorial text-2xl sm:text-3xl font-medium leading-snug;
+}
+
+/* Large body text */
+.body-large {
+  @apply text-lg md:text-xl leading-relaxed text-ink/80;
+}
+
+/* Small text */
+.text-small {
+  @apply text-sm text-ink/60;
+}
+
+/* Eyebrow/label text */
+.eyebrow {
+  @apply text-xs uppercase tracking-widest text-sage font-medium;
+}
+
+/* =============================================================================
+   ANIMATIONS
+   ============================================================================= */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -182,27 +344,14 @@
   }
 }
 
-/* Slide in from left */
-@keyframes slideInLeft {
+@keyframes scaleIn {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Slide in from right */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
   }
 }
 
@@ -214,12 +363,8 @@
   animation: slideUp 0.6s ease-out forwards;
 }
 
-.animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.6s ease-out forwards;
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
 }
 
 /* Stagger delays */
@@ -228,56 +373,6 @@
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
-
-/* =============================================================================
-   RESPONSIVE TYPOGRAPHY
-   ============================================================================= */
-
-/* Hero headline */
-.headline-hero {
-  @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight;
-}
-
-/* Section headline */
-.headline-section {
-  @apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight;
-}
-
-/* Subheadline */
-.subheadline {
-  @apply text-lg sm:text-xl text-blush font-light leading-relaxed;
-}
-
-/* Body text */
-.body-text {
-  @apply text-base text-light/80 leading-relaxed;
-}
-
-/* Small caps label */
-.label-caps {
-  @apply text-xs uppercase tracking-[0.2em] text-gold;
-}
-
-/* =============================================================================
-   MOBILE OPTIMIZATIONS
-   ============================================================================= */
-
-/* Better touch targets */
-@media (hover: none) {
-  .touch-target {
-    min-height: 48px;
-    min-width: 48px;
-  }
-}
-
-/* Safe area for notched devices */
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-}
 
 /* =============================================================================
    ACCESSIBILITY
@@ -291,6 +386,10 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .scroll-snap-container {
+    scroll-snap-type: none !important;
   }
 }
 
@@ -316,4 +415,54 @@
   overflow: visible;
   clip: auto;
   white-space: normal;
+}
+
+/* =============================================================================
+   MOBILE OPTIMIZATIONS
+   ============================================================================= */
+
+/* Safe area for notched devices */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Better touch targets */
+@media (hover: none) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* =============================================================================
+   GALLERY LIGHTBOX (For gallery page)
+   ============================================================================= */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(26, 26, 26, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* =============================================================================
+   DEMO/PLACEHOLDER BANNER
+   ============================================================================= */
+
+.demo-banner {
+  @apply bg-sage/10 border border-sage/30 text-sage text-sm px-4 py-3 text-center rounded-button;
 }

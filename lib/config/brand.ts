@@ -1,12 +1,13 @@
 /**
  * STEPH'S BEAUTY BOX - Brand Configuration
  * =========================================
- * SINGLE SOURCE OF TRUTH - All brand data lives here.
+ * SINGLE SOURCE OF TRUTH
+ * All brand data, contact info, and configuration lives here.
  *
- * DO NOT hardcode any of this information elsewhere in the codebase.
- * Import from this file: import { brand } from '@/lib/config/brand';
- *
- * Fields marked as null are UNKNOWN and need to be collected from the client.
+ * RULES:
+ * - Only include VERIFIED information
+ * - Use "[CLIENT TO CONFIRM]" for missing required info
+ * - Use null for optional missing fields
  */
 
 // =============================================================================
@@ -15,302 +16,159 @@
 
 export const brand = {
   name: "Steph's Beauty Box",
-  tagline: "Faith, Glam & Beauty",
-  motto: "WITH GOD ALL THINGS ARE POSSIBLE",
-  description: "A faith-forward, glamorous beauty studio specializing in lashes, hair, and makeup artistry.",
+  tagline: "External & Internal Beauty",
+  description: "A welcoming space where everyone belongs. We celebrate beauty in all its forms—nurturing both your outer glow and inner radiance.",
 
-  // Logo paths - relative to public folder
+  // Faith-forward messaging (use sparingly)
+  faithMessage: "Where beauty meets grace.",
+
   logo: {
     main: "/brand/1.png",
-    // These can be added when client provides additional logo formats
-    light: null as string | null,
-    dark: null as string | null,
-    icon: null as string | null,
+    alt: null as string | null,
   },
 } as const;
 
 // =============================================================================
-// CONTACT INFORMATION
+// CONTACT INFORMATION (VERIFIED)
 // =============================================================================
 
 export const contact = {
   // VERIFIED
   phone: "+1 (786) 378-3511",
   phoneFormatted: "(786) 378-3511",
-  phoneClean: "7863783511", // For tel: links
+  phoneClean: "7863783511",
 
-  // Client email
-  email: "info.stephsbeautybox@gmail.com",
+  // WhatsApp (generated from verified phone)
+  whatsapp: {
+    url: "https://wa.me/17863783511",
+    display: "(786) 378-3511",
+  },
+
+  // UNKNOWN - placeholder
+  email: "[CLIENT TO CONFIRM]" as string,
 
   // VERIFIED
   address: {
     street: "5612 Pembroke Rd",
-    unit: "Bay D",
+    unit: "Unit D",
     city: "West Park",
     state: "FL",
     zip: "33023",
-    full: "5612 Pembroke Rd, Bay D, West Park, FL 33023",
+    full: "5612 Pembroke Rd Unit D, West Park, FL 33023",
   },
 
-  // Google Maps embed URL (need to generate from address)
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=5612+Pembroke+Rd+Unit+D+West+Park+FL+33023",
-  mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.1234!2d-80.1234!3d25.9876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDU5JzE1LjQiTiA4MMKwMDcnMjQuNCJX!5e0!3m2!1sen!2sus!4v1234567890",
 } as const;
 
 // =============================================================================
-// BUSINESS HOURS
+// BUSINESS HOURS (VERIFIED)
 // =============================================================================
 
 export const hours = {
-  // Full schedule - VERIFIED
   schedule: [
     { day: "Monday", hours: "Closed", isOpen: false },
     { day: "Tuesday", hours: "Closed", isOpen: false },
-    { day: "Wednesday", hours: "11:00 AM - 7:00 PM", isOpen: true },
-    { day: "Thursday", hours: "11:00 AM - 7:00 PM", isOpen: true },
-    { day: "Friday", hours: "11:00 AM - 7:00 PM", isOpen: true },
-    { day: "Saturday", hours: "11:00 AM - 7:00 PM", isOpen: true },
-    { day: "Sunday", hours: "11:00 AM - 7:00 PM", isOpen: true },
+    { day: "Wednesday", hours: "11:00 AM – 7:00 PM", isOpen: true },
+    { day: "Thursday", hours: "11:00 AM – 7:00 PM", isOpen: true },
+    { day: "Friday", hours: "11:00 AM – 7:00 PM", isOpen: true },
+    { day: "Saturday", hours: "11:00 AM – 7:00 PM", isOpen: true },
+    { day: "Sunday", hours: "11:00 AM – 7:00 PM", isOpen: true },
   ],
-
-  // Summary text
-  summary: "Wed - Sun: 11:00 AM - 7:00 PM",
+  summary: "Wed – Sun: 11am – 7pm",
   closedDays: "Closed Monday & Tuesday",
 } as const;
 
 // =============================================================================
-// SOCIAL MEDIA
+// SOCIAL MEDIA (VERIFIED ONLY)
 // =============================================================================
 
 export const social = {
   // VERIFIED
   instagram: {
-    url: "https://www.instagram.com/stephsbeautybox_",
+    url: "https://www.instagram.com/stephsbeautybox_/",
     handle: "@stephsbeautybox_",
   },
   threads: {
-    url: "https://www.threads.net/@stephsbeautybox_",
+    url: "https://www.threads.com/@stephsbeautybox_",
     handle: "@stephsbeautybox_",
   },
   youtube: {
-    url: "https://youtube.com/@stephsbeautybox_",
-    handle: "@stephsbeautybox_",
-  },
-
-  // VERIFIED from Popl
-  tiktok: {
-    url: "https://www.tiktok.com/@stephsbeautybox",
+    url: "https://www.youtube.com/@stephsbeautybox",
     handle: "@stephsbeautybox",
   },
-  snapchat: {
-    url: "https://www.snapchat.com/add/Stephsbeautybox",
-    handle: "Stephsbeautybox",
-  },
-  whatsapp: {
-    url: "https://wa.me/17863783511",
-    phone: "(786) 378-3511",
-  },
-  // UNKNOWN - need from client
+
+  // UNKNOWN - do not display
+  tiktok: null as { url: string; handle: string } | null,
+  snapchat: null as { url: string; handle: string } | null,
   facebook: null as { url: string; handle: string } | null,
 } as const;
 
 // =============================================================================
-// BOOKING & PAYMENTS
+// PAYMENT METHODS (UNKNOWN - do not display)
 // =============================================================================
 
-export const booking = {
-  // User mentioned booksy.com likely - NEED EXACT URL
-  primaryUrl: null as string | null,
-  buttonText: "Book Now",
-
-  // Phone booking fallback
-  phoneBooking: true,
-
-  // VERIFIED from Popl
-  cashApp: "$Stephsbeautybox",
-  zelle: "(786) 378-3511",
+export const payments = {
+  cashApp: null as string | null,
+  zelle: null as string | null,
   venmo: null as string | null,
 } as const;
 
 // =============================================================================
-// REVIEWS & TESTIMONIALS
+// SERVICES (Generic categories only - no invented details)
 // =============================================================================
 
-export const reviews = {
-  // UNKNOWN - need from client
-  googleUrl: null as string | null,
-  yelpUrl: null as string | null,
-
-  // Featured testimonials - NEED FROM CLIENT
-  // Will be displayed on the homepage
-  featured: [] as Array<{
-    name: string;
-    text: string;
-    service?: string;
-    rating?: number;
-  }>,
-} as const;
-
-// =============================================================================
-// SERVICES
-// =============================================================================
-
-// Service categories - VERIFIED from Popl card
 export const services = {
   categories: [
     {
       id: "hair",
-      name: "Hair Services",
-      description: "Styling, braids, locs, and transformations",
-      icon: "scissors",
-      services: [
-        { name: "Braids", price: null as number | null, duration: null as string | null },
-        { name: "Dread Locs", price: null as number | null, duration: null as string | null },
-        { name: "Wig Install", price: null as number | null, duration: null as string | null },
-        { name: "Hair Coloring", price: null as number | null, duration: null as string | null },
-        { name: "Highlights", price: null as number | null, duration: null as string | null },
-        { name: "Balayage", price: null as number | null, duration: null as string | null },
-        { name: "Scalp Treatment", price: null as number | null, duration: null as string | null },
-      ],
+      name: "Hair",
+      description: "Styling, treatments, and transformations for all hair types.",
+      cta: "Inquire for Details",
     },
     {
       id: "makeup",
-      name: "Makeup Artistry",
-      description: "Glam looks for any occasion",
-      icon: "lipstick",
-      services: [
-        { name: "Full Glam Makeup", price: null as number | null, duration: null as string | null },
-        { name: "Soft Glam / Natural", price: null as number | null, duration: null as string | null },
-        { name: "Bridal Makeup", price: null as number | null, duration: null as string | null },
-        { name: "Special Event", price: null as number | null, duration: null as string | null },
-      ],
+      name: "Makeup",
+      description: "Looks for every occasion—from soft natural to full glam.",
+      cta: "Inquire for Details",
     },
     {
-      id: "skincare",
-      name: "Skincare & Waxing",
-      description: "Facials and full body waxing",
-      icon: "sparkle",
-      services: [
-        { name: "Facials", price: null as number | null, duration: null as string | null },
-        { name: "Full Body Wax", price: null as number | null, duration: null as string | null },
-      ],
+      id: "skin",
+      name: "Skin & Facials",
+      description: "Treatments to nurture and refresh your natural glow.",
+      cta: "Inquire for Details",
     },
     {
-      id: "brows",
-      name: "Brow Services",
-      description: "Perfect brows for every face",
-      icon: "eyebrow",
-      services: [
-        { name: "Brow Lamination", price: null as number | null, duration: null as string | null },
-        { name: "Brow Wax & Shape", price: null as number | null, duration: null as string | null },
-        { name: "Brow Tint", price: null as number | null, duration: null as string | null },
-      ],
+      id: "brows-lashes",
+      name: "Brows & Lashes",
+      description: "Shaping, tinting, extensions, and lifts.",
+      cta: "Inquire for Details",
+    },
+    {
+      id: "wigs",
+      name: "Wigs",
+      description: "Installation, styling, and custom wig services.",
+      cta: "Inquire for Details",
     },
   ],
 
-  // Notice about pricing
-  pricingNote: "Prices vary based on style and consultation. Book a consultation for an exact quote.",
+  // Note about pricing
+  pricingNote: "Pricing varies by style and consultation. Reach out for a personalized quote.",
 } as const;
 
 // =============================================================================
-// GALLERY
+// SHOPIFY CONFIGURATION
 // =============================================================================
 
-export const gallery = {
-  // Gallery images - NEED FROM CLIENT
-  // These should be added to public/gallery/
-  images: [] as Array<{
-    src: string;
-    alt: string;
-    category: "lashes" | "hair" | "makeup" | "brows" | "other";
-  }>,
+export const shopify = {
+  // Set to true when Shopify credentials are provided
+  enabled: false,
 
-  // Instagram feed integration
-  instagramFeed: true, // Pull from Instagram if possible
-} as const;
+  // Placeholder - to be filled with actual credentials
+  storeDomain: null as string | null,
+  storefrontAccessToken: null as string | null,
 
-// =============================================================================
-// SEO & META
-// =============================================================================
-
-export const seo = {
-  title: "Steph's Beauty Box | Lashes, Hair & Makeup | West Park, FL",
-  description: "Faith-forward beauty studio in West Park, FL offering lash extensions, hair services, and makeup artistry. WITH GOD ALL THINGS ARE POSSIBLE.",
-  keywords: [
-    "lash extensions West Park FL",
-    "beauty salon West Park",
-    "makeup artist South Florida",
-    "hair stylist West Park FL",
-    "lash lift and tint",
-    "bridal makeup Florida",
-    "Steph's Beauty Box",
-  ],
-
-  // Open Graph
-  ogImage: "/brand/og-image.jpg", // Need to create
-
-  // Location for local SEO
-  location: {
-    city: "West Park",
-    state: "Florida",
-    region: "South Florida",
-    coordinates: {
-      lat: 25.9876, // Approximate - need exact
-      lng: -80.1234, // Approximate - need exact
-    },
-  },
-} as const;
-
-// =============================================================================
-// THEME COLORS
-// =============================================================================
-
-export const theme = {
-  // LOCKED COLOR SYSTEM - NO DEVIATIONS
-  colors: {
-    // Primary background - ultra-deep charcoal
-    bg: "#111010",
-
-    // Primary accent - rich metallic gold
-    gold: "#D4AF37",
-
-    // Secondary accent - soft warm blush
-    blush: "#EADBC8",
-
-    // Text colors
-    light: "#FFFFFF",
-    dark: "#2B2B2B",
-  },
-
-  // LOCKED TYPOGRAPHY SYSTEM
-  fonts: {
-    heading: "Playfair Display", // SemiBold for headlines
-    body: "Montserrat", // Regular for body text
-  },
-} as const;
-
-// =============================================================================
-// POLICIES
-// =============================================================================
-
-export const policies = {
-  cancellation: {
-    notice: "24 hours", // Need to confirm with client
-    fee: null as string | null, // e.g., "50% of service cost"
-  },
-
-  lateness: {
-    graceMinutes: 15, // Need to confirm
-    policy: "Appointments more than 15 minutes late may need to be rescheduled.",
-  },
-
-  deposits: {
-    required: null as boolean | null,
-    amount: null as string | null,
-  },
-
-  // Additional policies - need from client
-  additionalPolicies: [] as string[],
+  // Demo mode banner text
+  demoBannerText: "[SHOPIFY CONNECT REQUIRED] – Demo products shown below",
 } as const;
 
 // =============================================================================
@@ -321,16 +179,83 @@ export const navigation = {
   main: [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
+    { href: "/shop", label: "Shop" },
     { href: "/gallery", label: "Gallery" },
-    { href: "/beauty-concierge", label: "Beauty Concierge" },
+    { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
-    { href: "/client-info", label: "*Needed Info*" },
   ],
 
-  footer: [
-    { href: "/policies", label: "Policies" },
-    { href: "/book", label: "Book Now" },
+  cta: {
+    label: "Get in Touch",
+    href: "/contact",
+  },
+} as const;
+
+// =============================================================================
+// SEO
+// =============================================================================
+
+export const seo = {
+  title: "Steph's Beauty Box | Hair, Makeup & Beauty | West Park, FL",
+  description: "A welcoming beauty space in West Park, FL. Hair, makeup, skin, lashes, and more. Everyone belongs here.",
+  keywords: [
+    "beauty salon West Park FL",
+    "hair stylist West Park",
+    "makeup artist South Florida",
+    "lash extensions West Park",
+    "inclusive beauty salon",
   ],
+
+  openGraph: {
+    image: "/brand/og-image.jpg",
+    type: "website" as const,
+  },
+} as const;
+
+// =============================================================================
+// THEME (Garden Editorial Palette)
+// =============================================================================
+
+export const theme = {
+  colors: {
+    // Background - warm ivory
+    background: "#F7F1E8",
+
+    // Primary text - near-black ink
+    ink: "#1A1A1A",
+
+    // Accent - muted botanical green (chosen over clay for freshness)
+    accent: "#2F4A3B",
+
+    // Secondary - soft blush
+    blush: "#E7D3C7",
+
+    // White for overlays
+    white: "#FFFFFF",
+  },
+
+  fonts: {
+    heading: "Cormorant Garamond",
+    body: "Inter",
+  },
+} as const;
+
+// =============================================================================
+// POLICIES (Generic - do not invent specific details)
+// =============================================================================
+
+export const policies = {
+  cancellation: {
+    notice: "24 hours",
+    fee: null as string | null, // Unknown - do not display
+  },
+  lateness: {
+    policy: "Please arrive on time. Late arrivals may result in shortened service time or rescheduling.",
+  },
+  deposits: {
+    required: false,
+    amount: null as string | null,
+  },
 } as const;
 
 // =============================================================================
@@ -342,14 +267,13 @@ export const config = {
   contact,
   hours,
   social,
-  booking,
-  reviews,
+  payments,
   services,
-  gallery,
+  shopify,
+  navigation,
   seo,
   theme,
   policies,
-  navigation,
 } as const;
 
 export default config;
