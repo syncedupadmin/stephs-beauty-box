@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base layer customizations */
+@layer base {
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom selection colors */
+  ::selection {
+    background-color: rgba(212, 175, 55, 0.3);
+    color: #F5F1E8;
+  }
+
+  /* Focus visible styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid #D4B98A;
+    outline-offset: 2px;
+  }
+
+  /* Body defaults */
+  body {
+    @apply bg-bg text-ivory antialiased;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+}
+
+/* Component layer */
+@layer components {
+  /* Container utility */
+  .container-luxury {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gold text gradient */
+  .text-gradient-gold {
+    @apply bg-gradient-gold bg-clip-text text-transparent;
+  }
+
+  /* Gold border glow effect */
+  .border-gold-glow {
+    @apply border border-gold/20 transition-all duration-300;
+  }
+
+  .border-gold-glow:hover {
+    @apply border-gold/40 shadow-gold;
+  }
+
+  /* Card base styles */
+  .card-luxury {
+    @apply bg-bg-card border border-gold/10 rounded-2xl transition-all duration-300;
+  }
+
+  .card-luxury:hover {
+    @apply border-gold/30 shadow-card-hover -translate-y-1;
+  }
+
+  /* Button base styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gold text-bg font-medium rounded-lg
+           transition-all duration-200 hover:bg-gold-soft hover:shadow-gold
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-transparent text-gold font-medium rounded-lg
+           border border-gold/50 transition-all duration-200
+           hover:bg-gold/10 hover:border-gold
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 text-ivory/80 font-medium
+           transition-all duration-200 hover:text-gold
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  /* Input styles */
+  .input-luxury {
+    @apply w-full px-4 py-3 bg-bg-soft border border-gold/20 rounded-lg text-ivory
+           placeholder:text-ivory/40 transition-all duration-200
+           focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30;
+  }
+
+  /* Section divider */
+  .divider-gold {
+    @apply h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+  }
+
+  /* Pill/chip styles */
+  .pill {
+    @apply inline-flex items-center px-3 py-1 text-sm rounded-full
+           border border-gold/20 text-ivory/80 transition-all duration-200;
+  }
+
+  .pill-active {
+    @apply bg-gold/20 border-gold/40 text-gold;
+  }
+
+  .pill:hover:not(.pill-active) {
+    @apply border-gold/40 text-ivory;
+  }
+}
+
+/* Utility layer */
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Subtle noise texture overlay */
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+/* Custom scrollbar for elements that need it */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(17, 19, 24, 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Floating watermark animation - elegant and refined */
+@keyframes float-elegant {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-8px) scale(1.01);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.02);
+    opacity: 0.95;
+  }
+  75% {
+    transform: translateY(-8px) scale(1.01);
+  }
+}
+
+@keyframes float-elegant-mobile {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+    opacity: 0.92;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.05) saturate(1.1);
+  }
+}
+
+/* Mobile-first: smooth, subtle animation */
+.animate-float-watermark {
+  animation: float-elegant-mobile 30s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+             breathe 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Enhanced animation on larger screens */
+@media (min-width: 768px) {
+  .animate-float-watermark {
+    animation: float-elegant 25s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+               breathe 12s ease-in-out infinite;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-watermark {
+    animation: breathe 20s ease-in-out infinite;
+  }
+}
