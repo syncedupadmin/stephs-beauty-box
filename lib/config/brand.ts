@@ -327,6 +327,7 @@ export const navigation = {
     { href: "/gallery", label: "Gallery" },
     { href: "/beauty-concierge", label: "Beauty Concierge" },
     { href: "/contact", label: "Contact" },
+    { href: "/client-info", label: "*Needed Info*" },
   ],
 
   footer: [
