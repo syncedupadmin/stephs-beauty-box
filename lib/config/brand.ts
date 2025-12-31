@@ -39,8 +39,8 @@ export const contact = {
   phoneFormatted: "(786) 378-3511",
   phoneClean: "7863783511", // For tel: links
 
-  // UNKNOWN - need from client
-  email: null as string | null,
+  // Client email
+  email: "steph@stephsbeautybox.com",
 
   // VERIFIED
   address: {
