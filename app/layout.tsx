@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   keywords: [...seo.keywords],
   authors: [{ name: brand.name }],
   creator: brand.name,
+  // Icons - use the brand logo
+  icons: {
+    icon: [
+      { url: '/brand/logo.jpg', type: 'image/jpeg' },
+    ],
+    apple: [
+      { url: '/brand/logo.jpg', type: 'image/jpeg' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -37,7 +46,7 @@ export const metadata: Metadata = {
     description: seo.description,
     images: [
       {
-        url: seo.ogImage,
+        url: '/brand/og-image.jpg',
         width: 1200,
         height: 630,
         alt: brand.name,
@@ -45,10 +54,10 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: brand.name,
     description: seo.description,
-    images: [seo.ogImage],
+    images: ['/brand/logo.jpg'],
   },
   robots: {
     index: true,
