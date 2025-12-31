@@ -12,11 +12,8 @@ export default function ClientInfoPage() {
   // Calculate what's missing
   const missingItems = {
     booking: !booking.primaryUrl,
-    cashApp: !booking.cashApp,
-    zelle: !booking.zelle,
-    tiktok: !social.tiktok,
+    venmo: !booking.venmo,
     facebook: !social.facebook,
-    googleReviews: !brand, // placeholder
     cancellationFee: !policies.cancellation.fee,
     depositRequired: policies.deposits.required === null,
     depositAmount: !policies.deposits.amount,
@@ -122,7 +119,7 @@ export default function ClientInfoPage() {
                 <div>
                   <h3 className="font-medium text-ivory">Gallery Photos</h3>
                   <p className="text-sm text-ivory/60 mt-1">
-                    High-quality photos of work (lashes, hair, makeup, brows)
+                    High-quality photos of work (hair, makeup, skincare, brows)
                   </p>
                   <p className="text-xs text-ivory/40 mt-2">
                     Recommended: 10-20 best photos, at least 1080x1080px
@@ -142,21 +139,6 @@ export default function ClientInfoPage() {
             </h2>
 
             <div className="space-y-4">
-              {/* Payment Methods */}
-              <div className="flex items-start gap-4 p-4 bg-bg rounded-lg border border-gold/10">
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${(missingItems.cashApp || missingItems.zelle) ? 'bg-gold/20 text-gold' : 'bg-green-500/20 text-green-400'}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-medium text-ivory">Payment Methods</h3>
-                  <p className="text-sm text-ivory/60 mt-1">
-                    Cash App, Zelle, Venmo usernames for deposits/payments
-                  </p>
-                </div>
-              </div>
-
               {/* Policies */}
               <div className="flex items-start gap-4 p-4 bg-bg rounded-lg border border-gold/10">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gold/20 text-gold">
@@ -214,9 +196,9 @@ export default function ClientInfoPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-ivory">Additional Social Media</h3>
+                  <h3 className="font-medium text-ivory">Facebook Page</h3>
                   <p className="text-sm text-ivory/60 mt-1">
-                    TikTok, Facebook, or other platform handles
+                    Facebook business page link (if applicable)
                   </p>
                 </div>
               </div>
@@ -244,7 +226,7 @@ export default function ClientInfoPage() {
                 <div>
                   <h3 className="font-medium text-ivory">Custom Domain</h3>
                   <p className="text-sm text-ivory/60 mt-1">
-                    Domain to connect (e.g., stephsbeautybox.com)
+                    Domain to connect (stephsbeautybox.com already owned per Popl)
                   </p>
                 </div>
               </div>
@@ -256,9 +238,9 @@ export default function ClientInfoPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-ivory">Additional Logo Formats</h3>
+                  <h3 className="font-medium text-ivory">Venmo</h3>
                   <p className="text-sm text-ivory/60 mt-1">
-                    Light version, icon/favicon, transparent PNG
+                    Venmo username for additional payment option
                   </p>
                 </div>
               </div>
@@ -300,12 +282,36 @@ export default function ClientInfoPage() {
                 <span className="text-ivory ml-2">{social.instagram?.handle}</span>
               </div>
               <div className="p-3 bg-bg rounded-lg">
-                <span className="text-ivory/60">Threads:</span>
-                <span className="text-ivory ml-2">{social.threads?.handle}</span>
+                <span className="text-ivory/60">TikTok:</span>
+                <span className="text-ivory ml-2">{social.tiktok?.handle}</span>
               </div>
               <div className="p-3 bg-bg rounded-lg">
                 <span className="text-ivory/60">YouTube:</span>
                 <span className="text-ivory ml-2">{social.youtube?.handle}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">Snapchat:</span>
+                <span className="text-ivory ml-2">{social.snapchat?.handle}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">Threads:</span>
+                <span className="text-ivory ml-2">{social.threads?.handle}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">WhatsApp:</span>
+                <span className="text-ivory ml-2">{social.whatsapp?.phone}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">Cash App:</span>
+                <span className="text-ivory ml-2">{booking.cashApp}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">Zelle:</span>
+                <span className="text-ivory ml-2">{booking.zelle}</span>
+              </div>
+              <div className="p-3 bg-bg rounded-lg">
+                <span className="text-ivory/60">Logo:</span>
+                <span className="text-green-400 ml-2">Uploaded</span>
               </div>
             </div>
           </section>
