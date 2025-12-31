@@ -32,10 +32,10 @@ export const metadata: Metadata = {
   // Icons - use the brand logo
   icons: {
     icon: [
-      { url: '/brand/logo.jpg', type: 'image/jpeg' },
+      { url: '/brand/logo.png', type: 'image/png' },
     ],
     apple: [
-      { url: '/brand/logo.jpg', type: 'image/jpeg' },
+      { url: '/brand/logo.png', type: 'image/png' },
     ],
   },
   openGraph: {
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: brand.name,
     description: seo.description,
-    images: ['/brand/logo.jpg'],
+    images: ['/brand/logo.png'],
   },
   robots: {
     index: true,

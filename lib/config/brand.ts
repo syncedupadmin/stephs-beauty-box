@@ -21,7 +21,7 @@ export const brand = {
 
   // Logo paths - relative to public folder
   logo: {
-    main: "/brand/logo.jpg",
+    main: "/brand/logo.png",
     // These can be added when client provides additional logo formats
     light: null as string | null,
     dark: null as string | null,
