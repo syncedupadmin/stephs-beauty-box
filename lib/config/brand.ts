@@ -266,35 +266,26 @@ export const seo = {
 // =============================================================================
 
 export const theme = {
-  // Dark glam aesthetic with gold/rose-gold accents
+  // LOCKED COLOR SYSTEM - NO DEVIATIONS
   colors: {
-    // Primary background - deep dark
-    bg: "#0A0A0A",
-    bgSoft: "#141414",
-    bgCard: "#1A1A1A",
+    // Primary background - ultra-deep charcoal
+    bg: "#111010",
 
-    // Gold accent (primary)
+    // Primary accent - rich metallic gold
     gold: "#D4AF37",
-    goldSoft: "#E5C158",
-    goldDark: "#B8972E",
 
-    // Rose gold (secondary accent)
-    roseGold: "#B76E79",
-    roseGoldSoft: "#C9858F",
+    // Secondary accent - soft warm blush
+    blush: "#EADBC8",
 
     // Text colors
-    ivory: "#F5F1E8",
-    ivorySoft: "#E8E4DB",
-    ivoryMuted: "#A9A6A0",
-
-    // Faith accent (soft purple/lavender optional)
-    accent: "#9B7EBD",
+    light: "#FFFFFF",
+    dark: "#2B2B2B",
   },
 
-  // Font configuration
+  // LOCKED TYPOGRAPHY SYSTEM
   fonts: {
-    heading: "Playfair Display", // Elegant serif
-    body: "Inter", // Clean sans-serif
+    heading: "Playfair Display", // SemiBold for headlines
+    body: "Montserrat", // Regular for body text
   },
 } as const;
 

@@ -2,117 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base layer customizations */
+/* =============================================================================
+   STEPH'S BEAUTY BOX - LUXURY MINIMAL STYLESHEET
+   =============================================================================
+   STRICT DESIGN RULES:
+   - NO gradients except subtle button hovers
+   - NO textures, particles, noise overlays
+   - NO harsh outlines or borders
+   - Pure negative space aesthetic
+   - Subtle, soft shadows only
+   ============================================================================= */
+
+/* Base Layer */
 @layer base {
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Custom selection colors */
+  /* Custom selection - gold highlight */
   ::selection {
     background-color: rgba(212, 175, 55, 0.3);
-    color: #F5F1E8;
+    color: #FFFFFF;
   }
 
-  /* Focus visible styles for accessibility */
+  /* Focus states for accessibility */
   *:focus-visible {
-    outline: 2px solid #D4B98A;
+    outline: 2px solid #D4AF37;
     outline-offset: 2px;
   }
 
-  /* Body defaults */
+  /* Body defaults - LOCKED COLORS */
   body {
-    @apply bg-bg text-ivory antialiased;
-    font-feature-settings: 'liga' 1, 'kern' 1;
+    @apply bg-bg text-light antialiased;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
   }
 
-  /* Headings */
+  /* Typography - Playfair for headlines */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+    font-family: var(--font-playfair), Georgia, serif;
+    @apply font-semibold tracking-tight text-light;
+  }
+
+  /* Body text */
+  p, span, a, li {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
   }
 }
 
-/* Component layer */
+/* Component Layer */
 @layer components {
-  /* Container utility */
+  /* Container */
   .container-luxury {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
   }
 
-  /* Gold text gradient */
-  .text-gradient-gold {
-    @apply bg-gradient-gold bg-clip-text text-transparent;
-  }
-
-  /* Gold border glow effect */
-  .border-gold-glow {
-    @apply border border-gold/20 transition-all duration-300;
-  }
-
-  .border-gold-glow:hover {
-    @apply border-gold/40 shadow-gold;
-  }
-
-  /* Card base styles */
-  .card-luxury {
-    @apply bg-bg-card border border-gold/10 rounded-2xl transition-all duration-300;
-  }
-
-  .card-luxury:hover {
-    @apply border-gold/30 shadow-card-hover -translate-y-1;
-  }
-
-  /* Button base styles */
+  /* Primary Button - Gold solid */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-gold text-bg font-medium rounded-lg
-           transition-all duration-200 hover:bg-gold-soft hover:shadow-gold
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+    @apply inline-flex items-center justify-center
+           px-8 py-4
+           bg-gold text-bg
+           font-medium tracking-wide uppercase text-sm
+           transition-all duration-300 ease-out
+           hover:bg-blush hover:text-dark;
   }
 
+  /* Secondary Button - Gold outline */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-transparent text-gold font-medium rounded-lg
-           border border-gold/50 transition-all duration-200
-           hover:bg-gold/10 hover:border-gold
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+    @apply inline-flex items-center justify-center
+           px-8 py-4
+           bg-transparent text-gold
+           border border-gold
+           font-medium tracking-wide uppercase text-sm
+           transition-all duration-300 ease-out
+           hover:bg-gold hover:text-bg;
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center justify-center px-4 py-2 text-ivory/80 font-medium
-           transition-all duration-200 hover:text-gold
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  /* Text Link - subtle underline animation */
+  .link-gold {
+    @apply text-gold relative;
   }
 
-  /* Input styles */
-  .input-luxury {
-    @apply w-full px-4 py-3 bg-bg-soft border border-gold/20 rounded-lg text-ivory
-           placeholder:text-ivory/40 transition-all duration-200
-           focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30;
+  .link-gold::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-gold transition-all duration-300;
   }
 
-  /* Section divider */
+  .link-gold:hover::after {
+    @apply w-full;
+  }
+
+  /* Card - minimal with subtle shadow */
+  .card-minimal {
+    @apply bg-dark/50 p-8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Section spacing */
+  .section-spacing {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+
+  /* Gold divider line */
   .divider-gold {
-    @apply h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+    @apply h-px bg-gold/30 w-24;
   }
 
-  /* Pill/chip styles */
-  .pill {
-    @apply inline-flex items-center px-3 py-1 text-sm rounded-full
-           border border-gold/20 text-ivory/80 transition-all duration-200;
+  /* Input field */
+  .input-luxury {
+    @apply w-full px-0 py-4
+           bg-transparent
+           border-b border-gold/30
+           text-light placeholder:text-light/40
+           focus:outline-none focus:border-gold
+           transition-colors duration-300;
   }
 
-  .pill-active {
-    @apply bg-gold/20 border-gold/40 text-gold;
-  }
-
-  .pill:hover:not(.pill-active) {
-    @apply border-gold/40 text-ivory;
+  /* Label */
+  .label-luxury {
+    @apply text-sm uppercase tracking-widest text-gold/80 mb-2 block;
   }
 }
 
-/* Utility layer */
+/* Utility Layer */
 @layer utilities {
-  /* Hide scrollbar but keep functionality */
+  /* Hide scrollbar */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -122,217 +135,46 @@
     display: none;
   }
 
-  /* Text balance for headings */
+  /* Text balance */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Subtle noise texture overlay */
-  .noise-overlay {
-    position: relative;
+  /* Uppercase tracking */
+  .caps {
+    @apply uppercase tracking-widest text-sm;
   }
 
-  .noise-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
+  /* Gold text */
+  .text-gold {
+    color: #D4AF37;
   }
-}
 
-/* Custom scrollbar for elements that need it */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(17, 19, 24, 0.5);
-  border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
-  border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.5);
-}
-
-/* Floating watermark animation - elegant and refined */
-@keyframes float-elegant {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  25% {
-    transform: translateY(-8px) scale(1.01);
-  }
-  50% {
-    transform: translateY(-15px) scale(1.02);
-    opacity: 0.95;
-  }
-  75% {
-    transform: translateY(-8px) scale(1.01);
+  /* Blush text */
+  .text-blush {
+    color: #EADBC8;
   }
 }
 
-@keyframes float-elegant-mobile {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-8px) scale(1.01);
-    opacity: 0.92;
-  }
-}
+/* =============================================================================
+   ANIMATIONS - Subtle only
+   ============================================================================= */
 
-@keyframes breathe {
-  0%, 100% {
-    filter: brightness(1) saturate(1);
-  }
-  50% {
-    filter: brightness(1.05) saturate(1.1);
-  }
-}
-
-/* Mobile-first: smooth, subtle animation */
-.animate-float-watermark {
-  animation: float-elegant-mobile 30s cubic-bezier(0.4, 0, 0.2, 1) infinite,
-             breathe 15s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* Enhanced animation on larger screens */
-@media (min-width: 768px) {
-  .animate-float-watermark {
-    animation: float-elegant 25s cubic-bezier(0.4, 0, 0.2, 1) infinite,
-               breathe 12s ease-in-out infinite;
-  }
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .animate-float-watermark {
-    animation: breathe 20s ease-in-out infinite;
-  }
-}
-
-/* ========================================
-   ENHANCED ANIMATIONS
-   ======================================== */
-
-/* Ripple effect for buttons */
-@keyframes ripple {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0.5;
-  }
-  100% {
-    width: 500px;
-    height: 500px;
-    opacity: 0;
-  }
-}
-
-.animate-ripple {
-  animation: ripple 0.6s ease-out forwards;
-}
-
-/* Shimmer effect for loading states */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(212, 175, 55, 0) 0%,
-    rgba(212, 175, 55, 0.1) 50%,
-    rgba(212, 175, 55, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
-}
-
-/* Glow pulse for CTAs */
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
-  }
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-/* Gradient border animation */
-@keyframes border-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-border-flow {
-  background: linear-gradient(90deg, #D4AF37, #B76E79, #D4AF37);
-  background-size: 200% 200%;
-  animation: border-flow 3s ease infinite;
-}
-
-/* Sparkle animation */
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-sparkle {
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-/* Float subtle */
-@keyframes float-subtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float-subtle {
-  animation: float-subtle 4s ease-in-out infinite;
-}
-
-/* Slide in animations */
-@keyframes slide-in-up {
+/* Fade in */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide up */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -340,21 +182,11 @@
   }
 }
 
-@keyframes slide-in-down {
+/* Slide in from left */
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
@@ -362,10 +194,11 @@
   }
 }
 
-@keyframes slide-in-right {
+/* Slide in from right */
+@keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
@@ -373,93 +206,61 @@
   }
 }
 
-.animate-slide-in-up {
-  animation: slide-in-up 0.6s ease-out forwards;
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
-.animate-slide-in-down {
-  animation: slide-in-down 0.6s ease-out forwards;
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
 }
 
 .animate-slide-in-left {
-  animation: slide-in-left 0.6s ease-out forwards;
+  animation: slideInLeft 0.6s ease-out forwards;
 }
 
 .animate-slide-in-right {
-  animation: slide-in-right 0.6s ease-out forwards;
+  animation: slideInRight 0.6s ease-out forwards;
 }
 
-/* Scale in animation */
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* =============================================================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================================================= */
+
+/* Hero headline */
+.headline-hero {
+  @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight;
 }
 
-.animate-scale-in {
-  animation: scale-in 0.4s ease-out forwards;
+/* Section headline */
+.headline-section {
+  @apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight;
 }
 
-/* ========================================
-   ENHANCED TYPOGRAPHY
-   ======================================== */
-
-/* Better line heights for readability */
-.prose-luxury {
-  @apply text-ivory/80 leading-relaxed;
-  letter-spacing: 0.01em;
+/* Subheadline */
+.subheadline {
+  @apply text-lg sm:text-xl text-blush font-light leading-relaxed;
 }
 
-.prose-luxury p {
-  @apply mb-4;
+/* Body text */
+.body-text {
+  @apply text-base text-light/80 leading-relaxed;
 }
 
-.prose-luxury strong {
-  @apply text-ivory font-medium;
+/* Small caps label */
+.label-caps {
+  @apply text-xs uppercase tracking-[0.2em] text-gold;
 }
 
-/* Elegant heading styles */
-.heading-luxury {
-  @apply font-serif tracking-tight;
-  text-wrap: balance;
-}
-
-/* ========================================
-   GLASS MORPHISM UTILITIES
-   ======================================== */
-
-.glass {
-  @apply bg-bg-card/60 backdrop-blur-xl border border-ivory/5;
-}
-
-.glass-gold {
-  @apply bg-bg-card/60 backdrop-blur-xl border border-gold/10;
-}
-
-.glass-strong {
-  @apply bg-bg-card/80 backdrop-blur-2xl border border-ivory/10;
-}
-
-/* ========================================
-   GRADIENT TEXT UTILITIES
-   ======================================== */
-
-.text-gradient-gold-rose {
-  @apply bg-gradient-to-r from-gold via-gold-soft to-rose bg-clip-text text-transparent;
-}
-
-.text-gradient-rose {
-  @apply bg-gradient-to-r from-rose to-rose-soft bg-clip-text text-transparent;
-}
-
-/* ========================================
+/* =============================================================================
    MOBILE OPTIMIZATIONS
-   ======================================== */
+   ============================================================================= */
 
 /* Better touch targets */
 @media (hover: none) {
@@ -469,53 +270,50 @@
   }
 }
 
-/* Disable hover effects on touch devices */
-@media (hover: none) {
-  .hover-effect:hover {
-    transform: none !important;
-    box-shadow: none !important;
-  }
-}
-
-/* Safe area padding for notched devices */
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-}
-
+/* Safe area for notched devices */
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ========================================
-   FOCUS STATES (Accessibility)
-   ======================================== */
-
-.focus-gold:focus-visible {
-  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-bg;
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
 }
 
-.focus-rose:focus-visible {
-  @apply outline-none ring-2 ring-rose ring-offset-2 ring-offset-bg;
+/* =============================================================================
+   ACCESSIBILITY
+   ============================================================================= */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* ========================================
-   IMAGE EFFECTS
-   ======================================== */
-
-/* Vignette effect */
-.vignette::after {
-  content: '';
+/* Screen reader only */
+.sr-only {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 100%);
-  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-/* Elegant image overlay */
-.image-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, transparent 50%);
-  pointer-events: none;
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
