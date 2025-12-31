@@ -85,16 +85,16 @@ export const hours = {
 export const social = {
   // VERIFIED
   instagram: {
-    url: "https://instagram.com/stephsbeautybox__",
-    handle: "@stephsbeautybox__",
+    url: "https://www.instagram.com/stephsbeautybox_",
+    handle: "@stephsbeautybox_",
   },
   threads: {
-    url: "https://www.threads.net/@stephsbeautybox__",
-    handle: "@stephsbeautybox__",
+    url: "https://www.threads.net/@stephsbeautybox_",
+    handle: "@stephsbeautybox_",
   },
   youtube: {
-    url: "https://youtube.com/@stephsbeautybox__",
-    handle: "@stephsbeautybox__",
+    url: "https://youtube.com/@stephsbeautybox_",
+    handle: "@stephsbeautybox_",
   },
 
   // UNKNOWN - need from client
