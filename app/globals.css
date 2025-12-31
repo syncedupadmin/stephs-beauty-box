@@ -221,3 +221,301 @@
     animation: breathe 20s ease-in-out infinite;
   }
 }
+
+/* ========================================
+   ENHANCED ANIMATIONS
+   ======================================== */
+
+/* Ripple effect for buttons */
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 0.6s ease-out forwards;
+}
+
+/* Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0) 0%,
+    rgba(212, 175, 55, 0.1) 50%,
+    rgba(212, 175, 55, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Glow pulse for CTAs */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Gradient border animation */
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-flow {
+  background: linear-gradient(90deg, #D4AF37, #B76E79, #D4AF37);
+  background-size: 200% 200%;
+  animation: border-flow 3s ease infinite;
+}
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Float subtle */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+/* Slide in animations */
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.6s ease-out forwards;
+}
+
+.animate-slide-in-down {
+  animation: slide-in-down 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out forwards;
+}
+
+/* Scale in animation */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+/* ========================================
+   ENHANCED TYPOGRAPHY
+   ======================================== */
+
+/* Better line heights for readability */
+.prose-luxury {
+  @apply text-ivory/80 leading-relaxed;
+  letter-spacing: 0.01em;
+}
+
+.prose-luxury p {
+  @apply mb-4;
+}
+
+.prose-luxury strong {
+  @apply text-ivory font-medium;
+}
+
+/* Elegant heading styles */
+.heading-luxury {
+  @apply font-serif tracking-tight;
+  text-wrap: balance;
+}
+
+/* ========================================
+   GLASS MORPHISM UTILITIES
+   ======================================== */
+
+.glass {
+  @apply bg-bg-card/60 backdrop-blur-xl border border-ivory/5;
+}
+
+.glass-gold {
+  @apply bg-bg-card/60 backdrop-blur-xl border border-gold/10;
+}
+
+.glass-strong {
+  @apply bg-bg-card/80 backdrop-blur-2xl border border-ivory/10;
+}
+
+/* ========================================
+   GRADIENT TEXT UTILITIES
+   ======================================== */
+
+.text-gradient-gold-rose {
+  @apply bg-gradient-to-r from-gold via-gold-soft to-rose bg-clip-text text-transparent;
+}
+
+.text-gradient-rose {
+  @apply bg-gradient-to-r from-rose to-rose-soft bg-clip-text text-transparent;
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS
+   ======================================== */
+
+/* Better touch targets */
+@media (hover: none) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  .hover-effect:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Safe area padding for notched devices */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ========================================
+   FOCUS STATES (Accessibility)
+   ======================================== */
+
+.focus-gold:focus-visible {
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-bg;
+}
+
+.focus-rose:focus-visible {
+  @apply outline-none ring-2 ring-rose ring-offset-2 ring-offset-bg;
+}
+
+/* ========================================
+   IMAGE EFFECTS
+   ======================================== */
+
+/* Vignette effect */
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 100%);
+  pointer-events: none;
+}
+
+/* Elegant image overlay */
+.image-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, transparent 50%);
+  pointer-events: none;
+}
