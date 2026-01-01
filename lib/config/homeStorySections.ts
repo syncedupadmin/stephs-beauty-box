@@ -12,7 +12,15 @@
  * - Images should be inclusive and diverse
  */
 
-import { STORY_IMAGES, getImage } from './images';
+import { getImage } from './images';
+
+// Using existing high-quality gallery images (Manual Asset Strategy)
+const GALLERY_STORY_IMAGES = {
+  welcome: getImage(1),  // Best welcome/hero vibe
+  hair: getImage(5),     // Hair focused
+  makeup: getImage(4),   // Makeup focused
+  experience: getImage(7), // Self-care vibe
+};
 
 export interface StorySection {
   id: string;
@@ -30,7 +38,7 @@ export interface StorySection {
 export const homeStorySections: StorySection[] = [
   {
     id: 'welcome',
-    imageSrc: STORY_IMAGES.welcome,
+    imageSrc: GALLERY_STORY_IMAGES.welcome,
     imageAlt: 'Welcoming beauty campaign featuring dark-skinned model in botanical setting',
     headline: 'Beauty for Everyone',
     supportingLine: 'A welcoming space where all are celebrated.',
@@ -42,7 +50,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'hair',
-    imageSrc: STORY_IMAGES.hair,
+    imageSrc: GALLERY_STORY_IMAGES.hair,
     imageAlt: 'Stunning natural hairstyle celebrating texture and artistry',
     headline: 'Hair That Tells Your Story',
     supportingLine: 'Styling, color, and transformations for every texture.',
@@ -54,7 +62,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'makeup',
-    imageSrc: STORY_IMAGES.makeup,
+    imageSrc: GALLERY_STORY_IMAGES.makeup,
     imageAlt: 'Soft glam makeup on radiant dark skin',
     headline: 'Artistry in Every Stroke',
     supportingLine: 'From soft natural to bold glamour.',
@@ -66,7 +74,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'experience',
-    imageSrc: STORY_IMAGES.experience,
+    imageSrc: GALLERY_STORY_IMAGES.experience,
     imageAlt: 'Peaceful self-care moment radiating inner beauty',
     headline: 'Inner and Outer Radiance',
     supportingLine: 'Where beauty meets grace.',
@@ -96,7 +104,7 @@ export interface EditorialSection {
 export const editorialSections: EditorialSection[] = [
   {
     id: 'hair',
-    imageSrc: STORY_IMAGES.hair,
+    imageSrc: GALLERY_STORY_IMAGES.hair,
     imageAlt: 'Stunning natural hairstyle celebrating texture and artistry',
     overline: 'Hair',
     headline: 'Your Crown, Reimagined',
@@ -109,7 +117,7 @@ export const editorialSections: EditorialSection[] = [
   },
   {
     id: 'makeup',
-    imageSrc: STORY_IMAGES.makeup,
+    imageSrc: GALLERY_STORY_IMAGES.makeup,
     imageAlt: 'Soft glam makeup enhancing natural dark-skinned beauty',
     overline: 'Makeup',
     headline: 'The Art of You',
@@ -122,7 +130,7 @@ export const editorialSections: EditorialSection[] = [
   },
   {
     id: 'skin',
-    imageSrc: STORY_IMAGES.experience,
+    imageSrc: GALLERY_STORY_IMAGES.experience,
     imageAlt: 'Radiant skin and peaceful self-care moment',
     overline: 'Skin & Facials',
     headline: 'Glow from Within',

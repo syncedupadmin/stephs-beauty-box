@@ -66,30 +66,14 @@ export function getShuffledImages(seed: string = ''): string[] {
 }
 
 // =============================================================================
-// AI-GENERATED CAMPAIGN IMAGES (via Gemini)
+// HERO IMAGE (Manually uploaded high-quality asset)
 // =============================================================================
-
-// Hero images - AI generated with "Romantic High-Fashion Editorial" aesthetic
 export const HERO_IMAGE = '/images/hero/hero-main.png';
-export const HERO_MOBILE_IMAGE = '/images/story/story-01-welcome.png';
+export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
 
-// Story section images (mobile scroll-snap) - AI generated
-export const STORY_IMAGES = {
-  welcome: '/images/story/story-01-welcome.png',
-  hair: '/images/story/story-02-hair.png',
-  makeup: '/images/story/story-03-makeup.png',
-  experience: '/images/story/story-04-experience.png',
-  // Fallbacks use gallery images
-  lashes: getImage(3),
-  brows: getImage(6),
-  cta: getImage(7),
-} as const;
-
-// Texture overlays - AI generated
-export const TEXTURE_IMAGES = {
-  paperGrain: '/images/textures/texture-paper-grain.png',
-  botanicalShadow: '/images/textures/texture-botanical-shadow.png',
-} as const;
+// =============================================================================
+// SERVICE & SECTION IMAGES (Recycled from gallery)
+// =============================================================================
 
 // Service images
 export const SERVICE_IMAGES = {
