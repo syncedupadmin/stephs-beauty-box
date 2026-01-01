@@ -9,104 +9,113 @@ const config: Config = {
   theme: {
     extend: {
       // =======================================================================
-      // GARDEN EDITORIAL COLOR PALETTE
+      // LOCKED COLOR TOKENS - ROMANTIC HIGH-FASHION EDITORIAL
       // =======================================================================
       colors: {
-        // Background - warm ivory
-        ivory: '#F7F1E8',
+        // Warm Paper - Primary background
+        paper: '#F6F0E6',
 
-        // Primary text - near-black ink
-        ink: '#1A1A1A',
+        // Soft Charcoal - Deep contrast
+        charcoal: '#161514',
 
-        // Accent - muted botanical green
-        sage: '#2F4A3B',
+        // Botanical Green - Primary accent
+        botanical: '#2F4A3B',
 
-        // Secondary - soft blush
-        blush: '#E7D3C7',
+        // Clay Accent - Secondary warmth
+        clay: '#B88977',
 
-        // Utility
-        white: '#FFFFFF',
+        // Ink - Text color
+        ink: '#2B2A28',
 
-        // Hover/active states
-        'sage-light': '#3D5C4A',
-        'sage-dark': '#243A2E',
-        'blush-light': '#F0DED4',
-        'blush-dark': '#D4C0B4',
+        // NO pure black or white - use these instead
+        'off-white': '#FDFBF7',
+        'near-black': '#0D0C0B',
       },
 
       // =======================================================================
-      // TYPOGRAPHY
+      // TYPOGRAPHY - EDITORIAL HIERARCHY
       // =======================================================================
       fontFamily: {
-        serif: ['var(--font-cormorant)', 'Cormorant Garamond', 'Georgia', 'serif'],
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
+        body: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
       },
 
       fontSize: {
-        // Display sizes for headings
-        'display-lg': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display-md': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
-        'display-sm': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        // Display - high contrast serif
+        'display-hero': ['5.5rem', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
+        'display-lg': ['4rem', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
+        'display-md': ['2.75rem', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
+        'display-sm': ['2rem', { lineHeight: '1', letterSpacing: '-0.01em' }],
 
-        // Body sizes
-        'body-lg': ['1.125rem', { lineHeight: '1.7' }],
-        'body-md': ['1rem', { lineHeight: '1.6' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        // Overlines - small caps
+        'overline': ['0.75rem', { lineHeight: '1.2', letterSpacing: '0.2em' }],
+
+        // Body - readable
+        'body-lg': ['1.125rem', { lineHeight: '1.8' }],
+        'body-md': ['1rem', { lineHeight: '1.8' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.7' }],
       },
 
       // =======================================================================
-      // SPACING & LAYOUT
+      // SPACING - VAST NEGATIVE SPACE
       // =======================================================================
       spacing: {
         '18': '4.5rem',
         '22': '5.5rem',
-        '30': '7.5rem',
+        '28': '7rem',
+        '32': '8rem',
+        '36': '9rem',
+        '40': '10rem',
+        '48': '12rem',
+        '56': '14rem',
+        '64': '16rem',
       },
 
       maxWidth: {
+        'editorial': '1400px',
         'content': '1200px',
-        'narrow': '720px',
+        'narrow': '680px',
+        'prose': '600px',
       },
 
       // =======================================================================
-      // ANIMATIONS
+      // BORDER RADIUS - EDITORIAL ONLY
+      // Sharp (0) or Pill (9999px) - nothing in between
+      // =======================================================================
+      borderRadius: {
+        'none': '0px',
+        'full': '9999px',
+      },
+
+      // =======================================================================
+      // TRANSITIONS - LUXURY PACE
+      // =======================================================================
+      transitionDuration: {
+        '600': '600ms',
+        '800': '800ms',
+      },
+
+      transitionTimingFunction: {
+        'luxury': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+
+      // =======================================================================
+      // ANIMATIONS - GENTLE, RESTRAINED
       // =======================================================================
       animation: {
+        'fade-up': 'fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
         'fade-in': 'fadeIn 0.6s ease-out forwards',
-        'slide-up': 'slideUp 0.6s ease-out forwards',
-        'scale-in': 'scaleIn 0.4s ease-out forwards',
       },
 
       keyframes: {
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-      },
-
-      // =======================================================================
-      // BOX SHADOW (Soft, minimal)
-      // =======================================================================
-      boxShadow: {
-        'soft': '0 2px 8px rgba(26, 26, 26, 0.06)',
-        'soft-lg': '0 4px 16px rgba(26, 26, 26, 0.08)',
-        'soft-xl': '0 8px 32px rgba(26, 26, 26, 0.1)',
-      },
-
-      // =======================================================================
-      // BORDER RADIUS (Editorial - subtle)
-      // =======================================================================
-      borderRadius: {
-        'subtle': '4px',
-        'button': '6px',
       },
     },
   },

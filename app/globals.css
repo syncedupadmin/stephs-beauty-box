@@ -3,12 +3,11 @@
 @tailwind utilities;
 
 /* =============================================================================
-   STEPH'S BEAUTY BOX - GARDEN EDITORIAL STYLESHEET
+   STEPH'S BEAUTY BOX - ROMANTIC HIGH-FASHION EDITORIAL
    =============================================================================
-   Aesthetic: Minimalist Floral Garden Editorial
-   - Fresh, modern, inclusive
-   - Maximum restraint: whitespace, clean grids, thin rules
-   - No harsh effects, gradients, or glow
+   Aesthetic: Vogue Italia meets a secret garden
+   Target: Gucci Garden, Dolce & Gabbana campaign feel
+   Emotional Tone: Soft, welcoming, visually expensive
    ============================================================================= */
 
 /* =============================================================================
@@ -22,39 +21,69 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Selection colors */
+  /* Selection colors - botanical accent */
   ::selection {
     background-color: rgba(47, 74, 59, 0.2);
-    color: #1A1A1A;
+    color: #2B2A28;
   }
 
   /* Focus states for accessibility */
   *:focus-visible {
-    outline: 2px solid #2F4A3B;
-    outline-offset: 2px;
+    outline: 1px solid #2F4A3B;
+    outline-offset: 3px;
   }
 
   /* Body defaults */
   body {
-    @apply bg-ivory text-ink antialiased;
+    @apply bg-paper text-ink antialiased;
     font-family: var(--font-inter), system-ui, sans-serif;
+    line-height: 1.8;
   }
 
-  /* Typography - Cormorant Garamond for headings */
+  /* Typography - Playfair Display for headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-cormorant), Georgia, serif;
-    @apply font-medium tracking-tight text-ink;
+    font-family: var(--font-playfair), Georgia, serif;
+    @apply font-medium text-charcoal;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
   }
+
+  h1 { @apply text-display-hero; }
+  h2 { @apply text-display-lg; }
+  h3 { @apply text-display-md; }
+  h4 { @apply text-display-sm; }
 
   /* Body text */
   p, span, a, li, label {
     font-family: var(--font-inter), system-ui, sans-serif;
+    line-height: 1.8;
   }
 
-  /* Thin horizontal rules */
+  /* Hairline dividers only */
   hr {
-    @apply border-t border-ink/10;
+    border: none;
+    height: 0.5px;
+    background-color: rgba(43, 42, 40, 0.15);
   }
+
+  /* Links - editorial underline */
+  a {
+    text-decoration: none;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* =============================================================================
+   NOISE TEXTURE OVERLAY
+   ============================================================================= */
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
 /* =============================================================================
@@ -62,139 +91,186 @@
    ============================================================================= */
 
 @layer components {
-  /* Container */
+  /* Editorial Container - asymmetric by default */
   .container-editorial {
-    @apply max-w-content mx-auto px-6 md:px-8 lg:px-12;
+    @apply max-w-editorial mx-auto px-6 md:px-12 lg:px-20;
   }
 
   .container-narrow {
     @apply max-w-narrow mx-auto px-6 md:px-8;
   }
 
-  /* ------------------------------------------------------------------------- */
-  /* BUTTONS */
-  /* ------------------------------------------------------------------------- */
-
-  /* Primary button - Sage green */
-  .btn-primary {
-    @apply inline-flex items-center justify-center
-           px-6 py-3
-           bg-sage text-white
-           font-medium text-sm tracking-wide
-           rounded-button
-           transition-colors duration-200
-           hover:bg-sage-dark
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
-  }
-
-  /* Secondary button - Blush */
-  .btn-secondary {
-    @apply inline-flex items-center justify-center
-           px-6 py-3
-           bg-blush text-ink
-           font-medium text-sm tracking-wide
-           rounded-button
-           transition-colors duration-200
-           hover:bg-blush-dark
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
-  }
-
-  /* Outline button */
-  .btn-outline {
-    @apply inline-flex items-center justify-center
-           px-6 py-3
-           bg-transparent text-ink
-           border border-ink/30
-           font-medium text-sm tracking-wide
-           rounded-button
-           transition-colors duration-200
-           hover:bg-ink/5 hover:border-ink/50
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
-  }
-
-  /* Ghost/text button */
-  .btn-ghost {
-    @apply inline-flex items-center justify-center
-           px-4 py-2
-           text-sage
-           font-medium text-sm tracking-wide
-           transition-colors duration-200
-           hover:text-sage-dark hover:underline underline-offset-4
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2;
-  }
-
-  /* White button (for dark overlays) */
-  .btn-white {
-    @apply inline-flex items-center justify-center
-           px-6 py-3
-           bg-white text-ink
-           font-medium text-sm tracking-wide
-           rounded-button
-           transition-all duration-200
-           hover:bg-white/90
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2;
+  .container-prose {
+    @apply max-w-prose px-6 md:px-8;
+    margin-left: 0;
   }
 
   /* ------------------------------------------------------------------------- */
-  /* FORM ELEMENTS */
+  /* EDITORIAL TEXT LINKS (No buttons) */
   /* ------------------------------------------------------------------------- */
 
-  .input-field {
-    @apply w-full px-4 py-3
-           bg-white
-           border border-ink/20
-           rounded-button
-           text-ink placeholder:text-ink/40
-           transition-colors duration-200
-           focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30;
+  .editorial-link {
+    @apply relative inline-block text-ink;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .textarea-field {
-    @apply w-full px-4 py-3
-           bg-white
-           border border-ink/20
-           rounded-button
-           text-ink placeholder:text-ink/40
-           resize-none
-           transition-colors duration-200
-           focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30;
+  .editorial-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 0.5px;
+    background-color: currentColor;
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .label-field {
-    @apply block text-sm font-medium text-ink/80 mb-2;
+  .editorial-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .editorial-link-botanical {
+    @apply editorial-link text-botanical;
+  }
+
+  /* Primary CTA - pill shape only */
+  .cta-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-botanical text-paper rounded-full;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cta-primary:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+
+  /* Secondary CTA - outline pill */
+  .cta-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 border border-ink/30 text-ink rounded-full;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cta-secondary:hover {
+    background-color: rgba(43, 42, 40, 0.05);
+    border-color: rgba(43, 42, 40, 0.5);
   }
 
   /* ------------------------------------------------------------------------- */
-  /* CARDS */
+  /* FORM ELEMENTS (Editorial) */
   /* ------------------------------------------------------------------------- */
 
-  .card {
-    @apply bg-white rounded-subtle shadow-soft overflow-hidden;
+  .input-editorial {
+    @apply w-full px-0 py-4 bg-transparent text-ink;
+    border: none;
+    border-bottom: 0.5px solid rgba(43, 42, 40, 0.2);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    transition: border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .card-hover {
-    @apply transition-shadow duration-300 hover:shadow-soft-lg;
+  .input-editorial:focus {
+    outline: none;
+    border-bottom-color: #2F4A3B;
+  }
+
+  .input-editorial::placeholder {
+    color: rgba(43, 42, 40, 0.4);
+    font-style: italic;
+  }
+
+  .textarea-editorial {
+    @apply input-editorial resize-none;
+  }
+
+  .label-editorial {
+    @apply block mb-2 text-overline uppercase text-ink/60;
   }
 
   /* ------------------------------------------------------------------------- */
-  /* SECTION UTILITIES */
+  /* SECTION SPACING - VAST NEGATIVE SPACE */
   /* ------------------------------------------------------------------------- */
 
-  .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+  .section-editorial {
+    @apply py-32 md:py-40 lg:py-48;
   }
 
-  .section-padding-sm {
-    @apply py-12 md:py-16 lg:py-20;
+  .section-editorial-sm {
+    @apply py-20 md:py-28 lg:py-32;
   }
 
-  /* Thin divider line */
-  .divider {
-    @apply h-px bg-ink/10 w-full;
+  /* Hairline divider */
+  .divider-hairline {
+    height: 0.5px;
+    background-color: rgba(43, 42, 40, 0.1);
   }
 
-  .divider-short {
-    @apply h-px bg-sage/40 w-16;
+  /* ------------------------------------------------------------------------- */
+  /* OVERLINE TEXT */
+  /* ------------------------------------------------------------------------- */
+
+  .overline {
+    @apply text-overline uppercase tracking-[0.2em] text-ink/60;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /* ATMOSPHERIC PLACEHOLDERS */
+  /* ------------------------------------------------------------------------- */
+
+  .placeholder-atmospheric {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, #2F4A3B 0%, #F6F0E6 100%);
+  }
+
+  .placeholder-atmospheric::after {
+    content: 'CAMPAIGN IMAGE INCOMING';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(253, 251, 247, 0.5);
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /* BRAND STAMP */
+  /* ------------------------------------------------------------------------- */
+
+  .brand-stamp {
+    @apply absolute w-12 h-12 flex items-center justify-center;
+    font-family: var(--font-playfair), Georgia, serif;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: rgba(253, 251, 247, 0.6);
+    border: 0.5px solid rgba(253, 251, 247, 0.3);
+    border-radius: 9999px;
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /* IMAGE HOVER - LUXURY PACE */
+  /* ------------------------------------------------------------------------- */
+
+  .image-hover {
+    @apply overflow-hidden;
+  }
+
+  .image-hover img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .image-hover:hover img {
+    transform: scale(1.03);
   }
 }
 
@@ -218,161 +294,73 @@
     text-wrap: balance;
   }
 
-  /* Serif text */
-  .font-editorial {
-    font-family: var(--font-cormorant), Georgia, serif;
+  /* Display font utility */
+  .font-display {
+    font-family: var(--font-playfair), Georgia, serif;
   }
 
-  /* Italic serif for accents */
+  /* Body font utility */
+  .font-body {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Editorial italic */
   .font-editorial-italic {
-    font-family: var(--font-cormorant), Georgia, serif;
+    font-family: var(--font-playfair), Georgia, serif;
     font-style: italic;
+  }
+
+  /* Ragged right (never center body text) */
+  .text-ragged {
+    text-align: left;
   }
 }
 
 /* =============================================================================
-   MOBILE SCROLL-SNAP SECTIONS
+   MOBILE SCROLL-SNAP STORY
    ============================================================================= */
 
-/* Container for scroll-snap on mobile only */
-.scroll-snap-container {
-  /* No scroll-snap on desktop */
-  overflow-y: auto;
-}
-
 @media (max-width: 767px) {
-  .scroll-snap-container {
-    scroll-snap-type: y mandatory;
+  .story-container {
+    height: 100vh;
+    height: 100dvh;
     overflow-y: scroll;
+    scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
   }
 
-  .scroll-snap-section {
+  .story-section {
+    height: 100vh;
+    height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    position: relative;
+    overflow-y: auto;
+  }
+
+  .story-gradient {
+    background: linear-gradient(
+      to top,
+      rgba(22, 21, 20, 0.7) 0%,
+      rgba(22, 21, 20, 0.3) 40%,
+      transparent 100%
+    );
   }
 }
 
-/* =============================================================================
-   OVERLAY UTILITIES
-   ============================================================================= */
-
-/* Dark overlay for image backgrounds */
-.overlay-dark {
-  position: relative;
-}
-
-.overlay-dark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(26, 26, 26, 0.6) 0%,
-    rgba(26, 26, 26, 0.2) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-/* Subtle overlay */
-.overlay-subtle {
-  position: relative;
-}
-
-.overlay-subtle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(26, 26, 26, 0.3);
-  pointer-events: none;
-}
-
-/* =============================================================================
-   RESPONSIVE TYPOGRAPHY
-   ============================================================================= */
-
-/* Display headline */
-.headline-display {
-  @apply font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight tracking-tight;
-}
-
-/* Section headline */
-.headline-section {
-  @apply font-editorial text-3xl sm:text-4xl md:text-5xl font-medium leading-tight;
-}
-
-/* Subsection headline */
-.headline-subsection {
-  @apply font-editorial text-2xl sm:text-3xl font-medium leading-snug;
-}
-
-/* Large body text */
-.body-large {
-  @apply text-lg md:text-xl leading-relaxed text-ink/80;
-}
-
-/* Small text */
-.text-small {
-  @apply text-sm text-ink/60;
-}
-
-/* Eyebrow/label text */
-.eyebrow {
-  @apply text-xs uppercase tracking-widest text-sage font-medium;
-}
-
-/* =============================================================================
-   ANIMATIONS
-   ============================================================================= */
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Desktop - no scroll snap */
+@media (min-width: 768px) {
+  .story-container {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .story-section {
+    height: auto;
+    scroll-snap-align: none;
   }
 }
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.4s ease-out forwards;
-}
-
-/* Stagger delays */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
 
 /* =============================================================================
    ACCESSIBILITY
@@ -388,7 +376,7 @@
     transition-duration: 0.01ms !important;
   }
 
-  .scroll-snap-container {
+  .story-container {
     scroll-snap-type: none !important;
   }
 }
@@ -430,39 +418,13 @@
   padding-top: env(safe-area-inset-top);
 }
 
-/* Better touch targets */
-@media (hover: none) {
-  .touch-target {
-    min-height: 48px;
-    min-width: 48px;
-  }
-}
-
 /* =============================================================================
-   GALLERY LIGHTBOX (For gallery page)
+   BOTANICAL WATERMARK (OPTIONAL - USE SPARINGLY)
    ============================================================================= */
 
-.lightbox-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(26, 26, 26, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.lightbox-image {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-/* =============================================================================
-   DEMO/PLACEHOLDER BANNER
-   ============================================================================= */
-
-.demo-banner {
-  @apply bg-sage/10 border border-sage/30 text-sage text-sm px-4 py-3 text-center rounded-button;
+.botanical-watermark {
+  position: absolute;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
 }

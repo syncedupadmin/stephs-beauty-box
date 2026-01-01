@@ -1,25 +1,25 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Cormorant_Garamond } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { brand, seo, contact } from '@/lib/config/brand';
 
 // =============================================================================
-// FONTS - Garden Editorial Typography
+// FONTS - ROMANTIC HIGH-FASHION EDITORIAL
 // =============================================================================
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500'],
 });
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-cormorant',
+  variable: '--font-playfair',
   weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
 });
@@ -31,7 +31,7 @@ const cormorant = Cormorant_Garamond({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#F7F1E8',
+  themeColor: '#F6F0E6',
 };
 
 // =============================================================================
@@ -98,19 +98,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
-      <body className="font-sans bg-ivory text-ink antialiased">
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="font-body bg-paper text-ink antialiased">
+        {/* Noise texture overlay */}
+        <div className="noise-overlay" aria-hidden="true" />
+
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sage focus:text-white focus:rounded-button"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-botanical focus:text-paper"
         >
           Skip to main content
         </a>
 
         <Header />
 
-        <main id="main-content" className="min-h-screen">
+        <main id="main-content">
           {children}
         </main>
 
