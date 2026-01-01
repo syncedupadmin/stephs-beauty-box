@@ -3,16 +3,16 @@ import { brand, services, contact } from '@/lib/config/brand';
 import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
-// Map service category IDs to image indices
+// Map service category IDs to image indices - prioritizing darker models (7, 8, 12, 15, 17)
 const serviceImageMap: Record<string, number> = {
-  lashes: 3,
-  makeup: 4,
-  hair: 5,
-  brows: 8,
-  styling: 9,
-  wigs: 10,
-  skin: 11,
-  facials: 12,
+  lashes: 7,
+  makeup: 8,
+  hair: 12,
+  brows: 15,
+  styling: 17,
+  wigs: 7,
+  skin: 8,
+  facials: 15,
 };
 
 export const metadata: Metadata = {
