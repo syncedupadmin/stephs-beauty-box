@@ -76,12 +76,13 @@ export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
 // =============================================================================
 
 // Service images - prioritizing darker models (7, 8, 12, 15, 17)
+// Must match the 5 service IDs from brand.ts: hair, makeup, skin, brows-lashes, wigs
 export const SERVICE_IMAGES = {
-  lashes: getImage(7),   // First image = darker model
+  hair: getImage(7),
   makeup: getImage(8),
-  hair: getImage(12),
-  brows: getImage(15),
-  styling: getImage(17),
+  skin: getImage(12),
+  'brows-lashes': getImage(15),
+  wigs: getImage(17),
 } as const;
 
 // About page images - replaced 11 with 15

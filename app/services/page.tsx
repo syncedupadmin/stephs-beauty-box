@@ -4,15 +4,13 @@ import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
 // Map service category IDs to image indices - prioritizing darker models (7, 8, 12, 15, 17)
+// Must match the 5 service IDs from brand.ts: hair, makeup, skin, brows-lashes, wigs
 const serviceImageMap: Record<string, number> = {
-  lashes: 7,
+  hair: 7,
   makeup: 8,
-  hair: 12,
-  brows: 15,
-  styling: 17,
-  wigs: 7,
-  skin: 8,
-  facials: 15,
+  skin: 12,
+  'brows-lashes': 15,
+  wigs: 17,
 };
 
 export const metadata: Metadata = {
