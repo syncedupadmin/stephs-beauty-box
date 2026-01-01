@@ -75,19 +75,19 @@ export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
 // SERVICE & SECTION IMAGES (Recycled from gallery)
 // =============================================================================
 
-// Service images
+// Service images - prioritizing darker models (7, 8, 12, 15, 17)
 export const SERVICE_IMAGES = {
-  lashes: getImage(3),
-  makeup: getImage(4),
-  hair: getImage(5),
-  brows: getImage(8),
-  styling: getImage(9),
+  lashes: getImage(7),   // First image = darker model
+  makeup: getImage(8),
+  hair: getImage(12),
+  brows: getImage(15),
+  styling: getImage(17),
 } as const;
 
-// About page images
+// About page images - replaced 11 with 15
 export const ABOUT_IMAGES = {
   steph: getImage(10),
-  studio: getImage(11),
+  studio: getImage(15),  // Changed from 11 to 15
   detail: getImage(12),
 } as const;
 

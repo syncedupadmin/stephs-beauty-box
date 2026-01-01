@@ -27,16 +27,20 @@ const altTexts: Record<string, string[]> = {
   Skin: ['Radiant skin', 'Facial treatment', 'Glow treatment', 'Skincare results', 'Clear skin', 'Hydrated glow'],
 };
 
-// Generate 24 gallery items with looping images
+// Prioritize darker model images first (7, 8, 12, 15, 17), then fill with others
+const priorityOrder = [7, 8, 12, 15, 17, 1, 2, 3, 4, 5, 6, 9, 10, 11, 13, 14, 16];
+
+// Generate 24 gallery items with prioritized ordering
 const galleryItems = Array.from({ length: 24 }, (_, i) => {
   const category = categoryOrder[i % 4];
   const categoryIndex = Math.floor(i / 4);
   const altText = altTexts[category][categoryIndex % altTexts[category].length];
+  const imageIndex = priorityOrder[i % priorityOrder.length];
   return {
     id: i + 1,
     category,
     alt: altText,
-    image: getImage(i + 1), // Uses looping from manifest
+    image: getImage(imageIndex), // Prioritized darker models first
   };
 });
 
