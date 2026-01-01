@@ -12,11 +12,11 @@
  * - Images should be inclusive and diverse
  */
 
-import { getImage } from './images';
+import { getImage, HERO_IMAGE } from './images';
 
 // Using existing high-quality gallery images (Manual Asset Strategy)
 const GALLERY_STORY_IMAGES = {
-  welcome: getImage(1),  // Best welcome/hero vibe
+  welcome: HERO_IMAGE,   // Use the manually uploaded hero for first impression
   hair: getImage(5),     // Hair focused
   makeup: getImage(4),   // Makeup focused
   experience: getImage(7), // Self-care vibe
