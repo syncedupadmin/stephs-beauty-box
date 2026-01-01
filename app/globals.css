@@ -416,3 +416,33 @@
   pointer-events: none;
   z-index: 0;
 }
+
+/* =============================================================================
+   TEXTURE OVERLAYS (AI-Generated)
+   ============================================================================= */
+
+/* Paper grain texture overlay - adds editorial print feel */
+.texture-paper-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/textures/texture-paper-grain.png');
+  background-size: cover;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+/* Botanical shadow overlay - organic dappled light effect */
+.texture-botanical-shadow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/textures/texture-botanical-shadow.png');
+  background-size: cover;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
