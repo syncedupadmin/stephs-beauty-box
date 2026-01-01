@@ -1,6 +1,19 @@
 import Link from 'next/link';
 import { brand, services, contact } from '@/lib/config/brand';
+import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
+
+// Map service category IDs to image indices
+const serviceImageMap: Record<string, number> = {
+  lashes: 3,
+  makeup: 4,
+  hair: 5,
+  brows: 8,
+  styling: 9,
+  wigs: 10,
+  skin: 11,
+  facials: 12,
+};
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -52,12 +65,17 @@ export default function ServicesPage() {
                 className="scroll-mt-32"
               >
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                  {/* Image - Atmospheric Placeholder */}
+                  {/* Image */}
                   <div
-                    className={`relative aspect-[4/5] placeholder-atmospheric ${
+                    className={`relative aspect-[4/5] overflow-hidden ${
                       index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'
                     }`}
-                  />
+                  >
+                    <div
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${getImage(serviceImageMap[category.id] || index + 3)})` }}
+                    />
+                  </div>
 
                   {/* Content */}
                   <div

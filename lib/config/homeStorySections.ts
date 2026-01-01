@@ -12,9 +12,11 @@
  * - Images should be inclusive and diverse
  */
 
+import { getImage } from './images';
+
 export interface StorySection {
   id: string;
-  imageSrc: string | null; // null = use atmospheric placeholder
+  imageSrc: string; // Image path from manifest
   imageAlt: string;
   headline: string; // Max 7 words
   supportingLine: string; // Max 12 words
@@ -28,7 +30,7 @@ export interface StorySection {
 export const homeStorySections: StorySection[] = [
   {
     id: 'hero',
-    imageSrc: null, // ASSET NEEDED: Campaign hero image
+    imageSrc: getImage(1),
     imageAlt: 'Beauty campaign featuring diverse model',
     headline: 'Beauty for Everyone',
     supportingLine: 'A welcoming space where all are celebrated.',
@@ -40,7 +42,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'hair',
-    imageSrc: null, // ASSET NEEDED: Hair transformation image
+    imageSrc: getImage(5),
     imageAlt: 'Hair styling and transformation',
     headline: 'Hair That Tells Your Story',
     supportingLine: 'Styling, color, and transformations for every texture.',
@@ -52,7 +54,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'makeup',
-    imageSrc: null, // ASSET NEEDED: Makeup artistry image
+    imageSrc: getImage(4),
     imageAlt: 'Professional makeup application',
     headline: 'Artistry in Every Stroke',
     supportingLine: 'From soft natural to bold glamour.',
@@ -64,7 +66,7 @@ export const homeStorySections: StorySection[] = [
   },
   {
     id: 'experience',
-    imageSrc: null, // ASSET NEEDED: Salon experience/ambiance image
+    imageSrc: getImage(7),
     imageAlt: 'The beauty experience',
     headline: 'Inner and Outer Radiance',
     supportingLine: 'Where beauty meets grace.',
@@ -79,7 +81,7 @@ export const homeStorySections: StorySection[] = [
 // Desktop editorial sections (different from mobile story)
 export interface EditorialSection {
   id: string;
-  imageSrc: string | null;
+  imageSrc: string;
   imageAlt: string;
   overline: string;
   headline: string;
@@ -94,7 +96,7 @@ export interface EditorialSection {
 export const editorialSections: EditorialSection[] = [
   {
     id: 'hair',
-    imageSrc: null,
+    imageSrc: getImage(5),
     imageAlt: 'Hair artistry',
     overline: 'Hair',
     headline: 'Your Crown, Reimagined',
@@ -107,7 +109,7 @@ export const editorialSections: EditorialSection[] = [
   },
   {
     id: 'makeup',
-    imageSrc: null,
+    imageSrc: getImage(4),
     imageAlt: 'Makeup artistry',
     overline: 'Makeup',
     headline: 'The Art of You',
@@ -120,7 +122,7 @@ export const editorialSections: EditorialSection[] = [
   },
   {
     id: 'skin',
-    imageSrc: null,
+    imageSrc: getImage(8),
     imageAlt: 'Skincare treatments',
     overline: 'Skin & Facials',
     headline: 'Glow from Within',

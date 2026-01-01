@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { brand, contact, services } from '@/lib/config/brand';
 import { homeStorySections, editorialSections } from '@/lib/config/homeStorySections';
+import { HERO_IMAGE, ABOUT_IMAGES } from '@/lib/config/images';
 
 /**
  * HOMEPAGE - ROMANTIC HIGH-FASHION EDITORIAL
@@ -26,19 +27,12 @@ export default function HomePage() {
             key={section.id}
             className="story-section relative flex items-end"
           >
-            {/* Background - Atmospheric Placeholder */}
+            {/* Background - Campaign Image */}
             <div className="absolute inset-0">
-              {section.imageSrc ? (
-                // Real campaign image
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${section.imageSrc})` }}
-                />
-              ) : (
-                // Atmospheric placeholder gradient
-                <div className="absolute inset-0 placeholder-atmospheric" />
-              )}
-
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${section.imageSrc})` }}
+              />
               {/* Story gradient overlay */}
               <div className="story-gradient absolute inset-0" />
             </div>
@@ -127,8 +121,12 @@ export default function HomePage() {
       <div className="hidden md:block">
         {/* Hero - Full Bleed Magazine Cover */}
         <section className="relative h-screen min-h-[600px] flex items-end">
-          {/* Background - Atmospheric Placeholder */}
-          <div className="absolute inset-0 placeholder-atmospheric">
+          {/* Background - Campaign Hero Image */}
+          <div className="absolute inset-0">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+            />
             {/* Magazine cover overlay - darker at bottom */}
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
           </div>
@@ -184,18 +182,16 @@ export default function HomePage() {
                   section.imagePosition === 'right' ? '' : ''
                 }`}
               >
-                {/* Image - Atmospheric Placeholder */}
+                {/* Image */}
                 <div
-                  className={`relative aspect-[4/5] placeholder-atmospheric ${
+                  className={`relative aspect-[4/5] overflow-hidden ${
                     section.imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'
                   }`}
                 >
-                  {section.imageSrc && (
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${section.imageSrc})` }}
-                    />
-                  )}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${section.imageSrc})` }}
+                  />
                 </div>
 
                 {/* Content */}
@@ -273,7 +269,12 @@ export default function HomePage() {
           <div className="container-editorial">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Image */}
-              <div className="relative aspect-square placeholder-atmospheric" />
+              <div className="relative aspect-square overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${ABOUT_IMAGES.steph})` }}
+                />
+              </div>
 
               {/* Content */}
               <div>

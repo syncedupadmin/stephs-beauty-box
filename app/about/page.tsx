@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { brand, contact, hours, social } from '@/lib/config/brand';
+import { ABOUT_IMAGES } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -38,8 +39,13 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Image - Atmospheric Placeholder */}
-            <div className="aspect-[4/5] placeholder-atmospheric" />
+            {/* Image */}
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${ABOUT_IMAGES.steph})` }}
+              />
+            </div>
           </div>
         </div>
       </section>

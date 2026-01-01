@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { social } from '@/lib/config/brand';
+import { GALLERY_IMAGES } from '@/lib/config/images';
 
 /**
  * GALLERY PAGE - EDITORIAL LOOKBOOK
  * ==================================
- * Design: Masonry/editorial grid with atmospheric placeholders
+ * Design: Masonry/editorial grid with real campaign images
  * - No icons, no cards
  * - Editorial category filters
  * - Lightbox with luxury transitions
@@ -16,17 +17,25 @@ import { social } from '@/lib/config/brand';
 // Gallery categories
 const categories = ['All', 'Hair', 'Makeup', 'Lashes', 'Skin'];
 
-// Demo gallery items (placeholder until real images are provided)
+// Gallery items with real images - distribute across categories
 const galleryItems = [
-  { id: 1, category: 'Hair', alt: 'Hair styling work', image: null },
-  { id: 2, category: 'Makeup', alt: 'Makeup artistry', image: null },
-  { id: 3, category: 'Lashes', alt: 'Lash extensions', image: null },
-  { id: 4, category: 'Hair', alt: 'Hair transformation', image: null },
-  { id: 5, category: 'Skin', alt: 'Skincare results', image: null },
-  { id: 6, category: 'Makeup', alt: 'Bridal makeup', image: null },
-  { id: 7, category: 'Lashes', alt: 'Natural lash look', image: null },
-  { id: 8, category: 'Hair', alt: 'Color transformation', image: null },
-  { id: 9, category: 'Makeup', alt: 'Glam look', image: null },
+  { id: 1, category: 'Hair', alt: 'Hair transformation', image: GALLERY_IMAGES[0] },
+  { id: 2, category: 'Makeup', alt: 'Glam makeup artistry', image: GALLERY_IMAGES[1] },
+  { id: 3, category: 'Lashes', alt: 'Lash extensions', image: GALLERY_IMAGES[2] },
+  { id: 4, category: 'Hair', alt: 'Color transformation', image: GALLERY_IMAGES[3] },
+  { id: 5, category: 'Skin', alt: 'Radiant skin treatment', image: GALLERY_IMAGES[4] },
+  { id: 6, category: 'Makeup', alt: 'Bridal makeup', image: GALLERY_IMAGES[5] },
+  { id: 7, category: 'Lashes', alt: 'Natural lash look', image: GALLERY_IMAGES[6] },
+  { id: 8, category: 'Hair', alt: 'Styling and blowout', image: GALLERY_IMAGES[7] },
+  { id: 9, category: 'Makeup', alt: 'Editorial look', image: GALLERY_IMAGES[8] },
+  { id: 10, category: 'Skin', alt: 'Facial treatment', image: GALLERY_IMAGES[9] },
+  { id: 11, category: 'Hair', alt: 'Braids and protective styling', image: GALLERY_IMAGES[10] },
+  { id: 12, category: 'Lashes', alt: 'Volume lash set', image: GALLERY_IMAGES[11] },
+  { id: 13, category: 'Makeup', alt: 'Soft glam', image: GALLERY_IMAGES[12] },
+  { id: 14, category: 'Hair', alt: 'Hair coloring', image: GALLERY_IMAGES[13] },
+  { id: 15, category: 'Skin', alt: 'Glow treatment', image: GALLERY_IMAGES[14] },
+  { id: 16, category: 'Lashes', alt: 'Classic lash extensions', image: GALLERY_IMAGES[15] },
+  { id: 17, category: 'Makeup', alt: 'Special occasion makeup', image: GALLERY_IMAGES[16] },
 ];
 
 export default function GalleryPage() {
@@ -114,15 +123,11 @@ export default function GalleryPage() {
                   index % 5 === 0 ? 'md:col-span-2 md:row-span-2' : ''
                 }`}
               >
-                {/* Image or Atmospheric Placeholder */}
-                {item.image ? (
-                  <div
-                    className="aspect-[4/5] bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
-                    style={{ backgroundImage: `url(${item.image})` }}
-                  />
-                ) : (
-                  <div className="aspect-[4/5] placeholder-atmospheric transition-transform duration-600 ease-luxury group-hover:scale-[1.02]" />
-                )}
+                {/* Image */}
+                <div
+                  className="aspect-[4/5] bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
+                  style={{ backgroundImage: `url(${item.image})` }}
+                />
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-600 flex items-end p-4">
@@ -249,14 +254,10 @@ export default function GalleryPage() {
             className="relative max-w-4xl w-full mx-6 aspect-[4/5]"
             onClick={(e) => e.stopPropagation()}
           >
-            {lightboxImage.image ? (
-              <div
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${lightboxImage.image})` }}
-              />
-            ) : (
-              <div className="w-full h-full placeholder-atmospheric" />
-            )}
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${lightboxImage.image})` }}
+            />
           </div>
 
           {/* Caption */}
