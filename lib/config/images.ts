@@ -79,8 +79,8 @@ export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
 // Must match the 5 service IDs from brand.ts: hair, makeup, skin, brows-lashes, wigs
 export const SERVICE_IMAGES = {
   hair: getImage(7),
-  makeup: getImage(8),
-  skin: getImage(12),
+  makeup: getImage(12),
+  skin: getImage(8),
   'brows-lashes': getImage(15),
   wigs: getImage(17),
 } as const;

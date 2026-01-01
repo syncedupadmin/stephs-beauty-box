@@ -7,8 +7,8 @@ import type { Metadata } from 'next';
 // Must match the 5 service IDs from brand.ts: hair, makeup, skin, brows-lashes, wigs
 const serviceImageMap: Record<string, number> = {
   hair: 7,
-  makeup: 8,
-  skin: 12,
+  makeup: 12,
+  skin: 8,
   'brows-lashes': 15,
   wigs: 17,
 };
