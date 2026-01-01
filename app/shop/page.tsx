@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { brand, shopify, contact } from '@/lib/config/brand';
+import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,19 +11,19 @@ export const metadata: Metadata = {
 /**
  * SHOP PAGE - EDITORIAL PRODUCT GRID
  * ===================================
- * Design: Minimal grid with atmospheric placeholders
+ * Design: Minimal grid with real campaign images
  * - No icons, no rounded cards
  * - Editorial typography
  * - Luxury transitions
  */
 
-// Demo products for when Shopify is not connected
+// Demo products with real images (using looping from manifest)
 const demoProducts = [
   {
     id: '1',
     name: 'Hydrating Facial Serum',
     price: 42.00,
-    image: null,
+    image: getImage(11),
     category: 'Skincare',
     description: 'Nourishing serum for all skin types.',
   },
@@ -30,7 +31,7 @@ const demoProducts = [
     id: '2',
     name: 'Lash Growth Serum',
     price: 38.00,
-    image: null,
+    image: getImage(3),
     category: 'Lashes',
     description: 'Promote natural lash growth and strength.',
   },
@@ -38,7 +39,7 @@ const demoProducts = [
     id: '3',
     name: 'Silk Scrunchie Set',
     price: 24.00,
-    image: null,
+    image: getImage(5),
     category: 'Hair Accessories',
     description: 'Gentle on hair, beautiful in style.',
   },
@@ -46,7 +47,7 @@ const demoProducts = [
     id: '4',
     name: 'Rose Lip Oil',
     price: 18.00,
-    image: null,
+    image: getImage(4),
     category: 'Makeup',
     description: 'Hydrating lip oil with a subtle rose tint.',
   },
@@ -54,7 +55,7 @@ const demoProducts = [
     id: '5',
     name: 'Makeup Brush Set',
     price: 56.00,
-    image: null,
+    image: getImage(9),
     category: 'Tools',
     description: 'Professional-grade brushes for flawless application.',
   },
@@ -62,7 +63,7 @@ const demoProducts = [
     id: '6',
     name: 'Overnight Hair Mask',
     price: 32.00,
-    image: null,
+    image: getImage(7),
     category: 'Hair Care',
     description: 'Deep conditioning treatment while you sleep.',
   },
@@ -105,15 +106,12 @@ export default function ShopPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
             {demoProducts.map((product) => (
               <article key={product.id} className="group">
-                {/* Product Image - Atmospheric Placeholder */}
-                <div className="aspect-square placeholder-atmospheric mb-6 overflow-hidden relative">
-                  {product.image ? (
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
-                      style={{ backgroundImage: `url(${product.image})` }}
-                    />
-                  ) : null}
-
+                {/* Product Image */}
+                <div className="aspect-square mb-6 overflow-hidden relative">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
+                    style={{ backgroundImage: `url(${product.image})` }}
+                  />
                   {/* Category - Subtle */}
                   <span className="absolute top-4 left-4 text-overline uppercase tracking-[0.15em] text-off-white/60">
                     {product.category}

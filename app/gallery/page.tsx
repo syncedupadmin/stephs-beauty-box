@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { social } from '@/lib/config/brand';
-import { GALLERY_IMAGES } from '@/lib/config/images';
+import { getImage } from '@/lib/config/images';
 
 /**
  * GALLERY PAGE - EDITORIAL LOOKBOOK
@@ -12,31 +12,33 @@ import { GALLERY_IMAGES } from '@/lib/config/images';
  * - No icons, no cards
  * - Editorial category filters
  * - Lightbox with luxury transitions
+ * - 24 tiles with automatic looping
  */
 
 // Gallery categories
 const categories = ['All', 'Hair', 'Makeup', 'Lashes', 'Skin'];
 
-// Gallery items with real images - distribute across categories
-const galleryItems = [
-  { id: 1, category: 'Hair', alt: 'Hair transformation', image: GALLERY_IMAGES[0] },
-  { id: 2, category: 'Makeup', alt: 'Glam makeup artistry', image: GALLERY_IMAGES[1] },
-  { id: 3, category: 'Lashes', alt: 'Lash extensions', image: GALLERY_IMAGES[2] },
-  { id: 4, category: 'Hair', alt: 'Color transformation', image: GALLERY_IMAGES[3] },
-  { id: 5, category: 'Skin', alt: 'Radiant skin treatment', image: GALLERY_IMAGES[4] },
-  { id: 6, category: 'Makeup', alt: 'Bridal makeup', image: GALLERY_IMAGES[5] },
-  { id: 7, category: 'Lashes', alt: 'Natural lash look', image: GALLERY_IMAGES[6] },
-  { id: 8, category: 'Hair', alt: 'Styling and blowout', image: GALLERY_IMAGES[7] },
-  { id: 9, category: 'Makeup', alt: 'Editorial look', image: GALLERY_IMAGES[8] },
-  { id: 10, category: 'Skin', alt: 'Facial treatment', image: GALLERY_IMAGES[9] },
-  { id: 11, category: 'Hair', alt: 'Braids and protective styling', image: GALLERY_IMAGES[10] },
-  { id: 12, category: 'Lashes', alt: 'Volume lash set', image: GALLERY_IMAGES[11] },
-  { id: 13, category: 'Makeup', alt: 'Soft glam', image: GALLERY_IMAGES[12] },
-  { id: 14, category: 'Hair', alt: 'Hair coloring', image: GALLERY_IMAGES[13] },
-  { id: 15, category: 'Skin', alt: 'Glow treatment', image: GALLERY_IMAGES[14] },
-  { id: 16, category: 'Lashes', alt: 'Classic lash extensions', image: GALLERY_IMAGES[15] },
-  { id: 17, category: 'Makeup', alt: 'Special occasion makeup', image: GALLERY_IMAGES[16] },
-];
+// Category rotation for balanced distribution
+const categoryOrder = ['Hair', 'Makeup', 'Lashes', 'Skin'] as const;
+const altTexts: Record<string, string[]> = {
+  Hair: ['Hair transformation', 'Color work', 'Styling', 'Braids', 'Blowout', 'Extensions'],
+  Makeup: ['Glam look', 'Bridal makeup', 'Editorial look', 'Soft glam', 'Special occasion', 'Natural beauty'],
+  Lashes: ['Lash extensions', 'Volume set', 'Classic lashes', 'Natural lash look', 'Hybrid set', 'Wispy lashes'],
+  Skin: ['Radiant skin', 'Facial treatment', 'Glow treatment', 'Skincare results', 'Clear skin', 'Hydrated glow'],
+};
+
+// Generate 24 gallery items with looping images
+const galleryItems = Array.from({ length: 24 }, (_, i) => {
+  const category = categoryOrder[i % 4];
+  const categoryIndex = Math.floor(i / 4);
+  const altText = altTexts[category][categoryIndex % altTexts[category].length];
+  return {
+    id: i + 1,
+    category,
+    alt: altText,
+    image: getImage(i + 1), // Uses looping from manifest
+  };
+});
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState('All');
