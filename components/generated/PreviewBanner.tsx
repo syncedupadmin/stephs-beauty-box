@@ -38,7 +38,8 @@ export function PreviewBanner({ projectId }: PreviewBannerProps) {
     async function checkStatus() {
       try {
         // Fetch status from SyncedUp API (main platform)
-        const apiUrl = process.env.NEXT_PUBLIC_SYNCEDUP_API_URL || 'https://syncedupsolutions.com';
+        // Using Vercel auto-domain until custom domain is properly configured
+        const apiUrl = process.env.NEXT_PUBLIC_SYNCEDUP_API_URL || 'https://syncedupwebsites.vercel.app';
         const response = await fetch(`${apiUrl}/api/project/${projectId}/status`, {
           cache: 'no-store',
         });
