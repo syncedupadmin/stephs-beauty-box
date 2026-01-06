@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { CartDrawer } from '@/components/shop/CartDrawer';
 import { PreviewBanner } from '@/components/generated/PreviewBanner';
 import { brand, seo, contact } from '@/lib/config/brand';
 
@@ -124,6 +125,9 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        {/* Cart Drawer - Slide-out cart panel */}
+        <CartDrawer />
 
         {/* Preview Mode Banner - Shows when invoice mode is enabled and site is unpaid */}
         <PreviewBanner projectId={PROJECT_ID} />

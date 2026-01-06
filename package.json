@@ -6,22 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "import:products": "node scripts/import-products-from-csv.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.71.2",
-    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.89.0",
     "framer-motion": "^12.23.26",
     "next": "^14.2.0",
-    "openai": "^6.15.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "resend": "^2.1.0",
+    "stripe": "^14.25.0",
+    "zustand": "^4.5.7"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",
+    "csv-parse": "^5.5.3",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",

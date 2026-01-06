@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { brand, navigation } from '@/lib/config/brand';
+import { CartButton } from '@/components/shop/CartDrawer';
 
 /**
  * HEADER - TRANSPARENT EDITORIAL MASTHEAD
@@ -108,6 +109,11 @@ export function Header() {
               >
                 Inquire
               </Link>
+              <CartButton
+                className={`transition-colors duration-600 ease-luxury ${
+                  isScrolled ? 'text-ink' : 'text-paper'
+                }`}
+              />
             </nav>
 
             {/* Mobile Menu Toggle */}
