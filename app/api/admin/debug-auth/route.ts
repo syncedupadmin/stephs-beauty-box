@@ -74,37 +74,58 @@ export async function POST(request: NextRequest) {
     };
 
     if (authData?.user) {
-      // Check 4: Look for matching admin_users record
+      // Check 4: Look for matching admin_users record (without .single())
       const { data: adminMatch, error: adminError } = await supabase
         .from('admin_users')
         .select('*')
-        .eq('auth_id', authData.user.id)
-        .single();
+        .eq('auth_id', authData.user.id);
+
+      // Also try text comparison
+      const { data: textMatch, error: textError } = await supabase
+        .from('admin_users')
+        .select('*')
+        .filter('auth_id', 'eq', authData.user.id);
+
+      // Raw SQL check
+      const { data: rawMatch, error: rawError } = await supabase
+        .rpc('check_admin_auth_id', { p_auth_id: authData.user.id })
+        .maybeSingle();
 
       results.checks = {
         ...results.checks as object,
         adminMatch: {
-          success: !adminError && !!adminMatch,
+          success: !adminError,
           error: adminError?.message || null,
-          found: !!adminMatch,
-          record: adminMatch || null,
+          count: adminMatch?.length || 0,
+          records: adminMatch || [],
+          queryUserId: authData.user.id,
+          queryUserIdType: typeof authData.user.id,
+        },
+        textMatch: {
+          success: !textError,
+          error: textError?.message || null,
+          count: textMatch?.length || 0,
+        },
+        rawMatch: {
+          error: rawError?.message || 'Function may not exist',
+          data: rawMatch,
         },
       };
 
-      // Check 5: Try with is_active filter
+      // Check 5: Try with is_active filter (no .single())
       const { data: activeMatch, error: activeError } = await supabase
         .from('admin_users')
         .select('*')
         .eq('auth_id', authData.user.id)
-        .eq('is_active', true)
-        .single();
+        .eq('is_active', true);
 
       results.checks = {
         ...results.checks as object,
         activeAdminMatch: {
-          success: !activeError && !!activeMatch,
+          success: !activeError,
           error: activeError?.message || null,
-          found: !!activeMatch,
+          count: activeMatch?.length || 0,
+          records: activeMatch || [],
         },
       };
 
