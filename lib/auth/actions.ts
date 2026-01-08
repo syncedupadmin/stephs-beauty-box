@@ -37,8 +37,11 @@ export async function loginAdmin(
     return { success: false, error: 'Login failed' };
   }
 
+  // Use service role client to bypass RLS for admin check
+  const serviceClient = await createServiceRoleClient();
+
   // Verify user is an admin
-  const { data: adminUser } = await supabase
+  const { data: adminUser } = await serviceClient
     .from('admin_users')
     .select('id')
     .eq('auth_id', data.user.id)
@@ -52,7 +55,7 @@ export async function loginAdmin(
   }
 
   // Update last login
-  await supabase
+  await serviceClient
     .from('admin_users')
     .update({ last_login_at: new Date().toISOString() })
     .eq('auth_id', data.user.id);

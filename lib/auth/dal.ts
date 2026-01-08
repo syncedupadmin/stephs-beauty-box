@@ -5,7 +5,7 @@
  * Defense-in-depth: Never rely solely on middleware
  */
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createServerSupabaseClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
 
@@ -46,8 +46,8 @@ export async function requireAdmin(): Promise<AdminUser> {
     redirect('/admin/login');
   }
 
-  // Get admin user details from admin_users table
-  const supabase = await createServerSupabaseClient();
+  // Use service role to bypass RLS for admin_users check
+  const supabase = await createServiceRoleClient();
   const { data: adminUser, error } = await supabase
     .from('admin_users')
     .select('id, email, name, role')
@@ -74,7 +74,8 @@ export async function getAdminUser(): Promise<AdminUser | null> {
     return null;
   }
 
-  const supabase = await createServerSupabaseClient();
+  // Use service role to bypass RLS for admin_users check
+  const supabase = await createServiceRoleClient();
   const { data: adminUser } = await supabase
     .from('admin_users')
     .select('id, email, name, role')
