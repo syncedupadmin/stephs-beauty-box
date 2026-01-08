@@ -6,12 +6,12 @@
  * Editorial design matching the main site aesthetic
  */
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { loginAdmin } from '@/lib/auth/actions';
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/admin';
@@ -40,12 +40,66 @@ export default function AdminLoginPage() {
 
       router.push(redirectTo);
       router.refresh();
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
       setIsLoading(false);
     }
   };
 
+  return (
+    <div className="bg-off-white p-8 md:p-12">
+      <h1 className="font-display text-display-sm text-ink mb-8 text-center">
+        Sign In
+      </h1>
+
+      {error && (
+        <div className="mb-6 p-4 bg-clay/10 border border-clay/30 text-clay text-body-sm font-body">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="label-editorial">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input-editorial"
+            placeholder="admin@example.com"
+            required
+            autoComplete="email"
+            disabled={isLoading}
+          />
+        </div>
+
+        <div>
+          <label className="label-editorial">Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input-editorial"
+            placeholder="Enter your password"
+            required
+            autoComplete="current-password"
+            disabled={isLoading}
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="cta-primary w-full justify-center disabled:opacity-50"
+        >
+          {isLoading ? 'Signing in...' : 'Sign In'}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default function AdminLoginPage() {
   return (
     <div className="min-h-screen bg-paper flex items-center justify-center px-6">
       <div className="w-full max-w-md">
@@ -61,56 +115,14 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        {/* Login Form */}
-        <div className="bg-off-white p-8 md:p-12">
-          <h1 className="font-display text-display-sm text-ink mb-8 text-center">
-            Sign In
-          </h1>
-
-          {error && (
-            <div className="mb-6 p-4 bg-clay/10 border border-clay/30 text-clay text-body-sm font-body">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="label-editorial">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input-editorial"
-                placeholder="admin@example.com"
-                required
-                autoComplete="email"
-                disabled={isLoading}
-              />
-            </div>
-
-            <div>
-              <label className="label-editorial">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-editorial"
-                placeholder="Enter your password"
-                required
-                autoComplete="current-password"
-                disabled={isLoading}
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="cta-primary w-full justify-center disabled:opacity-50"
-            >
-              {isLoading ? 'Signing in...' : 'Sign In'}
-            </button>
-          </form>
-        </div>
+        {/* Login Form with Suspense for useSearchParams */}
+        <Suspense fallback={
+          <div className="bg-off-white p-8 md:p-12 text-center">
+            <p className="text-ink/60">Loading...</p>
+          </div>
+        }>
+          <LoginForm />
+        </Suspense>
 
         {/* Back to site */}
         <div className="mt-8 text-center">
@@ -125,4 +137,3 @@ export default function AdminLoginPage() {
     </div>
   );
 }
-// Deployment trigger 1767844365
