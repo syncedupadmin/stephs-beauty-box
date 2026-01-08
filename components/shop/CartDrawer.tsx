@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCartStore, formatPrice } from '@/lib/store/cart';
 
 /**
@@ -11,11 +12,14 @@ import { useCartStore, formatPrice } from '@/lib/store/cart';
  * - No icons, text-only buttons
  * - Hairline dividers
  * - Luxury transitions
+ * - Hidden on admin pages
  */
 
 export function CartDrawer() {
   const { items, isOpen, setCartOpen, removeItem, updateQuantity, getSubtotal, clearCart } = useCartStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith('/admin');
 
   // Close on escape key
   useEffect(() => {
@@ -67,7 +71,8 @@ export function CartDrawer() {
     }
   };
 
-  if (!isOpen) return null;
+  // Don't render on admin pages or when closed
+  if (isAdminPage || !isOpen) return null;
 
   const subtotal = getSubtotal();
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);

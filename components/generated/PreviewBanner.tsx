@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface PreviewBannerProps {
   projectId: string;
@@ -24,12 +25,20 @@ interface StatusResponse {
  *
  * - Shows banner when: purchaseStatus === 'preview' && invoiceEnabled === true
  * - Hides when: purchaseStatus === 'purchased' OR invoiceEnabled === false
+ * - Hidden on admin pages
  */
 export function PreviewBanner({ projectId }: PreviewBannerProps) {
   const [status, setStatus] = useState<'loading' | 'preview' | 'hidden'>('loading');
   const [invoiceUrl, setInvoiceUrl] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
+    // Don't show on admin pages
+    if (pathname?.startsWith('/admin')) {
+      setStatus('hidden');
+      return;
+    }
+
     if (!projectId) {
       setStatus('hidden');
       return;

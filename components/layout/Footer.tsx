@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { brand, contact, hours, social, navigation } from '@/lib/config/brand';
 
 /**
@@ -8,10 +11,17 @@ import { brand, contact, hours, social, navigation } from '@/lib/config/brand';
  * - Editorial links
  * - Vast negative space
  * - Hairline dividers
+ * - Hidden on admin pages
  */
 
 export function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Don't render on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="bg-paper border-t border-ink/10">

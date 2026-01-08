@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { brand, navigation } from '@/lib/config/brand';
 import { CartButton } from '@/components/shop/CartDrawer';
 
@@ -13,23 +14,28 @@ import { CartButton } from '@/components/shop/CartDrawer';
  * - Centered brand name
  * - Luxury pace transitions
  * - NO header spacer (content flows beneath)
+ * - Hidden on admin pages
  */
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith('/admin');
 
   useEffect(() => {
+    if (isAdminPage) return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 60);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isAdminPage]);
 
   // Close mobile nav on escape
   useEffect(() => {
+    if (isAdminPage) return;
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMobileNavOpen(false);
     };
@@ -41,7 +47,12 @@ export function Header() {
         document.body.style.overflow = '';
       };
     }
-  }, [mobileNavOpen]);
+  }, [mobileNavOpen, isAdminPage]);
+
+  // Don't render on admin pages
+  if (isAdminPage) {
+    return null;
+  }
 
   // Minimal nav - only essential links
   const minimalNav = [
