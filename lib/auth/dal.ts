@@ -47,20 +47,27 @@ export async function requireAdmin(): Promise<AdminUser> {
   }
 
   // Use service role to bypass RLS for admin_users check
+  // Fetch all and filter in JS (workaround for Supabase .eq() UUID issue)
   const supabase = await createServiceRoleClient();
-  const { data: adminUser, error } = await supabase
+  const { data: allAdmins } = await supabase
     .from('admin_users')
-    .select('id, email, name, role')
-    .eq('auth_id', user.id)
-    .eq('is_active', true)
-    .single();
+    .select('id, email, name, role, auth_id, is_active');
 
-  if (error || !adminUser) {
+  const adminUser = allAdmins?.find(
+    (admin) => admin.auth_id === user.id && admin.is_active === true
+  );
+
+  if (!adminUser) {
     // User is authenticated but not an admin
     redirect('/admin/login?error=not_admin');
   }
 
-  return adminUser as AdminUser;
+  return {
+    id: adminUser.id,
+    email: adminUser.email,
+    name: adminUser.name,
+    role: adminUser.role,
+  } as AdminUser;
 }
 
 /**
@@ -75,15 +82,24 @@ export async function getAdminUser(): Promise<AdminUser | null> {
   }
 
   // Use service role to bypass RLS for admin_users check
+  // Fetch all and filter in JS (workaround for Supabase .eq() UUID issue)
   const supabase = await createServiceRoleClient();
-  const { data: adminUser } = await supabase
+  const { data: allAdmins } = await supabase
     .from('admin_users')
-    .select('id, email, name, role')
-    .eq('auth_id', user.id)
-    .eq('is_active', true)
-    .single();
+    .select('id, email, name, role, auth_id, is_active');
 
-  return adminUser as AdminUser | null;
+  const adminUser = allAdmins?.find(
+    (admin) => admin.auth_id === user.id && admin.is_active === true
+  );
+
+  if (!adminUser) return null;
+
+  return {
+    id: adminUser.id,
+    email: adminUser.email,
+    name: adminUser.name,
+    role: adminUser.role,
+  } as AdminUser;
 }
 
 /**

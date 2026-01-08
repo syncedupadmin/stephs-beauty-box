@@ -40,13 +40,14 @@ export async function loginAdmin(
   // Use service role client to bypass RLS for admin check
   const serviceClient = await createServiceRoleClient();
 
-  // Verify user is an admin
-  const { data: adminUser } = await serviceClient
+  // Fetch all admin users and filter in JS (workaround for Supabase .eq() UUID issue)
+  const { data: allAdmins } = await serviceClient
     .from('admin_users')
-    .select('id')
-    .eq('auth_id', data.user.id)
-    .eq('is_active', true)
-    .single();
+    .select('id, auth_id, is_active');
+
+  const adminUser = allAdmins?.find(
+    (admin) => admin.auth_id === data.user.id && admin.is_active === true
+  );
 
   if (!adminUser) {
     // Sign out if not an admin
