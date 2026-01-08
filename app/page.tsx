@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { brand, contact, services } from '@/lib/config/brand';
 import { homeStorySections, editorialSections } from '@/lib/config/homeStorySections';
 import { HERO_IMAGE, ABOUT_IMAGES } from '@/lib/config/images';
@@ -29,9 +30,13 @@ export default function HomePage() {
           >
             {/* Background - Campaign Image */}
             <div className="absolute inset-0">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${section.imageSrc})` }}
+              <Image
+                src={section.imageSrc}
+                alt={section.headline}
+                fill
+                className="object-cover"
+                priority={index === 0}
+                sizes="100vw"
               />
               {/* Story gradient overlay */}
               <div className="story-gradient absolute inset-0" />
@@ -123,9 +128,13 @@ export default function HomePage() {
         <section className="relative h-screen min-h-[600px] flex items-end">
           {/* Background - Campaign Hero Image */}
           <div className="absolute inset-0">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+            <Image
+              src={HERO_IMAGE}
+              alt="Steph's Beauty Box - Beauty for Everyone"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
             />
             {/* Magazine cover overlay - darker at bottom */}
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
@@ -188,9 +197,12 @@ export default function HomePage() {
                     section.imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'
                   }`}
                 >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${section.imageSrc})` }}
+                  <Image
+                    src={section.imageSrc}
+                    alt={section.headline}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
 
@@ -270,9 +282,12 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Image */}
               <div className="relative aspect-square overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${ABOUT_IMAGES.steph})` }}
+                <Image
+                  src={ABOUT_IMAGES.steph}
+                  alt="Steph - Owner of Steph's Beauty Box"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
 

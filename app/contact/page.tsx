@@ -26,12 +26,24 @@ export default function ContactPage() {
     e.preventDefault();
     setFormState('submitting');
 
-    // Simulate form submission (replace with actual API call)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    // For now, just show success (implement actual email sending later)
-    setFormState('success');
-    setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setFormState('success');
+      setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setFormState('error');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

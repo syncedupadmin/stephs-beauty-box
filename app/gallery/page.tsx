@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { social } from '@/lib/config/brand';
 import { getImage } from '@/lib/config/images';
 
@@ -130,10 +131,15 @@ export default function GalleryPage() {
                 }`}
               >
                 {/* Image */}
-                <div
-                  className="aspect-[4/5] bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
-                  style={{ backgroundImage: `url(${item.image})` }}
-                />
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
+                    sizes={index % 5 === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
+                  />
+                </div>
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-600 flex items-end p-4">
@@ -260,9 +266,13 @@ export default function GalleryPage() {
             className="relative max-w-4xl w-full mx-6 aspect-[4/5]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${lightboxImage.image})` }}
+            <Image
+              src={lightboxImage.image}
+              alt={lightboxImage.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 896px"
+              priority
             />
           </div>
 

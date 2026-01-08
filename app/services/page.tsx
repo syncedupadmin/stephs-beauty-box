@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { brand, services, contact } from '@/lib/config/brand';
 import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
@@ -69,9 +70,12 @@ export default function ServicesPage() {
                       index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'
                     }`}
                   >
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${getImage(serviceImageMap[category.id] || index + 3)})` }}
+                    <Image
+                      src={getImage(serviceImageMap[category.id] || index + 3)}
+                      alt={category.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
 

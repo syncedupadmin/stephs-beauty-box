@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { brand, contact } from '@/lib/config/brand';
 import { getProducts } from '@/lib/db/products';
 import { getShopSettings, isShopConfigured } from '@/lib/db/settings';
@@ -105,9 +106,12 @@ export default async function ShopPage() {
                     {/* Product Image */}
                     <div className="aspect-square mb-6 overflow-hidden relative bg-off-white">
                       {firstImage ? (
-                        <div
-                          className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
-                          style={{ backgroundImage: `url(${firstImage.src})` }}
+                        <Image
+                          src={firstImage.src}
+                          alt={product.title}
+                          fill
+                          className="object-cover transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-ink/20">

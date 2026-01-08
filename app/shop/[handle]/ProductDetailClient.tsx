@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCartStore, formatPrice } from '@/lib/store/cart';
 import type { ProductWithDetails } from '@/types/database';
 
@@ -63,9 +64,13 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             {/* Main Image */}
             <div className="aspect-square overflow-hidden bg-off-white relative">
               {product.images[activeImageIndex] ? (
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${product.images[activeImageIndex].src})` }}
+                <Image
+                  src={product.images[activeImageIndex].src}
+                  alt={product.images[activeImageIndex].alt || product.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-ink/20">
@@ -90,13 +95,16 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   <button
                     key={image.id}
                     onClick={() => setActiveImageIndex(index)}
-                    className={`flex-shrink-0 w-20 h-20 overflow-hidden transition-opacity duration-600 ${
+                    className={`relative flex-shrink-0 w-20 h-20 overflow-hidden transition-opacity duration-600 ${
                       activeImageIndex === index ? 'opacity-100' : 'opacity-50 hover:opacity-75'
                     }`}
                   >
-                    <div
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${image.src})` }}
+                    <Image
+                      src={image.src}
+                      alt={image.alt || `${product.title} thumbnail ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="80px"
                     />
                   </button>
                 ))}

@@ -8,9 +8,9 @@ import { PreviewBanner } from '@/components/generated/PreviewBanner';
 import { brand, seo, contact } from '@/lib/config/brand';
 
 // =============================================================================
-// PREVIEW MODE CONFIG - Steph's Beauty Box Project ID
+// PREVIEW MODE CONFIG
 // =============================================================================
-const PROJECT_ID = 'proj_mju927zf_i0kx5n';
+const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID || '';
 
 // =============================================================================
 // FONTS - ROMANTIC HIGH-FASHION EDITORIAL
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   keywords: [...seo.keywords],
   authors: [{ name: brand.name }],
   creator: brand.name,
-  metadataBase: new URL('https://stephs-beauty-box.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://stephsbeautybox.com'),
 
   icons: {
     icon: [{ url: '/brand/1.png', type: 'image/png' }],
