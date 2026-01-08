@@ -91,6 +91,15 @@ export async function POST(request: NextRequest) {
         .rpc('check_admin_auth_id', { p_auth_id: authData.user.id })
         .maybeSingle();
 
+      // Manual JS comparison
+      const allAdminsForCompare = (results.checks as Record<string, unknown>).adminUsersTable as { records: Array<{ auth_id: string }> };
+      const manualMatch = allAdminsForCompare?.records?.filter(
+        (a) => a.auth_id === authData.user.id
+      );
+      const manualMatchLoose = allAdminsForCompare?.records?.filter(
+        (a) => String(a.auth_id).toLowerCase().trim() === String(authData.user.id).toLowerCase().trim()
+      );
+
       results.checks = {
         ...results.checks as object,
         adminMatch: {
@@ -100,6 +109,17 @@ export async function POST(request: NextRequest) {
           records: adminMatch || [],
           queryUserId: authData.user.id,
           queryUserIdType: typeof authData.user.id,
+        },
+        manualJsMatch: {
+          strictMatch: manualMatch?.length || 0,
+          looseMatch: manualMatchLoose?.length || 0,
+          comparison: {
+            authIdFromTable: allAdminsForCompare?.records?.[0]?.auth_id,
+            authIdFromAuth: authData.user.id,
+            areEqual: allAdminsForCompare?.records?.[0]?.auth_id === authData.user.id,
+            lengthTable: allAdminsForCompare?.records?.[0]?.auth_id?.length,
+            lengthAuth: authData.user.id?.length,
+          }
         },
         textMatch: {
           success: !textError,
