@@ -10,6 +10,7 @@
     "import:products": "node scripts/import-products-from-csv.mjs"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "framer-motion": "^12.23.26",
     "next": "^14.2.0",

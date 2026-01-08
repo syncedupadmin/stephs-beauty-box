@@ -42,8 +42,36 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Partial<Database['public']['Tables']['shop_settings']['Row']>;
-        Update: Partial<Database['public']['Tables']['shop_settings']['Row']>;
+        Insert: {
+          id?: string;
+          shipping_enabled?: boolean;
+          pickup_enabled?: boolean;
+          pickup_address?: string | null;
+          pickup_hours?: string | null;
+          pickup_instructions?: string | null;
+          flat_shipping_rate_cents?: number | null;
+          free_shipping_threshold_cents?: number | null;
+          tax_mode?: TaxMode;
+          tax_rate_percent?: number | null;
+          stripe_configured?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          shipping_enabled?: boolean;
+          pickup_enabled?: boolean;
+          pickup_address?: string | null;
+          pickup_hours?: string | null;
+          pickup_instructions?: string | null;
+          flat_shipping_rate_cents?: number | null;
+          free_shipping_threshold_cents?: number | null;
+          tax_mode?: TaxMode;
+          tax_rate_percent?: number | null;
+          stripe_configured?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
       };
 
       booking_settings: {
