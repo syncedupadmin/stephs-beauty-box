@@ -52,6 +52,36 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set(['first']));
+
+  // Group services by category
+  const servicesByCategory = services.reduce((acc, service) => {
+    const category = service.category || 'Other Services';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(service);
+    return acc;
+  }, {} as Record<string, ServiceWithDeposit[]>);
+
+  const categories = Object.keys(servicesByCategory);
+
+  // Toggle category accordion
+  const toggleCategory = (category: string) => {
+    setOpenCategories(prev => {
+      const next = new Set(prev);
+      if (next.has(category)) {
+        next.delete(category);
+      } else {
+        next.add(category);
+      }
+      return next;
+    });
+  };
+
+  // Check if category is open (first category opens by default)
+  const isCategoryOpen = (category: string, index: number) => {
+    if (openCategories.has('first') && index === 0) return true;
+    return openCategories.has(category);
+  };
 
   const selectedService = services.find(s => s.id === bookingData.serviceId);
 
@@ -220,43 +250,97 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
 
       {/* Step Content */}
       <div className="min-h-[400px]">
-        {/* Step 1: Service Selection */}
+        {/* Step 1: Service Selection with Accordions */}
         {step === 'service' && (
           <div>
-            <h2 className="font-display text-display-sm text-ink mb-8">
+            <h2 className="font-display text-display-sm text-ink mb-4">
               Select a Service
             </h2>
-            <div className="grid gap-4">
-              {services.map(service => (
-                <button
-                  key={service.id}
-                  onClick={() => setBookingData(prev => ({ ...prev, serviceId: service.id, date: '', slot: null }))}
-                  className={`w-full text-left p-6 border transition-all duration-600 ${
-                    bookingData.serviceId === service.id
-                      ? 'border-botanical bg-botanical/5'
-                      : 'border-ink/20 hover:border-ink/40'
-                  }`}
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-display text-lg text-ink mb-1">
-                        {service.name}
-                      </h3>
-                      {service.description && (
-                        <p className="text-ink/50 text-body-sm font-body mb-2">
-                          {service.description}
-                        </p>
-                      )}
-                      <p className="text-ink/40 text-body-sm font-body">
-                        ~{service.duration_minutes} minutes
-                      </p>
-                    </div>
-                    <span className="font-display text-lg text-botanical">
-                      {formatPrice(service.price_cents)}
-                    </span>
+            <p className="text-ink/50 text-body-md font-body mb-8">
+              {categories.length} categories • {services.length} services available
+            </p>
+
+            {/* Category Accordions */}
+            <div className="divide-y divide-ink/10 border-t border-b border-ink/10">
+              {categories.map((category, categoryIndex) => {
+                const categoryServices = servicesByCategory[category];
+                const isOpen = isCategoryOpen(category, categoryIndex);
+                const hasSelectedService = categoryServices.some(s => s.id === bookingData.serviceId);
+
+                return (
+                  <div key={category}>
+                    {/* Category Header */}
+                    <button
+                      onClick={() => toggleCategory(category)}
+                      className="w-full py-5 flex items-center justify-between text-left group"
+                      aria-expanded={isOpen}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="font-display text-xl text-ink/20 leading-none">
+                          {String(categoryIndex + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                          <h3 className={`font-display text-lg transition-colors duration-300 ${
+                            hasSelectedService ? 'text-botanical' : 'text-ink group-hover:text-botanical'
+                          }`}>
+                            {category}
+                          </h3>
+                          <p className="text-ink/40 text-body-sm font-body">
+                            {categoryServices.length} service{categoryServices.length !== 1 ? 's' : ''}
+                          </p>
+                        </div>
+                      </div>
+                      <div className={`w-8 h-8 flex items-center justify-center border border-ink/20 rounded-full transition-all duration-300 ${
+                        isOpen ? 'rotate-45 border-botanical text-botanical' : 'group-hover:border-botanical group-hover:text-botanical'
+                      }`}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    {/* Category Services */}
+                    {isOpen && (
+                      <div className="pb-6 pl-12 grid gap-3">
+                        {categoryServices.map(service => (
+                          <button
+                            key={service.id}
+                            onClick={() => setBookingData(prev => ({ ...prev, serviceId: service.id, date: '', slot: null }))}
+                            className={`w-full text-left p-4 border transition-all duration-300 ${
+                              bookingData.serviceId === service.id
+                                ? 'border-botanical bg-botanical/5'
+                                : 'border-ink/10 hover:border-ink/30 bg-off-white/50'
+                            }`}
+                          >
+                            <div className="flex justify-between items-start gap-4">
+                              <div className="min-w-0 flex-1">
+                                <h4 className={`font-display text-base mb-1 ${
+                                  bookingData.serviceId === service.id ? 'text-botanical' : 'text-ink'
+                                }`}>
+                                  {service.name}
+                                </h4>
+                                {service.description && (
+                                  <p className="text-ink/50 text-body-sm font-body mb-1 line-clamp-2">
+                                    {service.description}
+                                  </p>
+                                )}
+                                <p className="text-ink/40 text-body-sm font-body">
+                                  ~{service.duration_minutes} min
+                                </p>
+                              </div>
+                              <span className={`font-display text-base whitespace-nowrap ${
+                                bookingData.serviceId === service.id ? 'text-botanical' : 'text-ink/70'
+                              }`}>
+                                {formatPrice(service.price_cents)}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

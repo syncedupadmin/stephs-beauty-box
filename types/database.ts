@@ -216,6 +216,7 @@ export interface Database {
           id: string;
           name: string;
           description: string | null;
+          category: string | null;
           duration_minutes: number;
           price_cents: number;
           image_url: string | null;
@@ -296,9 +297,10 @@ export interface Database {
       admin_users: {
         Row: {
           id: string;
+          auth_id: string; // Links to Supabase Auth user
           email: string;
-          password_hash: string;
           name: string | null;
+          role: string; // 'owner', 'staff', 'super_admin'
           is_active: boolean;
           created_at: string;
           last_login_at: string | null;
