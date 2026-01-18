@@ -2,22 +2,49 @@
  * Next.js Middleware
  * ==================
  * Protects admin routes and refreshes auth tokens
+ *
+ * COMING SOON MODE: Set to true to redirect all public routes to /coming-soon
  */
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
 
+// ============================================================================
+// COMING SOON MODE - Set to false when ready to launch
+// ============================================================================
+const COMING_SOON_MODE = true;
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static files and API routes (except admin API)
+  // Skip middleware for static files
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/images') ||
     pathname.startsWith('/favicon') ||
+    pathname.startsWith('/brand') ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
+  }
+
+  // ============================================================================
+  // COMING SOON MODE - Redirect all public routes
+  // ============================================================================
+  if (COMING_SOON_MODE) {
+    // Allow these routes through:
+    // - /admin/* (admin panel)
+    // - /api/* (API routes)
+    // - /coming-soon (the coming soon page itself)
+    const allowedPaths = ['/admin', '/api', '/coming-soon'];
+    const isAllowed = allowedPaths.some(
+      (path) => pathname === path || pathname.startsWith(`${path}/`)
+    );
+
+    if (!isAllowed) {
+      // Redirect everything else to coming soon
+      return NextResponse.redirect(new URL('/coming-soon', request.url));
+    }
   }
 
   // Handle admin routes
