@@ -52,7 +52,7 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set(['first']));
+  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
 
   // Group services by category
   const servicesByCategory = services.reduce((acc, service) => {
@@ -77,9 +77,8 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
     });
   };
 
-  // Check if category is open (first category opens by default)
-  const isCategoryOpen = (category: string, index: number) => {
-    if (openCategories.has('first') && index === 0) return true;
+  // Check if category is open
+  const isCategoryOpen = (category: string) => {
     return openCategories.has(category);
   };
 
@@ -264,7 +263,7 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
             <div className="divide-y divide-ink/10 border-t border-b border-ink/10">
               {categories.map((category, categoryIndex) => {
                 const categoryServices = servicesByCategory[category];
-                const isOpen = isCategoryOpen(category, categoryIndex);
+                const isOpen = isCategoryOpen(category);
                 const hasSelectedService = categoryServices.some(s => s.id === bookingData.serviceId);
 
                 return (

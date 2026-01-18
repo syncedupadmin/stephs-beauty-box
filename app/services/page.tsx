@@ -75,7 +75,7 @@ export default async function ServicesPage() {
         <div className="container-editorial">
           <ServicesAccordion
             categories={serviceCategories}
-            defaultOpenFirst={true}
+            defaultOpenFirst={false}
           />
         </div>
       </section>
