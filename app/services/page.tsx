@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { brand, contact } from '@/lib/config/brand';
 import { getServicesGroupedByCategory } from '@/lib/db/bookings';
 import { PRICING_DISCLAIMER, DEPOSIT_DISPLAY } from '@/lib/config/policies';
 import { ServicesAccordion } from '@/components/services/ServicesAccordion';
+import { getImage } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -31,22 +33,37 @@ export default async function ServicesPage() {
 
   return (
     <>
-      {/* Hero Section - Editorial */}
+      {/* Hero Section - Editorial with Image */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="container-editorial">
-          <div className="max-w-2xl">
-            <p className="overline mb-6">Our Menu</p>
-            <h1 className="font-display text-display-hero text-ink leading-[0.9] mb-8">
-              Services<br />
-              <span className="font-editorial-italic">&amp; Pricing</span>
-            </h1>
-            <p className="text-ink/70 text-body-lg font-body leading-relaxed max-w-md mb-6">
-              From wig installations to braids, makeup to facials, we offer a full range
-              of luxury beauty services tailored to celebrate your unique style.
-            </p>
-            <p className="text-ink/50 text-body-sm font-body leading-relaxed max-w-md">
-              {PRICING_DISCLAIMER}
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Text Content */}
+            <div className="max-w-xl">
+              <p className="overline mb-6">Our Menu</p>
+              <h1 className="font-display text-display-hero text-ink leading-[0.9] mb-8">
+                Services<br />
+                <span className="font-editorial-italic">&amp; Pricing</span>
+              </h1>
+              <p className="text-ink/70 text-body-lg font-body leading-relaxed mb-6">
+                From wig installations to braids, makeup to facials, we offer a full range
+                of luxury beauty services tailored to celebrate your unique style.
+              </p>
+              <p className="text-ink/50 text-body-sm font-body leading-relaxed">
+                {PRICING_DISCLAIMER}
+              </p>
+            </div>
+
+            {/* Hero Image */}
+            <div className="hidden lg:block relative aspect-[4/5] overflow-hidden">
+              <Image
+                src={getImage(13)}
+                alt="Beauty services"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
