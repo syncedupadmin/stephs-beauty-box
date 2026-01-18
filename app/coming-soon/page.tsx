@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { brand, contact } from '@/lib/config/brand';
@@ -11,7 +12,7 @@ import { getImage } from '@/lib/config/images';
  * ==============================================
  * Full-screen takeover with no navigation
  * Crossfading gallery images, elegant animations
- * Creates anticipation and excitement
+ * Password bypass for authorized preview
  */
 
 // Curated images for the slideshow
@@ -23,22 +24,46 @@ const SLIDESHOW_IMAGES = [
   getImage(17),  // Radiant
 ];
 
+// Preview password (client-side check, cookie set for middleware)
+const PREVIEW_PASSWORD = 'StephBB123!!';
+
 export default function ComingSoonPage() {
+  const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isChecking, setIsChecking] = useState(false);
 
   // Image slideshow
   useEffect(() => {
     setMounted(true);
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % SLIDESHOW_IMAGES.length);
-    }, 5000); // Change every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsChecking(true);
+    setError('');
+
+    if (password === PREVIEW_PASSWORD) {
+      // Set cookie for 7 days
+      document.cookie = `site_preview=authorized; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+      // Redirect to home
+      router.push('/');
+    } else {
+      setError('Incorrect password');
+      setIsChecking(false);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-charcoal overflow-hidden">
+    <div className="fixed inset-0 bg-charcoal overflow-hidden z-[100]">
       {/* Background Slideshow */}
       <div className="absolute inset-0">
         <AnimatePresence mode="sync">
@@ -198,11 +223,25 @@ export default function ComingSoonPage() {
           </p>
         </motion.div>
 
+        {/* Preview Access Button */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 2 }}
+          onClick={() => setShowPasswordModal(true)}
+          className="mt-12 text-off-white/30 text-body-sm font-body hover:text-off-white/60 transition-colors duration-500 flex items-center gap-2"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+          </svg>
+          Preview Access
+        </motion.button>
+
         {/* Faith Message */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
+          transition={{ duration: 1, delay: 2.2 }}
           className="absolute bottom-8 left-0 right-0 text-center font-display italic text-off-white/20 text-sm px-6"
         >
           {brand.faithMessage}
@@ -210,7 +249,7 @@ export default function ComingSoonPage() {
       </div>
 
       {/* Slideshow Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {SLIDESHOW_IMAGES.map((_, index) => (
           <button
             key={index}
@@ -226,10 +265,71 @@ export default function ComingSoonPage() {
       </div>
 
       {/* Corner Accents */}
-      <div className="absolute top-8 left-8 w-12 h-12 border-l border-t border-off-white/10" />
-      <div className="absolute top-8 right-8 w-12 h-12 border-r border-t border-off-white/10" />
-      <div className="absolute bottom-8 left-8 w-12 h-12 border-l border-b border-off-white/10 hidden md:block" />
-      <div className="absolute bottom-8 right-8 w-12 h-12 border-r border-b border-off-white/10 hidden md:block" />
+      <div className="absolute top-8 left-8 w-12 h-12 border-l border-t border-off-white/10 z-20" />
+      <div className="absolute top-8 right-8 w-12 h-12 border-r border-t border-off-white/10 z-20" />
+      <div className="absolute bottom-8 left-8 w-12 h-12 border-l border-b border-off-white/10 hidden md:block z-20" />
+      <div className="absolute bottom-8 right-8 w-12 h-12 border-r border-b border-off-white/10 hidden md:block z-20" />
+
+      {/* Password Modal */}
+      <AnimatePresence>
+        {showPasswordModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-charcoal/80 backdrop-blur-sm flex items-center justify-center z-50 p-6"
+            onClick={() => setShowPasswordModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-charcoal border border-off-white/10 p-8 max-w-sm w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="font-display text-2xl text-off-white mb-2 text-center">
+                Preview Access
+              </h2>
+              <p className="text-off-white/50 text-body-sm font-body mb-6 text-center">
+                Enter the password to preview the site
+              </p>
+
+              <form onSubmit={handlePasswordSubmit}>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  autoFocus
+                  className="w-full bg-off-white/5 border border-off-white/20 px-4 py-3 text-off-white placeholder:text-off-white/30 font-body text-body-md focus:outline-none focus:border-botanical transition-colors duration-300 mb-4"
+                />
+
+                {error && (
+                  <p className="text-red-400 text-body-sm font-body mb-4 text-center">
+                    {error}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isChecking || !password}
+                  className="w-full bg-botanical text-off-white py-3 font-display text-lg hover:bg-botanical/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isChecking ? 'Checking...' : 'Enter Site'}
+                </button>
+              </form>
+
+              <button
+                onClick={() => setShowPasswordModal(false)}
+                className="w-full mt-4 text-off-white/40 text-body-sm font-body hover:text-off-white/60 transition-colors duration-300"
+              >
+                Cancel
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

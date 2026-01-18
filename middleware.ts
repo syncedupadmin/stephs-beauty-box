@@ -32,6 +32,10 @@ export async function middleware(request: NextRequest) {
   // COMING SOON MODE - Redirect all public routes
   // ============================================================================
   if (COMING_SOON_MODE) {
+    // Check for preview bypass cookie
+    const previewCookie = request.cookies.get('site_preview');
+    const hasPreviewAccess = previewCookie?.value === 'authorized';
+
     // Allow these routes through:
     // - /admin/* (admin panel)
     // - /api/* (API routes)
@@ -41,7 +45,7 @@ export async function middleware(request: NextRequest) {
       (path) => pathname === path || pathname.startsWith(`${path}/`)
     );
 
-    if (!isAllowed) {
+    if (!isAllowed && !hasPreviewAccess) {
       // Redirect everything else to coming soon
       return NextResponse.redirect(new URL('/coming-soon', request.url));
     }
