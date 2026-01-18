@@ -166,6 +166,12 @@ export function Footer() {
               >
                 Terms
               </Link>
+              <Link
+                href="/admin"
+                className="text-ink/30 text-xs font-body hover:text-ink/60 transition-colors duration-600"
+              >
+                Admin
+              </Link>
               <span className="text-ink/20 text-xs font-body">
                 Website by{' '}
                 <a
