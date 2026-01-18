@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import { brand, contact } from '@/lib/config/brand';
-import { SERVICE_CATEGORIES, getTotalServiceCount } from '@/lib/config/services-data';
+import { getServicesGroupedByCategory } from '@/lib/db/bookings';
 import { PRICING_DISCLAIMER, DEPOSIT_DISPLAY } from '@/lib/config/policies';
-import { ServiceAccordionGroup } from '@/components/services/ServiceAccordion';
+import { ServicesAccordion } from '@/components/services/ServicesAccordion';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Services & Pricing',
-  description: `View our complete menu of beauty services including wigs, braids, makeup, waxing, and more at ${brand.name} in West Park, FL. Over ${getTotalServiceCount()} services available.`,
+  description: `View our complete menu of beauty services including wigs, braids, makeup, waxing, and more at ${brand.name} in West Park, FL.`,
 };
+
+// Revalidate every 60 seconds to pick up database changes
+export const revalidate = 60;
 
 /**
  * SERVICES PAGE - ACCORDION LAYOUT
@@ -17,9 +20,15 @@ export const metadata: Metadata = {
  * - Hero section with editorial styling
  * - Collapsible categories with full pricing
  * - Book Now CTA with deposit info
+ *
+ * DATA SOURCE: Supabase database (same as booking page)
  */
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  // Fetch services from database grouped by category
+  const serviceCategories = await getServicesGroupedByCategory();
+  const totalServices = serviceCategories.reduce((sum, cat) => sum + cat.services.length, 0);
+
   return (
     <>
       {/* Hero Section - Editorial */}
@@ -47,9 +56,9 @@ export default function ServicesPage() {
         <div className="container-editorial">
           <div className="flex flex-wrap items-center justify-between gap-4 text-body-sm">
             <div className="flex items-center gap-6 text-ink/60">
-              <span>{SERVICE_CATEGORIES.length} Categories</span>
+              <span>{serviceCategories.length} Categories</span>
               <span className="hidden sm:inline">|</span>
-              <span className="hidden sm:inline">{getTotalServiceCount()}+ Services</span>
+              <span className="hidden sm:inline">{totalServices}+ Services</span>
             </div>
             <div className="flex items-center gap-2 text-botanical font-medium">
               <span>{DEPOSIT_DISPLAY} deposit to book</span>
@@ -64,8 +73,8 @@ export default function ServicesPage() {
       {/* Services Accordion */}
       <section className="py-12 md:py-20">
         <div className="container-editorial">
-          <ServiceAccordionGroup
-            categories={SERVICE_CATEGORIES}
+          <ServicesAccordion
+            categories={serviceCategories}
             defaultOpenFirst={true}
           />
         </div>

@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Booking Database Operations
  * ===========================
@@ -59,6 +58,39 @@ export async function getServices(): Promise<ServiceWithDeposit[]> {
     ...service,
     deposit: deposits?.find(d => d.service_id === service.id),
   }));
+}
+
+/**
+ * Get all active services grouped by category
+ */
+export async function getServicesGroupedByCategory(): Promise<{
+  category: string;
+  services: Service[];
+}[]> {
+  const supabase = getSupabase();
+
+  const { data: services, error } = await supabase
+    .from('services')
+    .select('*')
+    .eq('is_active', true)
+    .order('category')
+    .order('position') as { data: Service[] | null; error: Error | null };
+
+  if (error) throw error;
+  if (!services?.length) return [];
+
+  // Group by category
+  const grouped: Record<string, Service[]> = {};
+  for (const service of services) {
+    const cat = service.category || 'Other Services';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(service);
+  }
+
+  // Convert to array and sort by first service position in each category
+  return Object.entries(grouped)
+    .map(([category, services]) => ({ category, services }))
+    .sort((a, b) => (a.services[0]?.position || 0) - (b.services[0]?.position || 0));
 }
 
 /**
@@ -308,7 +340,8 @@ export async function confirmBookingHold(
     .update({
       status: 'confirmed',
       hold_expires_at: null,
-      deposit_paid_at: new Date().toISOString(),
+      deposit_paid: true,
+      confirmed_at: new Date().toISOString(),
     })
     .eq('id', bookingId)
     .eq('status', 'hold');
