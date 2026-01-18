@@ -2,7 +2,9 @@ import { getServices } from '@/lib/db/bookings';
 import { getBookingSettings, isBookingConfigured } from '@/lib/db/bookings';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { BookingWizard } from './BookingWizard';
+import { getImage } from '@/lib/config/images';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -61,18 +63,43 @@ export default async function BookPage() {
 
   return (
     <>
-      {/* Hero */}
+      {/* Hero with Images */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="container-editorial">
-          <div className="max-w-2xl">
-            <p className="overline mb-6">Book Now</p>
-            <h1 className="font-display text-display-hero text-ink leading-[0.9] mb-6">
-              Start the<br />
-              <span className="font-editorial-italic">Journey</span>
-            </h1>
-            <p className="text-ink/70 text-body-lg font-body leading-relaxed max-w-md">
-              Select a service, choose your time, and secure your appointment with a deposit.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Text Content */}
+            <div className="max-w-xl">
+              <p className="overline mb-6">Book Now</p>
+              <h1 className="font-display text-display-hero text-ink leading-[0.9] mb-6">
+                Start the<br />
+                <span className="font-editorial-italic">Journey</span>
+              </h1>
+              <p className="text-ink/70 text-body-lg font-body leading-relaxed">
+                Select a service, choose your time, and secure your appointment with a deposit.
+              </p>
+            </div>
+
+            {/* Hero Images */}
+            <div className="hidden lg:grid grid-cols-2 gap-4">
+              <div className="relative aspect-[3/4] overflow-hidden">
+                <Image
+                  src={getImage(2)}
+                  alt="Beauty service"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative aspect-[3/4] overflow-hidden mt-8">
+                <Image
+                  src={getImage(3)}
+                  alt="Beauty transformation"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

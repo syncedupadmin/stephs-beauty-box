@@ -1,15 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { formatPrice } from '@/lib/store/cart';
+import { BOOKING_POLICIES, DEPOSIT_DISPLAY } from '@/lib/config/policies';
+import { getImage } from '@/lib/config/images';
 import type { ServiceWithDeposit, BookingSettings, AvailableSlot } from '@/types/database';
+
+// Step images - using unused gallery images (6, 9, 11, 13, 14)
+const STEP_IMAGES = {
+  service: getImage(6),
+  datetime: getImage(9),
+  details: getImage(11),
+  policies: getImage(13),
+  confirm: getImage(14),
+} as const;
 
 interface BookingWizardProps {
   services: ServiceWithDeposit[];
   settings: BookingSettings;
 }
 
-type Step = 'service' | 'datetime' | 'details' | 'confirm';
+type Step = 'service' | 'datetime' | 'details' | 'policies' | 'confirm';
 
 interface BookingData {
   serviceId: string;
@@ -19,6 +31,7 @@ interface BookingData {
   phone: string;
   email: string;
   notes: string;
+  acceptedPolicies: boolean;
 }
 
 export function BookingWizard({ services, settings }: BookingWizardProps) {
@@ -31,6 +44,7 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
     phone: '',
     email: '',
     notes: '',
+    acceptedPolicies: false,
   });
 
   const [availableDates, setAvailableDates] = useState<string[]>([]);
@@ -139,50 +153,66 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
     }
   };
 
+  // Step configuration
+  const allSteps: Step[] = ['service', 'datetime', 'details', 'policies', 'confirm'];
+  const stepLabels = ['Service', 'Date & Time', 'Details', 'Policies', 'Confirm'];
+
   // Step navigation
   const canProceed = {
     service: !!bookingData.serviceId,
     datetime: !!bookingData.slot,
-    details: bookingData.name && bookingData.phone,
+    details: !!(bookingData.name && bookingData.phone),
+    policies: bookingData.acceptedPolicies,
     confirm: true,
   };
 
   const goNext = () => {
-    const steps: Step[] = ['service', 'datetime', 'details', 'confirm'];
-    const currentIndex = steps.indexOf(step);
-    if (currentIndex < steps.length - 1 && canProceed[step]) {
-      setStep(steps[currentIndex + 1]);
+    const currentIndex = allSteps.indexOf(step);
+    if (currentIndex < allSteps.length - 1 && canProceed[step]) {
+      setStep(allSteps[currentIndex + 1]);
     }
   };
 
   const goBack = () => {
-    const steps: Step[] = ['service', 'datetime', 'details', 'confirm'];
-    const currentIndex = steps.indexOf(step);
+    const currentIndex = allSteps.indexOf(step);
     if (currentIndex > 0) {
-      setStep(steps[currentIndex - 1]);
+      setStep(allSteps[currentIndex - 1]);
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Progress */}
-      <div className="flex items-center gap-4 mb-12">
-        {['Service', 'Date & Time', 'Details', 'Confirm'].map((label, i) => {
-          const steps: Step[] = ['service', 'datetime', 'details', 'confirm'];
-          const isActive = steps.indexOf(step) >= i;
+    <div className="max-w-4xl mx-auto">
+      {/* Progress with Images */}
+      <div className="flex items-center gap-2 sm:gap-3 mb-12 overflow-x-auto pb-2">
+        {stepLabels.map((label, i) => {
+          const stepKey = allSteps[i];
+          const isActive = allSteps.indexOf(step) >= i;
+          const isCurrent = step === stepKey;
           return (
-            <div key={label} className="flex items-center gap-4 flex-1">
-              <div className={`w-8 h-8 flex items-center justify-center text-body-sm font-body transition-colors duration-600 ${
-                isActive ? 'bg-botanical text-off-white' : 'bg-ink/10 text-ink/40'
-              }`}>
-                {i + 1}
+            <div key={label} className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+              <div className={`relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-full overflow-hidden transition-all duration-600 ${
+                isCurrent ? 'ring-2 ring-botanical ring-offset-2' : ''
+              } ${isActive ? 'opacity-100' : 'opacity-40 grayscale'}`}>
+                <Image
+                  src={STEP_IMAGES[stepKey]}
+                  alt={label}
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
+                {/* Step Number Overlay */}
+                <div className={`absolute inset-0 flex items-center justify-center text-body-sm font-body font-medium transition-colors duration-600 ${
+                  isActive ? 'bg-botanical/60 text-off-white' : 'bg-ink/40 text-off-white'
+                }`}>
+                  {i + 1}
+                </div>
               </div>
-              <span className={`hidden sm:block text-body-sm font-body ${
+              <span className={`hidden lg:block text-body-sm font-body whitespace-nowrap ${
                 isActive ? 'text-ink' : 'text-ink/40'
               }`}>
                 {label}
               </span>
-              {i < 3 && <div className="flex-1 h-px bg-ink/10" />}
+              {i < 4 && <div className="flex-1 h-px bg-ink/10 min-w-2 sm:min-w-4" />}
             </div>
           );
         })}
@@ -343,7 +373,74 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
           </div>
         )}
 
-        {/* Step 4: Confirmation */}
+        {/* Step 4: Booking Policies */}
+        {step === 'policies' && (
+          <div>
+            <h2 className="font-display text-display-sm text-ink mb-4">
+              Booking Agreement
+            </h2>
+            <p className="text-ink/60 text-body-md font-body mb-8">
+              Please review and accept our booking policies before proceeding.
+            </p>
+
+            <div className="bg-off-white/50 p-6 sm:p-8 mb-8 max-h-[400px] overflow-y-auto">
+              <div className="space-y-6">
+                {BOOKING_POLICIES.map((policy, index) => (
+                  <div key={policy.id}>
+                    <h4 className="font-display text-lg text-ink mb-2">
+                      {index + 1}. {policy.title}
+                    </h4>
+                    <p className="text-ink/70 text-body-sm font-body leading-relaxed">
+                      {policy.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Agreement Checkbox */}
+            <label className="flex items-start gap-4 cursor-pointer group">
+              <div className="relative flex-shrink-0 mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={bookingData.acceptedPolicies}
+                  onChange={(e) => setBookingData(prev => ({ ...prev, acceptedPolicies: e.target.checked }))}
+                  className="sr-only peer"
+                />
+                <div className="w-6 h-6 border-2 border-ink/30 peer-checked:border-botanical peer-checked:bg-botanical transition-colors duration-300 flex items-center justify-center">
+                  <svg
+                    className="w-4 h-4 text-off-white opacity-0 peer-checked:opacity-100 transition-opacity duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                {/* Checkmark - positioned absolutely to show when checked */}
+                {bookingData.acceptedPolicies && (
+                  <svg
+                    className="absolute inset-0 w-6 h-6 text-off-white p-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </div>
+              <span className="text-body-md font-body text-ink/80 group-hover:text-ink transition-colors">
+                I have read and agree to the booking policies. I understand that a{' '}
+                <span className="font-medium text-botanical">{DEPOSIT_DISPLAY} non-refundable deposit</span>{' '}
+                is required to secure my appointment.
+              </span>
+            </label>
+          </div>
+        )}
+
+        {/* Step 5: Confirmation */}
         {step === 'confirm' && selectedService && bookingData.slot && (
           <div>
             <h2 className="font-display text-display-sm text-ink mb-8">
@@ -408,10 +505,12 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
               </div>
             )}
 
-            <p className="text-ink/40 text-body-sm font-body mb-6">
-              By confirming, you agree to our cancellation policy. Please provide at least 24 hours notice
-              for cancellations.
-            </p>
+            <div className="bg-botanical/5 border border-botanical/20 p-4 text-body-sm font-body">
+              <p className="text-botanical font-medium mb-1">Booking Policy Accepted</p>
+              <p className="text-ink/60">
+                You have agreed to our booking policies including the {DEPOSIT_DISPLAY} non-refundable deposit.
+              </p>
+            </div>
           </div>
         )}
       </div>
