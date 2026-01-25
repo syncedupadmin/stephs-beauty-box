@@ -9,19 +9,31 @@ Steph's Beauty Box is a beauty salon website built with Next.js 14.2, React 18, 
 This is a generated website from the SyncedUp platform with **full production e-commerce and booking capabilities**:
 - **Shop**: Real product catalog with Supabase, Stripe checkout, inventory management
 - **Booking**: Appointment scheduling with deposits, calendar availability, hold system
+- **Admin**: Full admin panel at `/admin` with Supabase Auth (email/password)
 - **Emails**: Transactional emails via Resend (order/booking confirmations)
 
 ## Development Commands
 
 ```bash
-npm install     # Install dependencies
-npm run dev     # Start dev server (http://localhost:3000)
-npm run build   # Production build
-npm run lint    # Run ESLint
-
-# Import products from CSV (one-time setup)
-node scripts/import-products-from-csv.mjs path/to/products.csv
+npm run dev          # Start dev server (http://localhost:3000)
+npm run build        # Production build
+npm run lint         # Run ESLint
+npx tsc --noEmit     # Type check without emitting
+npm run import:products path/to/products.csv  # Import products from CSV
 ```
+
+## Coming Soon Mode
+
+The site has a "coming soon" lockdown mode controlled in `middleware.ts`:
+
+```typescript
+const COMING_SOON_MODE = true;  // Set to false when ready to launch
+```
+
+When enabled:
+- All public routes redirect to `/coming-soon`
+- `/admin/*` and `/api/*` routes remain accessible
+- Users with `site_preview=authorized` cookie can bypass (set via password on coming soon page)
 
 ## Architecture
 
@@ -45,6 +57,7 @@ app/                    # Next.js App Router pages
     page.tsx           # Fulfillment selection (shipping/pickup)
     success/           # Order confirmation
   api/
+    admin/             # Admin API routes (CRUD for services, products, orders, settings)
     booking/           # Booking endpoints
     checkout/          # Shop checkout
     orders/            # Order lookup
@@ -55,9 +68,13 @@ components/
   layout/              # Header, Footer (Header includes CartButton)
   ui/                  # Reusable UI components
   shop/                # Cart drawer, product components
+  admin/               # Admin panel components (sidebar, stats, modals)
   generated/           # PreviewBanner (SyncedUp integration)
 
 lib/
+  auth/                # Authentication (DAL pattern)
+    dal.ts             # verifySession(), requireAdmin(), getAdminUser()
+    actions.ts         # Server actions: loginAdmin(), logoutAdmin()
   config/              # Brand configuration (single source of truth)
   db/                  # Supabase database operations
     products.ts        # Product CRUD, inventory
@@ -68,13 +85,12 @@ lib/
     cart.ts            # Shopping cart
   stripe/              # Stripe integration
   email/               # Resend email templates
-  supabase.ts          # Supabase client
+  supabase/            # Supabase clients
+    server.ts          # Server-side clients (createServerSupabaseClient, createServiceRoleClient)
+    middleware.ts      # Session update for middleware
 
 supabase/
   migrations/          # Database schema (run via Supabase Dashboard)
-
-scripts/
-  import-products-from-csv.mjs  # Product import script
 
 types/
   database.ts          # TypeScript types for Supabase tables
@@ -83,6 +99,10 @@ types/
 ### Path Alias
 
 `@/*` maps to `./*` (project root)
+
+### Scripts Directory
+
+The `scripts/` folder contains Node.js utility scripts (like `import-products-from-csv.mjs`) and is excluded from TypeScript compilation. These scripts use `.mjs` extension and ES modules.
 
 ### Key Configuration Files
 
@@ -148,9 +168,22 @@ The homepage uses a responsive split approach:
 
 ## Production Systems
 
+### Admin Authentication
+
+Admin panel uses Supabase Auth with the Data Access Layer (DAL) pattern:
+- **Middleware** (`middleware.ts`): Protects `/admin/*` routes, redirects unauthenticated users
+- **DAL** (`lib/auth/dal.ts`): `requireAdmin()` for Server Components, `verifySession()` for session checks
+- **Admin users**: Stored in `admin_users` table linked to Supabase Auth via `auth_id`
+
+```typescript
+// In Server Components or API routes:
+import { requireAdmin } from '@/lib/auth/dal';
+const admin = await requireAdmin(); // Redirects if not authenticated
+```
+
 ### Database (Supabase)
 
-The schema is in `supabase/migrations/001_shop_booking_schema.sql`. Key tables:
+Schema migrations in `supabase/migrations/`. Key tables:
 
 **Shop**:
 - `products`, `product_variants`, `product_images` - Product catalog
@@ -162,6 +195,9 @@ The schema is in `supabase/migrations/001_shop_booking_schema.sql`. Key tables:
 - `bookings` - Appointments with hold system
 - `availability_rules`, `blackout_dates` - Calendar configuration
 - `booking_settings` - Deposit/timezone configuration
+
+**Admin**:
+- `admin_users` - Admin accounts linked to Supabase Auth via `auth_id`
 
 **Critical Functions**:
 - `decrement_inventory_safe(variant_id, qty)` - Atomic inventory decrement (prevents oversell)
@@ -198,9 +234,10 @@ Collision prevention: PostgreSQL exclusion constraint ensures no overlapping boo
 ### Environment Variables
 
 See `.env.example` for all required variables:
-- Supabase: `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
-- Stripe: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+- Supabase: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- Stripe: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`
 - Resend: `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_EMAIL`
+- Site: `NEXT_PUBLIC_SITE_URL` (for Stripe redirects)
 - Cron: `CRON_SECRET`
 
 ### Vercel Cron
