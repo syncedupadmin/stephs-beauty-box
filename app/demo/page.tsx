@@ -11,10 +11,11 @@ import Link from 'next/link';
  * that match the brand's romantic high-fashion editorial aesthetic.
  */
 
-// All demo images
+// All demo images - transformed with Nano Banana (Gemini 2.5 Flash Image) to match gallery aesthetic
+// Features: garden roses, stock flowers, hydrangeas, ranunculus, eucalyptus, warm sepia tones
 const demoImages = Array.from({ length: 17 }, (_, i) => ({
   id: i + 1,
-  src: `/images/demo/photo-${String(i + 1).padStart(2, '0')}.jpg`,
+  src: `/images/demo-v2/photo-${String(i + 1).padStart(2, '0')}.png`,
   alt: `Demo photo ${i + 1}`,
 }));
 

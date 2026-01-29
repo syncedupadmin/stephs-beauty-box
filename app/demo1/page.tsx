@@ -11,25 +11,26 @@ import Link from 'next/link';
  * This is the recommended look for production.
  */
 
-// Demo images
+// Demo images - ALL transformed with Nano Banana (Gemini 2.5 Flash Image) to match gallery aesthetic
+// Features: garden roses, stock flowers, hydrangeas, ranunculus, eucalyptus, warm sepia tones
 const heroOptions = [
-  { id: 1, src: '/images/demo/photo-01.jpg', label: 'Photo 1' },
-  { id: 2, src: '/images/demo/photo-02.jpg', label: 'Photo 2' },
-  { id: 3, src: '/images/demo/photo-03.jpg', label: 'Photo 3' },
-  { id: 4, src: '/images/demo/photo-04.jpg', label: 'Photo 4' },
-  { id: 5, src: '/images/demo/photo-05.jpg', label: 'Photo 5' },
-  { id: 6, src: '/images/demo/photo-06.jpg', label: 'Photo 6' },
-  { id: 7, src: '/images/demo/photo-07.jpg', label: 'Photo 7' },
-  { id: 8, src: '/images/demo/photo-08.jpg', label: 'Photo 8' },
-  { id: 9, src: '/images/demo/photo-09.jpg', label: 'Photo 9' },
-  { id: 10, src: '/images/demo/photo-10.jpg', label: 'Photo 10' },
-  { id: 11, src: '/images/demo/photo-11.jpg', label: 'Photo 11' },
-  { id: 12, src: '/images/demo/photo-12.jpg', label: 'Photo 12' },
-  { id: 13, src: '/images/demo/photo-13.jpg', label: 'Photo 13' },
-  { id: 14, src: '/images/demo/photo-14.jpg', label: 'Photo 14' },
-  { id: 15, src: '/images/demo/photo-15.jpg', label: 'Photo 15' },
-  { id: 16, src: '/images/demo/photo-16.jpg', label: 'Photo 16' },
-  { id: 17, src: '/images/demo/photo-17.jpg', label: 'Photo 17' },
+  { id: 1, src: '/images/demo-v2/photo-01.png', label: 'Photo 1' },
+  { id: 2, src: '/images/demo-v2/photo-02.png', label: 'Photo 2' },
+  { id: 3, src: '/images/demo-v2/photo-03.png', label: 'Photo 3' },
+  { id: 4, src: '/images/demo-v2/photo-04.png', label: 'Photo 4' },
+  { id: 5, src: '/images/demo-v2/photo-05.png', label: 'Photo 5' },
+  { id: 6, src: '/images/demo-v2/photo-06.png', label: 'Photo 6' },
+  { id: 7, src: '/images/demo-v2/photo-07.png', label: 'Photo 7' },
+  { id: 8, src: '/images/demo-v2/photo-08.png', label: 'Photo 8' },
+  { id: 9, src: '/images/demo-v2/photo-09.png', label: 'Photo 9' },
+  { id: 10, src: '/images/demo-v2/photo-10.png', label: 'Photo 10' },
+  { id: 11, src: '/images/demo-v2/photo-11.png', label: 'Photo 11' },
+  { id: 12, src: '/images/demo-v2/photo-12.png', label: 'Photo 12' },
+  { id: 13, src: '/images/demo-v2/photo-13.png', label: 'Photo 13' },
+  { id: 14, src: '/images/demo-v2/photo-14.png', label: 'Photo 14' },
+  { id: 15, src: '/images/demo-v2/photo-15.png', label: 'Photo 15' },
+  { id: 16, src: '/images/demo-v2/photo-16.png', label: 'Photo 16' },
+  { id: 17, src: '/images/demo-v2/photo-17.png', label: 'Photo 17' },
 ];
 
 // Editorial Warm filter - RECOMMENDED
@@ -151,7 +152,7 @@ export default function Demo1Page() {
             {/* Image */}
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
-                src="/images/demo/photo-03.jpg"
+                src="/images/demo-v2/photo-03.png"
                 alt="Hair styling showcase"
                 fill
                 className="object-cover"
@@ -204,7 +205,7 @@ export default function Demo1Page() {
             {/* Image */}
             <div className="relative aspect-[4/5] overflow-hidden lg:order-2">
               <Image
-                src="/images/demo/photo-07.jpg"
+                src="/images/demo-v2/photo-07.png"
                 alt="Makeup artistry showcase"
                 fill
                 className="object-cover"
