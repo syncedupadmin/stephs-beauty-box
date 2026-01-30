@@ -40,7 +40,9 @@ export async function middleware(request: NextRequest) {
     // - /admin/* (admin panel)
     // - /api/* (API routes)
     // - /coming-soon (the coming soon page itself)
-    const allowedPaths = ['/admin', '/api', '/coming-soon'];
+    // - /preview/* (preview pages with demo-v2 images)
+    // - /demo* (demo pages for filter testing)
+    const allowedPaths = ['/admin', '/api', '/coming-soon', '/preview', '/demo'];
     const isAllowed = allowedPaths.some(
       (path) => pathname === path || pathname.startsWith(`${path}/`)
     );

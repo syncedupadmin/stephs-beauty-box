@@ -1,0 +1,189 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { contact } from '@/lib/config/brand';
+import { PRICING_DISCLAIMER, DEPOSIT_DISPLAY } from '@/lib/config/policies';
+
+/**
+ * PREVIEW SERVICES PAGE - Using Demo V2 Images
+ * =============================================
+ * This is a duplicate of the services page using the new demo-v2 images
+ * for preview purposes. Does not affect the production site.
+ *
+ * Note: This is a client component for preview - actual services data
+ * is shown in the live /services page from database.
+ */
+
+// Demo V2 image for hero
+const DEMO_HERO = '/images/demo-v2/photo-13.png';
+
+// Editorial Warm filter
+const EDITORIAL_FILTER = 'brightness(1.02) contrast(1.05) saturate(0.9) sepia(0.08)';
+
+// Sample service categories for preview (matches production structure)
+const previewCategories = [
+  {
+    id: 'wigs',
+    name: 'Wigs & Install',
+    description: 'Custom wig installations, styling, and maintenance services.',
+  },
+  {
+    id: 'braids',
+    name: 'Braids & Locs',
+    description: 'Traditional braiding styles, faux locs, and protective styling.',
+  },
+  {
+    id: 'makeup',
+    name: 'Makeup',
+    description: 'Full glam, soft glam, bridal, and special occasion makeup.',
+  },
+  {
+    id: 'facials',
+    name: 'Facials & Skin',
+    description: 'Rejuvenating facials and skincare treatments.',
+  },
+  {
+    id: 'waxing',
+    name: 'Waxing',
+    description: 'Professional waxing services for face and body.',
+  },
+];
+
+export default function PreviewServicesPage() {
+  return (
+    <>
+      {/* Preview Banner */}
+      <div className="fixed top-0 left-0 right-0 z-[100] bg-botanical text-off-white text-center py-2 text-sm font-body">
+        PREVIEW MODE - Demo V2 Images | <Link href="/services" className="underline">Back to Live Services</Link>
+      </div>
+
+      {/* Hero Section - Editorial with Image */}
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20">
+        <div className="container-editorial">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Text Content */}
+            <div className="max-w-xl">
+              <p className="overline mb-6">Our Menu</p>
+              <h1 className="font-display text-display-hero text-ink leading-[0.9] mb-8">
+                Services<br />
+                <span className="font-editorial-italic">&amp; Pricing</span>
+              </h1>
+              <p className="text-ink/70 text-body-lg font-body leading-relaxed mb-6">
+                From wig installations to braids, makeup to facials, we offer a full range
+                of luxury beauty services tailored to celebrate your unique style.
+              </p>
+              <p className="text-ink/50 text-body-sm font-body leading-relaxed">
+                {PRICING_DISCLAIMER}
+              </p>
+            </div>
+
+            {/* Hero Image */}
+            <div className="hidden lg:block relative aspect-[4/5] overflow-hidden">
+              <Image
+                src={DEMO_HERO}
+                alt="Beauty services"
+                fill
+                className="object-cover"
+                style={{ filter: EDITORIAL_FILTER }}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Stats Bar */}
+      <section className="py-6 bg-ink/[0.02]">
+        <div className="container-editorial">
+          <div className="flex flex-wrap items-center justify-between gap-4 text-body-sm">
+            <div className="flex items-center gap-6 text-ink/60">
+              <span>{previewCategories.length} Categories</span>
+              <span className="hidden sm:inline">|</span>
+              <span className="hidden sm:inline">50+ Services</span>
+            </div>
+            <div className="flex items-center gap-2 text-botanical font-medium">
+              <span>{DEPOSIT_DISPLAY} deposit to book</span>
+              <Link href="/book" className="editorial-link ml-2">
+                Book Now
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Preview */}
+      <section className="py-12 md:py-20">
+        <div className="container-editorial">
+          <div className="space-y-8">
+            {previewCategories.map((category) => (
+              <div key={category.id} className="border-b border-ink/10 pb-8">
+                <h3 className="font-display text-display-sm text-ink mb-2">
+                  {category.name}
+                </h3>
+                <p className="text-ink/60 text-body-md font-body">
+                  {category.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-12 text-ink/40 text-body-sm font-body text-center">
+            This is a preview page. Visit <Link href="/services" className="editorial-link">the live services page</Link> for full pricing and booking.
+          </p>
+        </div>
+      </section>
+
+      {/* Pricing Note */}
+      <section className="py-12 md:py-16">
+        <div className="container-editorial">
+          <div className="divider-hairline mb-8" />
+          <div className="max-w-xl mx-auto text-center">
+            <p className="text-ink/50 text-body-sm font-body leading-relaxed mb-4">
+              {PRICING_DISCLAIMER}
+            </p>
+            <p className="text-ink/40 text-body-sm font-body">
+              Additional fees may apply for extra-long hair, complex styles, or rush appointments.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Booking CTA - Botanical */}
+      <section className="section-editorial bg-botanical">
+        <div className="container-editorial">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="overline text-off-white/50 mb-6">Ready to Book?</p>
+            <h2 className="font-display text-display-md text-off-white mb-6 leading-[0.9]">
+              Secure Your<br />
+              <span className="font-editorial-italic">Appointment</span>
+            </h2>
+            <p className="text-off-white/70 text-body-lg font-body mb-4 max-w-md mx-auto">
+              Book your appointment online with a {DEPOSIT_DISPLAY} deposit.
+              The remaining balance is due upon arrival.
+            </p>
+            <p className="text-off-white/50 text-body-sm font-body mb-10 max-w-md mx-auto">
+              All deposits are non-refundable and non-transferable.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/book"
+                className="cta-primary bg-off-white text-botanical hover:bg-off-white/90"
+              >
+                Book Now
+              </Link>
+              <a
+                href={`tel:${contact.phoneClean}`}
+                className="cta-secondary border-off-white/30 text-off-white hover:bg-off-white/10"
+              >
+                {contact.phoneFormatted}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
