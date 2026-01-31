@@ -85,6 +85,7 @@ export function getShuffledImages(seed: string = ''): string[] {
 export const HERO_IMAGE = '/images/hero/hero-main.png';
 export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
 export const HERO_OLD_IMAGE = '/images/hero/hero-main-old.png'; // Previous hero model
+export const STEPH_OWNER_IMAGE = '/images/hero/steph-about-v2.png'; // Steph - Owner
 
 // =============================================================================
 // SERVICE & SECTION IMAGES (Recycled from gallery)
@@ -100,10 +101,9 @@ export const SERVICE_IMAGES = {
   wigs: getImage(17),
 } as const;
 
-// About page images - using spread indices to avoid homepage duplicates
-// Homepage uses: 3, 8, 12 - so we use different ones here
+// About page images
 export const ABOUT_IMAGES = {
-  steph: getImage(16),   // Different from homepage images
+  steph: '/images/hero/steph-about-v2.png',  // Steph - Owner (special editorial portrait)
   studio: getImage(6),   // Different model
   detail: getImage(14),  // Different model
 } as const;
