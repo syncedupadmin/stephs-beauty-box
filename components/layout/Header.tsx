@@ -27,7 +27,7 @@ export function Header() {
   useEffect(() => {
     if (isAdminPage) return;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -72,7 +72,7 @@ export function Header() {
         }`}
       >
         <div className="container-editorial">
-          <div className="flex h-20 md:h-24 items-center justify-between">
+          <div className="flex h-28 md:h-36 items-center justify-between">
             {/* Left Nav - Desktop */}
             <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
               {minimalNav.slice(0, 2).map((link) => (
@@ -97,9 +97,9 @@ export function Header() {
               <Image
                 src="/images/logo.png"
                 alt={brand.name}
-                width={120}
-                height={48}
-                className={`h-10 md:h-12 w-auto transition-all duration-600 ease-luxury ${
+                width={200}
+                height={240}
+                className={`h-20 md:h-28 w-auto transition-all duration-600 ease-luxury ${
                   isScrolled ? '' : 'brightness-0 invert'
                 }`}
                 priority
@@ -175,9 +175,9 @@ export function Header() {
                 <Image
                   src="/images/logo.png"
                   alt={brand.name}
-                  width={100}
-                  height={40}
-                  className="h-8 w-auto"
+                  width={150}
+                  height={180}
+                  className="h-20 w-auto"
                 />
                 <button
                   onClick={() => setMobileNavOpen(false)}
