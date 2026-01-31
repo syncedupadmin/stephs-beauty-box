@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { formatPrice } from '@/lib/store/cart';
 import { BOOKING_POLICIES, DEPOSIT_DISPLAY } from '@/lib/config/policies';
@@ -53,6 +53,10 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
+
+  // Refs for auto-scroll and auto-focus
+  const continueButtonRef = useRef<HTMLDivElement>(null);
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   // Group services by category
   const servicesByCategory = services.reduce((acc, service) => {
@@ -109,6 +113,18 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
 
     fetchDates();
   }, [bookingData.serviceId]);
+
+  // Auto-focus date input when entering datetime step
+  useEffect(() => {
+    if (step === 'datetime' && dateInputRef.current) {
+      // Small delay to ensure DOM is ready, then focus and show picker
+      setTimeout(() => {
+        dateInputRef.current?.focus();
+        // Try to open the native date picker (works on most browsers)
+        dateInputRef.current?.showPicker?.();
+      }, 100);
+    }
+  }, [step]);
 
   // Fetch available slots when date is selected
   useEffect(() => {
@@ -304,7 +320,13 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
                         {categoryServices.map(service => (
                           <button
                             key={service.id}
-                            onClick={() => setBookingData(prev => ({ ...prev, serviceId: service.id, date: '', slot: null }))}
+                            onClick={() => {
+                              setBookingData(prev => ({ ...prev, serviceId: service.id, date: '', slot: null }));
+                              // Auto-scroll to Continue button after selection
+                              setTimeout(() => {
+                                continueButtonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                              }, 100);
+                            }}
                             className={`w-full text-left p-4 border transition-all duration-300 ${
                               bookingData.serviceId === service.id
                                 ? 'border-botanical bg-botanical/5'
@@ -358,6 +380,7 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
             <div className="mb-8">
               <label className="label-editorial mb-4 block">Select Date</label>
               <input
+                ref={dateInputRef}
                 type="date"
                 value={bookingData.date}
                 onChange={(e) => setBookingData(prev => ({ ...prev, date: e.target.value, slot: null }))}
@@ -599,7 +622,7 @@ export function BookingWizard({ services, settings }: BookingWizardProps) {
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between mt-8 pt-8 border-t border-ink/10">
+      <div ref={continueButtonRef} className="flex items-center justify-between mt-8 pt-8 border-t border-ink/10">
         {step !== 'service' ? (
           <button onClick={goBack} className="cta-secondary">
             Back
