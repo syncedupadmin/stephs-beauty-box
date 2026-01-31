@@ -3,6 +3,9 @@ import { brand, contact, hours, social } from '@/lib/config/brand';
 import { ABOUT_IMAGES } from '@/lib/config/images';
 import type { Metadata } from 'next';
 
+// Type assertion for brand with mission
+const brandWithMission = brand as typeof brand & { mission?: string };
+
 export const metadata: Metadata = {
   title: 'About',
   description: `Learn about ${brand.name} — a welcoming beauty space in West Park, FL where everyone belongs.`,
@@ -34,6 +37,11 @@ export default function AboutPage() {
               <p className="text-ink/70 text-body-lg font-body leading-relaxed mb-6">
                 {brand.description}
               </p>
+              {brandWithMission.mission && (
+                <p className="text-ink/60 text-body-md font-body leading-relaxed mb-6 border-l-2 border-botanical/30 pl-4 italic">
+                  {brandWithMission.mission}
+                </p>
+              )}
               <p className="font-display italic text-botanical text-xl">
                 {brand.faithMessage}
               </p>

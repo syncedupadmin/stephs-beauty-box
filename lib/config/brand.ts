@@ -20,7 +20,10 @@ export const brand = {
   description: "A welcoming space where everyone belongs. We celebrate beauty in all its forms—nurturing both your outer glow and inner radiance.",
 
   // Faith-forward messaging (use sparingly)
-  faithMessage: "Where beauty meets grace.",
+  faithMessage: "Walking in purpose. Serving with love.",
+
+  // Deeper mission statement (subtle faith reference)
+  mission: "We believe every person is wonderfully made. Our hands are guided by something greater than ourselves—a calling to help you see the beauty that was already placed within you.",
 
   logo: {
     main: "/brand/1.png",
@@ -241,20 +244,28 @@ export const theme = {
 } as const;
 
 // =============================================================================
-// POLICIES (Generic - do not invent specific details)
+// POLICIES
 // =============================================================================
 
 export const policies = {
   cancellation: {
     notice: "24 hours",
-    fee: null as string | null, // Unknown - do not display
+    fee: "Deposit forfeiture",
+    description: "Cancellations or reschedules forfeit the deposit. A new deposit is required for rebooking.",
   },
   lateness: {
-    policy: "Please arrive on time. Late arrivals may result in shortened service time or rescheduling.",
+    policy: "If you are running late, you must notify us. Excessive or repeated lateness may result in shortened services or cancellation without refund.",
   },
   deposits: {
-    required: false,
-    amount: null as string | null,
+    required: true,
+    amount: "$50",
+    description: "A $50 non-refundable, non-transferable deposit is required to secure all appointments.",
+  },
+  noShow: {
+    policy: "No-shows forfeit their deposit and require a new deposit for future bookings.",
+  },
+  refunds: {
+    policy: "All services, deposits, and payments are final and non-refundable.",
   },
 } as const;
 

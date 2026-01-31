@@ -154,8 +154,13 @@ export default function HomePage() {
               </h1>
 
               {/* Supporting Copy */}
-              <p className="text-off-white/80 text-body-lg mb-10 max-w-md font-body leading-relaxed">
+              <p className="text-off-white/80 text-body-lg mb-4 max-w-md font-body leading-relaxed">
                 {brand.description}
+              </p>
+
+              {/* Faith message */}
+              <p className="font-display italic text-off-white/60 text-lg mb-10">
+                {brand.faithMessage}
               </p>
 
               {/* CTAs */}
