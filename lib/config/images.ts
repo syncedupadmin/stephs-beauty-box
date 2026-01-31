@@ -99,11 +99,12 @@ export const SERVICE_IMAGES = {
   wigs: getImage(17),
 } as const;
 
-// About page images - replaced 11 with 15
+// About page images - using spread indices to avoid homepage duplicates
+// Homepage uses: 3, 8, 12 - so we use different ones here
 export const ABOUT_IMAGES = {
-  steph: getImage(10),
-  studio: getImage(15),  // Changed from 11 to 15
-  detail: getImage(12),
+  steph: getImage(16),   // Different from homepage images
+  studio: getImage(6),   // Different model
+  detail: getImage(14),  // Different model
 } as const;
 
 // Gallery page gets all images in order

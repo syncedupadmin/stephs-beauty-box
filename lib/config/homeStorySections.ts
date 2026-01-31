@@ -15,11 +15,12 @@
 import { getImage, HERO_IMAGE } from './images';
 
 // Using existing high-quality gallery images (Manual Asset Strategy)
+// Spread across different indices to ensure different models on homepage
 const GALLERY_STORY_IMAGES = {
   welcome: HERO_IMAGE,   // Use the manually uploaded hero for first impression
-  hair: getImage(5),     // Hair focused
-  makeup: getImage(4),   // Makeup focused
-  experience: getImage(7), // Self-care vibe
+  hair: getImage(3),     // Hair focused - different model
+  makeup: getImage(8),   // Makeup focused - different model
+  experience: getImage(12), // Self-care vibe - different model
 };
 
 export interface StorySection {
