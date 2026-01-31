@@ -12,7 +12,7 @@ import { updateSession } from '@/lib/supabase/middleware';
 // ============================================================================
 // COMING SOON MODE - Set to false when ready to launch
 // ============================================================================
-const COMING_SOON_MODE = true;
+const COMING_SOON_MODE = false;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

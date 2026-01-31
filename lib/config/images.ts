@@ -3,27 +3,41 @@
  * ======================
  * Single source of truth for all gallery images.
  * Use helpers to select images with automatic looping.
+ *
+ * Images processed with muted editorial color grading:
+ * - Dusty mauve pinks, creamy ivory whites
+ * - Low contrast, warm sepia undertones
+ * - Film-like dreamy quality (Vogue Italia aesthetic)
  */
 
-// All gallery images in order
+// All gallery images in order (demo-v4 with editorial color grading)
 export const GALLERY_IMAGES = [
-  '/images/gallery/gallery-01.png',
-  '/images/gallery/gallery-02.png',
-  '/images/gallery/gallery-03.png',
-  '/images/gallery/gallery-04.png',
-  '/images/gallery/gallery-05.png',
-  '/images/gallery/gallery-06.png',
-  '/images/gallery/gallery-07.png',
-  '/images/gallery/gallery-08.png',
-  '/images/gallery/gallery-09.png',
-  '/images/gallery/gallery-10.png',
-  '/images/gallery/gallery-11.png',
-  '/images/gallery/gallery-12.png',
-  '/images/gallery/gallery-13.png',
-  '/images/gallery/gallery-14.png',
-  '/images/gallery/gallery-15.png',
-  '/images/gallery/gallery-16.png',
-  '/images/gallery/gallery-17.png',
+  '/images/demo-v4/photo-01.png',
+  '/images/demo-v4/photo-02.png',
+  '/images/demo-v4/photo-03.png',
+  '/images/demo-v4/photo-04.png',
+  '/images/demo-v4/photo-05.png',
+  '/images/demo-v4/photo-06.png',
+  '/images/demo-v4/photo-07.png',
+  '/images/demo-v4/photo-08.png',
+  '/images/demo-v4/photo-09.png',
+  '/images/demo-v4/photo-10.png',
+  '/images/demo-v4/photo-11.png',
+  '/images/demo-v4/photo-12.png',
+  '/images/demo-v4/photo-13.png',
+  '/images/demo-v4/photo-14.png',
+  '/images/demo-v4/photo-15.png',
+  '/images/demo-v4/photo-16.png',
+  '/images/demo-v4/photo-17.png',
+  '/images/demo-v4/photo-18.png',
+  '/images/demo-v4/photo-19.png',
+  '/images/demo-v4/photo-20.png',
+  '/images/demo-v4/photo-21.png',
+  '/images/demo-v4/photo-22.png',
+  '/images/demo-v4/photo-23.png',
+  '/images/demo-v4/photo-24.png',
+  '/images/demo-v4/photo-25.png',
+  '/images/demo-v4/photo-26.png',
 ] as const;
 
 export const TOTAL_IMAGES = GALLERY_IMAGES.length;
