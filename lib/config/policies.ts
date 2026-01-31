@@ -79,9 +79,9 @@ export const BOOKING_POLICIES: Policy[] = [
 
 // Summary version for quick display
 export const BOOKING_AGREEMENT_SUMMARY = [
-  `${DEPOSIT_DISPLAY} non-refundable deposit required`,
-  'Cancellations forfeit deposit',
-  'No-shows forfeit deposit',
+  `${DEPOSIT_DISPLAY} non-refundable, non-transferable deposit required`,
+  'Deposits cannot be refunded or transferred to another person/date',
+  'Cancellations & no-shows forfeit deposit',
   'Remaining balance due upon arrival',
   'All sales are final',
 ];
