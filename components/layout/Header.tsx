@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { brand, navigation } from '@/lib/config/brand';
 import { CartButton } from '@/components/shop/CartDrawer';
@@ -87,19 +88,22 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Centered Brand */}
+            {/* Centered Logo */}
             <Link
               href="/"
               className="absolute left-1/2 -translate-x-1/2"
               aria-label={`${brand.name} - Home`}
             >
-              <span
-                className={`font-display text-xl md:text-2xl tracking-tight transition-colors duration-600 ease-luxury ${
-                  isScrolled ? 'text-ink' : 'text-paper'
+              <Image
+                src="/images/logo.png"
+                alt={brand.name}
+                width={120}
+                height={48}
+                className={`h-10 md:h-12 w-auto transition-all duration-600 ease-luxury ${
+                  isScrolled ? '' : 'brightness-0 invert'
                 }`}
-              >
-                {brand.name}
-              </span>
+                priority
+              />
             </Link>
 
             {/* Right Nav - Desktop */}
@@ -168,7 +172,13 @@ export function Header() {
             <div className="flex flex-col h-full">
               {/* Close */}
               <div className="flex items-center justify-between p-6">
-                <span className="font-display text-xl text-ink">{brand.name}</span>
+                <Image
+                  src="/images/logo.png"
+                  alt={brand.name}
+                  width={100}
+                  height={40}
+                  className="h-8 w-auto"
+                />
                 <button
                   onClick={() => setMobileNavOpen(false)}
                   className="text-overline uppercase tracking-[0.15em] text-ink/60 hover:text-ink transition-colors duration-600"
