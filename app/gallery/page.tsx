@@ -4,72 +4,35 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { social } from '@/lib/config/brand';
-import { getImage } from '@/lib/config/images';
+import { GALLERY_IMAGES } from '@/lib/config/images';
 
 /**
- * GALLERY PAGE - EDITORIAL LOOKBOOK
- * ==================================
- * Design: Masonry/editorial grid with real campaign images
- * - No icons, no cards
- * - Editorial category filters
- * - Lightbox with luxury transitions
- * - 24 tiles with automatic looping
+ * GALLERY PAGE - SIMPLE EDITORIAL GRID
+ * =====================================
+ * All images displayed in a beautiful masonry grid
+ * - No categories, just pure visual showcase
+ * - Lightbox for full-size viewing
  */
 
-// Gallery categories
-const categories = ['All', 'Hair', 'Makeup', 'Lashes', 'Skin'];
-
-// Category rotation for balanced distribution
-const categoryOrder = ['Hair', 'Makeup', 'Lashes', 'Skin'] as const;
-const altTexts: Record<string, string[]> = {
-  Hair: ['Hair transformation', 'Color work', 'Styling', 'Braids', 'Blowout', 'Extensions'],
-  Makeup: ['Glam look', 'Bridal makeup', 'Editorial look', 'Soft glam', 'Special occasion', 'Natural beauty'],
-  Lashes: ['Lash extensions', 'Volume set', 'Classic lashes', 'Natural lash look', 'Hybrid set', 'Wispy lashes'],
-  Skin: ['Radiant skin', 'Facial treatment', 'Glow treatment', 'Skincare results', 'Clear skin', 'Hydrated glow'],
-};
-
-// Prioritize darker model images first (7, 8, 12, 15, 17), then fill with others
-const priorityOrder = [7, 8, 12, 15, 17, 1, 2, 3, 4, 5, 6, 9, 10, 11, 13, 14, 16];
-
-// Generate 24 gallery items with prioritized ordering
-const galleryItems = Array.from({ length: 24 }, (_, i) => {
-  const category = categoryOrder[i % 4];
-  const categoryIndex = Math.floor(i / 4);
-  const altText = altTexts[category][categoryIndex % altTexts[category].length];
-  const imageIndex = priorityOrder[i % priorityOrder.length];
-  return {
-    id: i + 1,
-    category,
-    alt: altText,
-    image: getImage(imageIndex), // Prioritized darker models first
-  };
-});
-
 export default function GalleryPage() {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [lightboxImage, setLightboxImage] = useState<typeof galleryItems[0] | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const filteredItems = activeCategory === 'All'
-    ? galleryItems
-    : galleryItems.filter(item => item.category === activeCategory);
-
-  const openLightbox = (item: typeof galleryItems[0]) => {
-    setLightboxImage(item);
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
-    setLightboxImage(null);
+    setLightboxIndex(null);
     document.body.style.overflow = '';
   };
 
   const navigateLightbox = (direction: 'prev' | 'next') => {
-    if (!lightboxImage) return;
-    const currentIndex = filteredItems.findIndex(item => item.id === lightboxImage.id);
+    if (lightboxIndex === null) return;
     const newIndex = direction === 'next'
-      ? (currentIndex + 1) % filteredItems.length
-      : (currentIndex - 1 + filteredItems.length) % filteredItems.length;
-    setLightboxImage(filteredItems[newIndex]);
+      ? (lightboxIndex + 1) % GALLERY_IMAGES.length
+      : (lightboxIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+    setLightboxIndex(newIndex);
   };
 
   return (
@@ -89,30 +52,6 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Category Filter - Editorial Links */}
-      <section className="py-6 sticky top-20 md:top-24 z-30 bg-paper/95 backdrop-blur-sm">
-        <div className="container-editorial">
-          <div className="flex flex-wrap gap-6 md:gap-8">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`text-body-sm font-body transition-all duration-600 ${
-                  activeCategory === category
-                    ? 'text-ink'
-                    : 'text-ink/40 hover:text-ink/70'
-                }`}
-              >
-                {category}
-                {activeCategory === category && (
-                  <span className="block h-px w-full bg-ink mt-1" />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Hairline Divider */}
       <div className="container-editorial">
         <div className="divider-hairline" />
@@ -122,41 +61,30 @@ export default function GalleryPage() {
       <section className="py-16 md:py-24">
         <div className="container-editorial">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {filteredItems.map((item, index) => (
+            {GALLERY_IMAGES.map((image, index) => (
               <button
-                key={item.id}
-                onClick={() => openLightbox(item)}
+                key={index}
+                onClick={() => openLightbox(index)}
                 className={`group relative overflow-hidden focus:outline-none focus-visible:ring-1 focus-visible:ring-botanical ${
-                  index % 5 === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                  index % 7 === 0 ? 'md:col-span-2 md:row-span-2' : ''
                 }`}
               >
                 {/* Image */}
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
-                    src={item.image}
-                    alt={item.alt}
+                    src={image}
+                    alt={`Gallery image ${index + 1}`}
                     fill
                     className="object-cover transition-transform duration-600 ease-luxury group-hover:scale-[1.03]"
-                    sizes={index % 5 === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
+                    sizes={index % 7 === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
                   />
                 </div>
 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-600 flex items-end p-4">
-                  <span className="text-off-white/0 group-hover:text-off-white/90 text-body-sm font-body transition-colors duration-600">
-                    {item.category}
-                  </span>
-                </div>
+                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors duration-600" />
               </button>
             ))}
           </div>
-
-          {/* Empty state */}
-          {filteredItems.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-ink/50 font-body">No images in this category yet.</p>
-            </div>
-          )}
         </div>
       </section>
 
@@ -218,16 +146,16 @@ export default function GalleryPage() {
             Let us create something beautiful together.
           </p>
           <Link
-            href="/contact"
+            href="/book"
             className="cta-primary bg-off-white text-botanical hover:bg-off-white/90"
           >
-            Get in Touch
+            Book Now
           </Link>
         </div>
       </section>
 
       {/* Lightbox - Editorial Style */}
-      {lightboxImage && (
+      {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-[100] bg-charcoal/95 backdrop-blur-sm flex items-center justify-center"
           onClick={closeLightbox}
@@ -235,7 +163,7 @@ export default function GalleryPage() {
           aria-modal="true"
           aria-label="Image lightbox"
         >
-          {/* Close button - Text only */}
+          {/* Close button */}
           <button
             onClick={closeLightbox}
             className="absolute top-6 right-6 z-10 text-overline uppercase tracking-[0.15em] text-off-white/60 hover:text-off-white transition-colors duration-600"
@@ -244,7 +172,7 @@ export default function GalleryPage() {
             Close
           </button>
 
-          {/* Navigation - Text */}
+          {/* Navigation */}
           <button
             onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }}
             className="absolute left-6 top-1/2 -translate-y-1/2 text-overline uppercase tracking-[0.15em] text-off-white/60 hover:text-off-white transition-colors duration-600"
@@ -267,8 +195,8 @@ export default function GalleryPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={lightboxImage.image}
-              alt={lightboxImage.alt}
+              src={GALLERY_IMAGES[lightboxIndex]}
+              alt={`Gallery image ${lightboxIndex + 1}`}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 896px"
@@ -276,10 +204,10 @@ export default function GalleryPage() {
             />
           </div>
 
-          {/* Caption */}
+          {/* Counter */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
             <span className="text-off-white/60 text-body-sm font-body">
-              {lightboxImage.alt}
+              {lightboxIndex + 1} / {GALLERY_IMAGES.length}
             </span>
           </div>
         </div>
