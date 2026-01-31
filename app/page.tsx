@@ -101,7 +101,7 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col gap-4 max-w-xs mx-auto">
-              <Link href="/contact" className="cta-primary justify-center">
+              <Link href="/services" className="cta-primary justify-center">
                 Start the Journey
               </Link>
               <a
@@ -165,7 +165,7 @@ export default function HomePage() {
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-4">
-                <Link href="/contact" className="cta-primary">
+                <Link href="/services" className="cta-primary">
                   Start the Journey
                 </Link>
                 <Link href="/gallery" className="cta-secondary border-off-white/30 text-off-white hover:bg-off-white/10">
