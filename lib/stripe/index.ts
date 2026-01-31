@@ -124,6 +124,13 @@ export async function createShopCheckout(
 
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
+    // Enable card + all BNPL options (must also be enabled in Stripe Dashboard)
+    payment_method_types: [
+      'card',
+      'klarna',           // Pay in 4, Pay later, Financing
+      'affirm',           // Pay in 4 or 6-36 month financing
+      'afterpay_clearpay', // Pay in 4 installments
+    ],
     line_items: lineItems,
     success_url: params.successUrl,
     cancel_url: params.cancelUrl,
@@ -171,6 +178,13 @@ export async function createBookingCheckout(
 
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
+    // Enable card + BNPL options (Klarna works for deposits, others may have minimums)
+    payment_method_types: [
+      'card',
+      'klarna',           // Pay in 4, Pay later - works for smaller amounts
+      'affirm',           // May have $50+ minimum
+      'afterpay_clearpay', // Pay in 4 installments
+    ],
     line_items: [
       {
         price_data: {
