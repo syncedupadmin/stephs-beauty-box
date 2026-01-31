@@ -127,19 +127,29 @@ export function Header() {
               />
             </nav>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileNavOpen(true)}
-              className={`md:hidden p-2 transition-colors duration-600 ${
-                isScrolled ? 'text-ink' : 'text-paper'
-              }`}
-              aria-label="Open menu"
-            >
-              <span className="text-overline uppercase tracking-[0.15em]">Menu</span>
-            </button>
+            {/* Mobile: Left spacer for balance */}
+            <div className="w-20 md:hidden" />
 
-            {/* Empty spacer for mobile layout balance */}
-            <div className="w-16 md:hidden" />
+            {/* Mobile Menu Toggle + Cart */}
+            <div className="md:hidden flex items-center gap-4">
+              <CartButton
+                className={`transition-colors duration-600 ease-luxury ${
+                  isScrolled ? 'text-ink' : 'text-paper'
+                }`}
+              />
+              <button
+                onClick={() => setMobileNavOpen(true)}
+                className={`p-2 transition-colors duration-600 ${
+                  isScrolled ? 'text-ink' : 'text-paper'
+                }`}
+                aria-label="Open menu"
+              >
+                {/* Hamburger Icon */}
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -193,7 +203,7 @@ export function Header() {
               <div className="p-6 safe-area-bottom">
                 <div className="divider-hairline mb-6" />
                 <Link
-                  href="/contact"
+                  href="/services"
                   onClick={() => setMobileNavOpen(false)}
                   className="cta-primary w-full justify-center"
                 >

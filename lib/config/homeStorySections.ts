@@ -45,7 +45,7 @@ export const homeStorySections: StorySection[] = [
     supportingLine: 'A welcoming space where all are celebrated.',
     cta: {
       label: 'Start the Journey',
-      href: '/contact',
+      href: '/services',
     },
     textPosition: 'bottom-left',
   },
@@ -56,8 +56,8 @@ export const homeStorySections: StorySection[] = [
     headline: 'Hair That Tells Your Story',
     supportingLine: 'Styling, color, and transformations for every texture.',
     cta: {
-      label: 'Inquire',
-      href: '/contact',
+      label: 'Book Now',
+      href: '/services',
     },
     textPosition: 'bottom-right',
   },
@@ -81,7 +81,7 @@ export const homeStorySections: StorySection[] = [
     supportingLine: 'Where beauty meets grace.',
     cta: {
       label: 'Start the Journey',
-      href: '/contact',
+      href: '/services',
     },
     textPosition: 'bottom-center',
   },
