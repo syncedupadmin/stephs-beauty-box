@@ -84,6 +84,7 @@ export function getShuffledImages(seed: string = ''): string[] {
 // =============================================================================
 export const HERO_IMAGE = '/images/hero/hero-main.png';
 export const HERO_MOBILE_IMAGE = getImage(1); // Fallback to gallery
+export const HERO_OLD_IMAGE = '/images/hero/hero-main-old.png'; // Previous hero model
 
 // =============================================================================
 // SERVICE & SECTION IMAGES (Recycled from gallery)
